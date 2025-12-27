@@ -15,3 +15,13 @@ design-studio/
 │  ├── images/        # 图片资源
 │  └── icons/         # 图标资源
 └── public/           # 二级网站
+
+
+
+
+色彩：
+背景：181818
+
+矩形框：1f1f1f
+
+文字：dbdbdb
