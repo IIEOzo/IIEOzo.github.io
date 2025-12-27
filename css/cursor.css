@@ -27,9 +27,9 @@
         transition: transform 0.15s ease-out, 
                     width 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
                     height 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        mix-blend-mode: difference; /* 背景反向效果 */
-        box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.2);
-        filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.4));
+        mix-blend-mode: difference; /* 背景反向效果 - 在黑色背景下效果更好 */
+        box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.3); /* 加强边框可见性 */
+        filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.6)); /* 加强阴影 */
     }
     
     /* 光标点击效果 */
@@ -40,13 +40,13 @@
         width: 60px;
         height: 60px;
         border-radius: 10px; /* 修改：圆角统一为10px */
-        background-color: rgba(255, 255, 255, 0.3); /* 白色半透明 */
+        background-color: rgba(255, 255, 255, 0.4); /* 白色半透明 - 加强可见性 */
         pointer-events: none;
         z-index: 9997;
         transform: translate(-50%, -50%) scale(0);
         opacity: 0;
         transition: transform 0.2s ease, opacity 0.2s ease;
-        mix-blend-mode: difference;
+        mix-blend-mode: difference; /* 背景反向效果 */
     }
     
     .cursor-click.active {
@@ -80,10 +80,10 @@
     
     @keyframes cursorPulse {
         0%, 100% {
-            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.4);
         }
         50% {
-            box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.2);
         }
     }
     

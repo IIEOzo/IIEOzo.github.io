@@ -9,7 +9,7 @@ nav {
                 background-color 0s,
                 border-color 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
                 backdrop-filter 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    background-color: rgba(255, 255, 255, 0) !important;
+    background-color: rgba(24, 24, 24, 0) !important;
 }
 
 nav.transparent {
@@ -18,13 +18,13 @@ nav.transparent {
                 background-color 0s,
                 border-color 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
                 backdrop-filter 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    background-color: rgba(255, 255, 255, 0) !important;
+    background-color: rgba(24, 24, 24, 0) !important;
 }
 
 nav:not(.transparent) {
-    background-color: rgba(255, 255, 255, 0.98) !important;
+    background-color: rgba(24, 24, 24, 0.98) !important;
     backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 nav.transparent .nav-links a,
@@ -45,14 +45,14 @@ nav.transparent .logo-image {
     left: 50%;
     width: 0;
     height: 0.5px;
-    background-color: #222;
+    background-color: #dbdbdb; /* 下划线改为 #dbdbdb */
     transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     transform: translateX(-50%);
     opacity: 0;
 }
 
 .nav-links a:hover {
-    color: #222;
+    color: #fff;
 }
 
 .nav-links a:hover::after {
@@ -61,7 +61,7 @@ nav.transparent .logo-image {
 }
 
 nav.transparent .nav-links a::after {
-    background-color: #fff;
+    background-color: #dbdbdb; /* 透明状态下下划线也改为 #dbdbdb */
 }
 
 nav.transparent .nav-links a:hover {
@@ -82,7 +82,7 @@ nav.transparent .nav-links a:hover {
     position: relative;
     display: inline-block;
     padding: 10px 24px;
-    color: #333;
+    color: #fff;
     background: transparent;
     font-size: 28px;
     text-transform: uppercase;
@@ -103,7 +103,7 @@ nav.transparent .nav-links a:hover {
     position: relative;
     display: inline-block;
     padding: 10px 24px;
-    color: #333;
+    color: #fff;
     background: transparent;
     font-size: 28px;
     text-transform: uppercase;
@@ -127,7 +127,7 @@ nav.transparent .nav-links a:hover {
     left: 50%;
     width: 0;
     height: 1.5px;
-    background-color: #333;
+    background-color: #dbdbdb; /* 下划线改为 #dbdbdb */
     transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     transform: translateX(-50%);
     opacity: 0;
@@ -142,7 +142,7 @@ nav.transparent .nav-links a:hover {
 }
 
 .portfolio-overlay .btn::after {
-    background-color: #fff;
+    background-color: #dbdbdb; /* 下划线改为 #dbdbdb */
     height: 1px;
 }
 
@@ -159,9 +159,9 @@ nav.transparent .nav-links a:hover {
 
 /* ==================== 分类按钮悬停效果 ==================== */
 .filter-btn:hover:not(.active) {
-    background-color: #f5f5f5;
+    background-color: rgba(255, 255, 255, 0.1);
     transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.08);
     letter-spacing: 1.2px;
 }
 
@@ -172,10 +172,10 @@ nav.transparent .nav-links a:hover {
 
 /* ==================== 分类按钮激活状态 ==================== */
 .filter-btn.active {
-    background-color: #333;
+    background-color: rgba(255, 255, 255, 0.25);
     color: #fff;
     transform: translateY(-1px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.12);
     border-color: transparent;
 }
 
@@ -186,13 +186,13 @@ nav.transparent .nav-links a:hover {
 /* ==================== 查看更多链接样式 ==================== */
 .category-more-link a {
     padding: 10px 0;
-    color: #333;
+    color: #fff;
     font-size: 28px;
     font-weight: 500;
 }
 
 .category-more-link a:hover {
-    color: #222;
+    color: #fff;
     background: transparent;
     letter-spacing: 1.2px;
     transform: translateY(-2px);
@@ -236,28 +236,28 @@ nav.transparent .nav-links a:hover {
         animation: none !important;
     }
     
-    /* 导航栏始终保持白色背景，不透明 */
+    /* 导航栏始终保持深色背景，不透明 */
     nav {
-        background-color: rgba(255, 255, 255, 1) !important;
+        background-color: rgba(24, 24, 24, 1) !important;
         backdrop-filter: none !important;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
         /* 确保导航栏没有transform动画 */
         transform: none !important;
     }
     
     /* 取消导航栏透明状态的所有动画和效果 */
     nav.transparent {
-        background-color: rgba(255, 255, 255, 1) !important;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+        background-color: rgba(24, 24, 24, 1) !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
         transform: none !important;
     }
     
     /* 取消导航链接透明效果 */
     nav.transparent .nav-links a,
     nav.transparent .logo {
-        color: #555 !important;
+        color: #fff !important;
         text-shadow: none !important;
     }
     
@@ -273,7 +273,7 @@ nav.transparent .nav-links a:hover {
     
     /* 取消导航链接悬停效果 */
     .nav-links a:hover {
-        color: #555 !important;
+        color: #fff !important;
         transform: none !important;
         text-shadow: none !important;
         opacity: 1 !important;
@@ -305,12 +305,14 @@ nav.transparent .nav-links a:hover {
         letter-spacing: 1px;
     }
     
+    /* 手机端点击颜色改为 #1f1f1f */
     .filter-btn:active:not(.active) {
-        background-color: #f5f5f5 !important;
+        background-color: #1f1f1f !important; /* 手机端点击颜色改为 #1f1f1f */
         transform: scale(0.96) !important;
     }
     
     .filter-btn.active:active {
+        background-color: #1f1f1f !important; /* 手机端点击颜色改为 #1f1f1f */
         transform: scale(0.98) !important;
     }
     
@@ -330,9 +332,10 @@ nav.transparent .nav-links a:hover {
         display: none !important;
     }
     
+    /* 手机端点击颜色改为 #1f1f1f */
     .portfolio-overlay .btn:active {
+        background-color: #1f1f1f !important; /* 手机端点击颜色改为 #1f1f1f */
         transform: scale(0.95) !important;
-        background: rgba(255, 255, 255, 0.3) !important;
     }
     
     /* 取消作品项悬停动画 */
@@ -356,16 +359,17 @@ nav.transparent .nav-links a:hover {
         display: none !important;
     }
     
+    /* 手机端点击颜色改为 #1f1f1f */
     .category-more-link a:active,
     .baidu-link a:active {
+        background-color: #1f1f1f !important; /* 手机端点击颜色改为 #1f1f1f */
         transform: scale(0.98) !important;
-        background: rgba(51, 51, 51, 0.1) !important;
     }
     
     /* 简化社交链接交互 */
     .social-links a:active {
+        background-color: #1f1f1f !important; /* 手机端点击颜色改为 #1f1f1f */
         transform: scale(0.9) !important;
-        background-color: rgba(255, 255, 255, 0.3) !important;
     }
     
     /* 简化页面加载动画 */
@@ -394,6 +398,7 @@ nav.transparent .nav-links a:hover {
         transition: none !important;
         width: 40px !important;
         opacity: 1 !important;
+        background-color: #dbdbdb !important; /* 下划线改为 #dbdbdb */
     }
     
     .section-title.animated::after {
@@ -457,7 +462,7 @@ nav.transparent .nav-links a:hover {
     }
     
     .portfolio-link:hover .portfolio-overlay {
-        background-color: rgba(0, 0, 0, 0.85);
+        background-color: rgba(0, 0, 0, 0.9);
     }
     
     .portfolio-link:hover .portfolio-overlay h3 {
@@ -473,13 +478,13 @@ nav.transparent .nav-links a:hover {
     .btn:hover,
     .filter-btn:hover:not(.active) {
         transform: translateY(-3px);
-        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 6px 15px rgba(255, 255, 255, 0.15);
         transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
     
     .filter-btn:hover:not(.active) {
-        background-color: rgba(51, 51, 51, 0.1);
-        color: #222;
+        background-color: rgba(255, 255, 255, 0.15);
+        color: #fff;
     }
     
     .category-more-link a:hover {
@@ -490,7 +495,7 @@ nav.transparent .nav-links a:hover {
     
     .social-links a:hover {
         transform: translateY(-5px) scale(1.1);
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+        box-shadow: 0 8px 20px rgba(255, 255, 255, 0.25);
         transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
 }
@@ -498,7 +503,7 @@ nav.transparent .nav-links a:hover {
 /* ==================== 联系我们图片样式 ==================== */
 .contact-info img {
     border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
     max-width: 100%;
     height: auto;
     display: block;
@@ -509,7 +514,7 @@ nav.transparent .nav-links a:hover {
 
 .contact-info img:hover {
     transform: none !important;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1) !important;
 }
 
 /* 移动端图片优化 */

@@ -1,4 +1,3 @@
-
 /* 
  * modal.css - 模态框专用样式
  * 目的：创建全屏模态框，支持多图片展示和优雅的动画效果
@@ -30,7 +29,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.88);
+    background: rgba(0, 0, 0, 0.95);
     backdrop-filter: blur(12px);
     opacity: 0;
     transition: opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -47,7 +46,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) scale(0.96);
-    background: white;
+    background: #1f1f1f; /* 模态框背景改为 #1f1f1f */
     width: 82%;
     max-width: 1200px;
     max-height: 84vh;
@@ -58,32 +57,18 @@
     transition: all 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     display: flex;
     flex-direction: column;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
     
-    /* 优化滚动条 */
-    scrollbar-width: thin;
-    scrollbar-color: rgba(0, 0, 0, 0.25) transparent;
+    /* 隐藏滚动条 */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
 }
 
-/* 自定义滚动条样式 */
+/* 隐藏模态框滚动条 - WebKit */
 .modal-content::-webkit-scrollbar {
-    width: 6px;
-}
-
-.modal-content::-webkit-scrollbar-track {
-    background: transparent;
-    border-radius: 3px;
-}
-
-.modal-content::-webkit-scrollbar-thumb {
-    background-color: rgba(0, 0, 0, 0.25);
-    border-radius: 3px;
-    border: 2px solid transparent;
-    background-clip: content-box;
-}
-
-.modal-content::-webkit-scrollbar-thumb:hover {
-    background-color: rgba(0, 0, 0, 0.35);
+    display: none;
+    width: 0;
+    height: 0;
 }
 
 .portfolio-modal.active .modal-content {
@@ -99,7 +84,7 @@
     right: 28px;
     background: none;
     border: none;
-    font-size: 26px; /* 原来的13px放大两倍 */
+    font-size: 26px;
     cursor: pointer;
     color: rgba(255, 255, 255, 0.85);
     padding: 0;
@@ -124,7 +109,7 @@
     left: 50%;
     width: 0;
     height: 0.5px;
-    background-color: rgba(255, 255, 255, 0.85);
+    background-color: #dbdbdb; /* 下划线改为 #dbdbdb */
     transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     transform: translateX(-50%);
     opacity: 0;
@@ -143,8 +128,8 @@
 .design-thought {
     margin-bottom: 24px;
     line-height: 1.7;
-    color: #555;
-    font-size: 2.1rem; /* 原来的1.05rem放大两倍 */
+    color: #ddd;
+    font-size: 2.1rem;
     /* 中文内容使用中文无衬线字体 */
     font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", sans-serif;
 }
@@ -160,7 +145,7 @@
 
 /* 单张图片容器 - 图片间距为0 */
 .modal-image-item {
-    margin-bottom: 0; /* 图片间距为0 */
+    margin-bottom: 0;
     text-align: center;
     overflow: hidden;
     width: 100%;
@@ -181,7 +166,7 @@
     max-width: 100%;
     height: auto;
     object-fit: contain;
-    border-radius: 0; /* 直角设计 */
+    border-radius: 0;
     transform: scale(1.04);
     transition: transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     display: block;
@@ -231,24 +216,24 @@
 .design-thought-section {
     margin-bottom: 28px;
     padding: 24px;
-    background-color: #f9f9f9;
+    background-color: #2a2a2a;
     border-radius: 6px;
-    border-left: 4px solid #333;
+    border-left: 4px solid #dbdbdb; /* 边框改为 #dbdbdb */
 }
 
 .design-thought-section h3 {
     margin-bottom: 14px;
-    font-size: 2.5rem; /* 原来的1.25rem放大两倍 */
-    color: #333;
+    font-size: 2.5rem;
+    color: #fff;
     font-weight: 500;
     font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", Roboto, Arial, sans-serif;
 }
 
 /* ==================== 模态框标题样式 ==================== */
 .modal-body h2 {
-    font-size: 4rem; /* 原来的2rem放大两倍 */
+    font-size: 4rem;
     margin-bottom: 18px;
-    color: #222;
+    color: #fff;
     font-weight: 400;
     position: relative;
     padding-bottom: 14px;
@@ -262,16 +247,16 @@
     left: 0;
     width: 50px;
     height: 2.5px;
-    background-color: #333;
+    background-color: #dbdbdb; /* 下划线改为 #dbdbdb */
     border-radius: 1.5px;
 }
 
 /* ==================== 项目简介样式 ==================== */
 .modal-body > p {
-    font-size: 2.2rem; /* 原来的1.1rem放大两倍 */
+    font-size: 2.2rem;
     line-height: 1.7;
     margin-bottom: 28px;
-    color: #666;
+    color: #ddd;
     padding-left: 4px;
     /* 中文内容使用中文无衬线字体 */
     font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", sans-serif;
@@ -294,9 +279,9 @@ body.modal-open {
     position: fixed;
     top: 50%;
     transform: translateY(-50%);
-    color: rgba(56, 56, 56, 0.85); /* 修改：深灰色字体 */
-    font-size: 20px; /* 原来的13px放大两倍 */
-    background-color: rgba(6, 6, 6, 0.9); /* 修改：背景改为白色半透明 */
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 20px;
+    background-color: rgba(31, 31, 31, 0.9);
     padding: 12px 20px;
     border-radius: 12px;
     backdrop-filter: blur(8px);
@@ -318,8 +303,8 @@ body.modal-open {
     justify-content: center;
     height: auto;
     min-height: 180px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* 添加阴影 */
-    border: 1px solid rgba(51, 51, 51, 0.1); /* 添加边框 */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 /* 左侧提示 */
@@ -339,7 +324,7 @@ body.modal-open {
     top: 50%;
     width: 0.5px;
     height: 0;
-    background-color: rgba(51, 51, 51, 0.6); /* 修改：深灰色 */
+    background-color: #dbdbdb; /* 改为 #dbdbdb */
     transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     opacity: 0;
 }
@@ -363,9 +348,9 @@ body.modal-open {
 
 .modal-close-hint:hover {
     opacity: 1 !important;
-    background-color: rgba(255, 255, 255, 0.95);
-    color: #222; /* 修改：深灰色 */
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+    background-color: rgba(42, 42, 42, 0.95);
+    color: #fff;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
 }
 
 .modal-close-hint:hover::after {
@@ -391,6 +376,15 @@ body.modal-open {
         border-radius: 8px !important;
         top: 50% !important;
         transform: translate(-50%, -50%) scale(0.98) !important;
+        /* 移动端隐藏滚动条 */
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+    
+    .modal-content::-webkit-scrollbar {
+        display: none;
+        width: 0;
+        height: 0;
     }
     
     .portfolio-modal.active .modal-content {
@@ -400,13 +394,13 @@ body.modal-open {
     .modal-close {
         top: 20px !important;
         right: 20px !important;
-        font-size: 1.8rem !important; /* 适当减小 */
-        min-width: 44px !important; /* 触摸友好 */
+        font-size: 1.8rem !important;
+        min-width: 44px !important;
         min-height: 44px !important;
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
-        background: rgba(0, 0, 0, 0.3) !important;
+        background: rgba(255, 255, 255, 0.2) !important;
         border-radius: 6px !important;
         padding: 10px !important;
     }
@@ -417,13 +411,13 @@ body.modal-open {
     }
     
     .modal-body h2 {
-        font-size: 2.4rem !important; /* 适当减小 */
+        font-size: 2.4rem !important;
         margin-bottom: 15px !important;
         padding-bottom: 12px !important;
     }
     
     .modal-body > p {
-        font-size: 1.6rem !important; /* 适当减小 */
+        font-size: 1.6rem !important;
         line-height: 1.6 !important;
         margin-bottom: 20px !important;
     }
@@ -434,12 +428,12 @@ body.modal-open {
     }
     
     .design-thought-section h3 {
-        font-size: 1.8rem !important; /* 适当减小 */
+        font-size: 1.8rem !important;
         margin-bottom: 12px !important;
     }
     
     .design-thought {
-        font-size: 1.5rem !important; /* 适当减小 */
+        font-size: 1.5rem !important;
         line-height: 1.6 !important;
     }
     
@@ -493,13 +487,15 @@ body.modal-open {
     }
     
     .modal-close:active {
-        background: rgba(255, 255, 255, 0.2) !important;
+        background: rgba(255, 255, 255, 0.3) !important;
         transform: scale(0.95) !important;
     }
     
-    /* 触摸设备增大滚动条宽度 */
+    /* 触摸设备隐藏滚动条 */
     .modal-content::-webkit-scrollbar {
-        width: 8px !important;
+        display: none;
+        width: 0;
+        height: 0;
     }
     
     /* 图片触摸优化 */

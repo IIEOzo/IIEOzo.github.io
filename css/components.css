@@ -9,10 +9,10 @@ nav {
     left: 0;
     width: 100%;
     padding: 26px 0;
-    background-color: rgba(255, 255, 255, 0);
-    backdrop-filter: none;
+    background-color: #181818; /* 导航栏背景改为 #181818 */
+    backdrop-filter: blur(10px);
     z-index: 1000;
-    border-bottom: 1px solid transparent;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", Roboto, Arial, sans-serif;
     transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
                 opacity 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
@@ -30,16 +30,16 @@ nav.initial-hidden {
 
 /* 透明状态 - 在首页横幅区域内 */
 nav.transparent {
-    background-color: rgba(255, 255, 255, 0);
-    backdrop-filter: none;
+    background-color: rgba(24, 24, 24, 0); /* 透明时完全透明 */
+    backdrop-filter: blur(0);
     border-bottom: 1px solid transparent;
 }
 
 /* 非透明状态 - 离开首页横幅后 */
 nav:not(.transparent):not(.initial-hidden) {
-    background-color: rgba(255, 255, 255, 0.98);
+    background-color: #181818; /* 导航栏背景改为 #181818 */
     backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 nav.nav-hidden {
@@ -80,7 +80,7 @@ nav.nav-hidden {
     font-weight: 300;
     font-size: 28px;
     letter-spacing: 0.5px;
-    color: #222;
+    color: #fff;
     flex-shrink: 0;
     transition: opacity 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     cursor: pointer;
@@ -105,7 +105,7 @@ nav.nav-hidden {
 
 .nav-arrow i {
     font-size: 19.6px;
-    color: #222;
+    color: #fff;
     animation: arrowPulse 1.5s ease-in-out infinite;
     display: flex;
     align-items: center;
@@ -140,7 +140,7 @@ nav.at-bottom .nav-arrow {
 .nav-links a {
     font-size: 28px;
     font-weight: 300;
-    color: #555;
+    color: #fff;
     letter-spacing: 1.2px;
     position: relative;
     transition: color 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
@@ -178,18 +178,18 @@ nav.initial-hidden .nav-arrow {
 
 /* ==================== 移动端导航菜单 ==================== */
 @media (max-width: 768px) {
-    /* 移动端导航栏优化 - 常驻显示，白色背景，不透明，取消所有动画 */
+    /* 移动端导航栏优化 - 常驻显示，深色背景，不透明，取消所有动画 */
     nav {
         padding: 16px 0 !important;
-        background-color: rgba(255, 255, 255, 1) !important;
-        backdrop-filter: none !important;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
+        background-color: #181818 !important; /* 移动端导航栏背景改为 #181818 */
+        backdrop-filter: blur(10px) !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
         opacity: 1 !important;
         visibility: visible !important;
         transform: none !important;
         /* 取消所有过渡动画，包括transform */
         transition: none !important;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
         /* 确保没有transform相关的动画 */
         animation: none !important;
     }
@@ -202,9 +202,9 @@ nav.initial-hidden .nav-arrow {
         opacity: 1 !important;
         visibility: visible !important;
         transform: none !important;
-        background-color: rgba(255, 255, 255, 1) !important;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+        background-color: #181818 !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
         /* 确保这些状态也没有动画 */
         transition: none !important;
         animation: none !important;
@@ -224,16 +224,16 @@ nav.initial-hidden .nav-arrow {
     
     /* 移动端导航栏透明状态下的样式 */
     nav.transparent {
-        background-color: rgba(255, 255, 255, 1) !important;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+        background-color: #181818 !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
         /* 取消透明状态的所有动画 */
         transition: none !important;
     }
     
     nav.transparent .nav-links a,
     nav.transparent .logo {
-        color: #555 !important;
+        color: #fff !important;
         text-shadow: none !important;
         transition: none !important;
     }
@@ -292,7 +292,7 @@ nav.initial-hidden .nav-arrow {
     .nav-links a {
         font-size: 14px !important;
         font-weight: 400;
-        color: #555;
+        color: #fff !important;
         padding: 8px 0 !important;
         margin: 0;
         opacity: 1 !important;
@@ -309,7 +309,7 @@ nav.initial-hidden .nav-arrow {
     .nav-links a:hover,
     .nav-links a:active,
     .nav-links a:focus {
-        color: #555 !important;
+        color: #fff !important;
         background: transparent !important;
         transform: none !important;
         text-shadow: none !important;
@@ -351,8 +351,8 @@ nav.initial-hidden .nav-arrow {
     padding-bottom: 56.25%;
     
     background-image: linear-gradient(
-        rgba(0, 0, 0, 0.3), 
-        rgba(0, 0, 0, 0.3)
+        rgba(0, 0, 0, 0.6),
+        rgba(0, 0, 0, 0.6)
     ), url('https://images.pexels.com/photos/28839480/pexels-photo-28839480.jpeg');
     
     background-size: cover;
@@ -368,7 +368,7 @@ nav.initial-hidden .nav-arrow {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.4);
     z-index: 1;
 }
 
@@ -393,7 +393,7 @@ nav.initial-hidden .nav-arrow {
     margin-bottom: 18px;
     font-weight: 400;
     line-height: 1.2;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
 }
 
 .hero p {
@@ -401,7 +401,7 @@ nav.initial-hidden .nav-arrow {
     margin: 0 auto 28px;
     color: rgba(255, 255, 255, 0.9);
     font-size: clamp(1.9rem, 2vw, 2.3rem);
-    text-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+    text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
     padding: 0;
 }
 
@@ -416,8 +416,8 @@ nav.initial-hidden .nav-arrow {
         margin-top: 80px !important;
         margin-bottom: 1rem !important;
         background-image: linear-gradient(
-            rgba(0, 0, 0, 0.3), 
-            rgba(0, 0, 0, 0.3)
+            rgba(0, 0, 0, 0.6), 
+            rgba(0, 0, 0, 0.6)
         ), url('https://images.pexels.com/photos/35002554/pexels-photo-35002554.jpeg') !important;
     }
     
@@ -450,20 +450,19 @@ nav.initial-hidden .nav-arrow {
     .hero h1 b {
         display: flex !important;
         flex-direction: column !important;
-        writing-mode: vertical-lr; /* 垂直从左到右 */
+        writing-mode: vertical-lr;
         text-orientation: mixed;
-        transform: none !important; /* 取消旋转 */
+        transform: none !important;
         margin-left: 0 !important;
-        margin-right: auto !important; /* 左对齐 */
-        height: 140px !important; /* 固定高度 */
+        margin-right: auto !important;
+        height: 140px !important;
         line-height: 1.8;
         font-size: 1.6rem !important;
-        letter-spacing: 6px; /* 稍微减小字间距 */
+        letter-spacing: 6px;
         margin-bottom: 15px !important;
         padding: 5px 0;
         border-left: 2px solid rgba(255, 255, 255, 0.7);
         padding-left: 10px;
-        /* 确保文字从上到下排列 */
         justify-content: flex-start;
         align-items: flex-start;
     }
@@ -476,16 +475,14 @@ nav.initial-hidden .nav-arrow {
         text-align: left !important;
         width: 100%;
         margin: 0 !important;
-        /* 垂直排列描述文字 */
         writing-mode: vertical-lr;
         text-orientation: mixed;
-        height: 140px !important; /* 与标题文字高度一致 */
-        margin-left: 50px !important; /* 与标题文字保持距离 */
+        height: 140px !important;
+        margin-left: 50px !important;
         padding: 5px 0;
-        border-left: 1px solid rgba(255, 255, 255, 0.4); /* 左侧细线 */
+        border-left: 1px solid rgba(255, 255, 255, 0.4);
         padding-left: 8px;
         color: rgba(255, 255, 255, 0.9);
-        /* 确保文字从上到下排列 */
         display: flex;
         flex-direction: column;
         align-items: flex-start;
@@ -499,11 +496,10 @@ nav.initial-hidden .nav-arrow {
     /* 调整描述文字样式 */
     .hero p:nth-of-type(2) {
         display: block !important;
-        font-size: 0.75rem !important; /* 稍微减小字体 */
-        letter-spacing: 2px; /* 字间距 */
+        font-size: 0.75rem !important;
+        letter-spacing: 2px;
         line-height: 1.6 !important;
         color: rgba(255, 255, 255, 0.85);
-        /* 确保文字正确排列 */
         writing-mode: vertical-lr;
         text-orientation: mixed;
     }
@@ -535,6 +531,7 @@ nav.initial-hidden .nav-arrow {
     font-weight: 400;
     position: relative;
     padding-bottom: 18px;
+    color: #fff;
 }
 
 .section-title::after {
@@ -545,7 +542,7 @@ nav.initial-hidden .nav-arrow {
     left: 50%;
     width: 0;
     height: 4px;
-    background-color: #333;
+    background-color: #dbdbdb; /* 下划线改为 #dbdbdb */
     transform: translateX(-50%);
     opacity: 0;
     transition: width 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
@@ -559,12 +556,13 @@ nav.initial-hidden .nav-arrow {
 
 /* ==================== 关于我们容器 ==================== */
 .about-container {
-    background: #ffffff;
+    background: #1f1f1f !important; /* 圆矩形背景改为 #1f1f1f */
+    backdrop-filter: blur(20px);
     border-radius: 10px;
     padding: 40px 50px;
     margin: 0 auto 40px !important;
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     position: relative;
     overflow: hidden;
 }
@@ -585,12 +583,13 @@ nav.initial-hidden .nav-arrow {
 }
 
 .portfolio-container {
-    background: #ffffff;
+    background: #1f1f1f !important; /* 圆矩形背景改为 #1f1f1f */
+    backdrop-filter: blur(20px);
     border-radius: 10px;
     padding: 50px 60px;
     margin: 0 auto;
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
     position: relative;
     overflow: hidden;
 }
@@ -636,7 +635,7 @@ nav.initial-hidden .nav-arrow {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.75);
+    background-color: rgba(0, 0, 0, 0.85);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -655,6 +654,7 @@ nav.initial-hidden .nav-arrow {
     font-size: 2.1rem;
     font-weight: 500;
     line-height: 1.2;
+    color: #fff;
 }
 
 .portfolio-overlay p {
@@ -687,7 +687,8 @@ nav.initial-hidden .nav-arrow {
         padding: 2rem 1.5rem !important;
         border-radius: 8px !important;
         margin: 0 !important;
-        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05) !important;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3) !important;
+        backdrop-filter: blur(15px) !important;
     }
     
     .portfolio-grid {
@@ -699,13 +700,13 @@ nav.initial-hidden .nav-arrow {
     .portfolio-item {
         aspect-ratio: 1/1 !important;
         border-radius: 8px !important;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
     }
     
     /* 修改：遮蔽框只显示三分之一在下方，文字居左 */
     .portfolio-overlay {
         padding: 1.5rem !important;
-        background-color: rgba(0, 0, 0, 0.85) !important;
+        background-color: #181818 !important; /* 手机端遮罩框颜色改为 #181818 */
         border-radius: 8px !important;
         top: auto !important;
         bottom: 0 !important;
@@ -722,6 +723,7 @@ nav.initial-hidden .nav-arrow {
         margin-bottom: 0.25rem !important;
         text-align: left !important;
         width: 100%;
+        color: #fff;
     }
     
     .portfolio-overlay p {
@@ -729,33 +731,31 @@ nav.initial-hidden .nav-arrow {
         margin-bottom: 0.5rem !important;
         text-align: left !important;
         width: 100%;
+        color: #ddd;
     }
     
-    /* 修改：将"点击"按钮缩小30%，颜色改为灰色，放到图片右上角，取消矩形方框，只保留文字 */
+    /* 修改：将"点击"按钮缩小30%，颜色改为白色，放到图片右上角，取消矩形方框，只保留文字 */
     .portfolio-overlay .btn {
-        font-size: 0.5rem !important; /* 缩小30%，原为0.7rem */
+        font-size: 0.5rem !important;
         padding: 0 !important;
-        /* 新样式：定位到图片右上角（不是在遮蔽框内） */
         position: absolute !important;
-        top: 8px !important; /* 稍微调整位置 */
-        right: 8px !important; /* 稍微调整位置 */
+        top: 8px !important;
+        right: 8px !important;
         margin: 0 !important;
-        background: transparent !important; /* 透明背景 */
-        border: none !important; /* 取消边框 */
-        color: #888 !important; /* 修改：改为灰色 */
+        background: transparent !important;
+        border: none !important;
+        color: #fff !important;
         z-index: 10 !important;
-        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8); /* 文字阴影提高可读性 */
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
         font-weight: 500;
-        /* 取消所有动画效果 */
         transition: none !important;
         transform: none !important;
-        /* 确保文字清晰可见 */
         letter-spacing: 0.5px;
     }
     
     /* 确保"点击"按钮在图片上可见，而不是在遮蔽框内 */
     .portfolio-overlay .btn::before {
-        content: none !important; /* 取消任何伪元素 */
+        content: none !important;
     }
     
     .portfolio-item:hover .portfolio-overlay {
@@ -787,6 +787,8 @@ nav.initial-hidden .nav-arrow {
     
     .portfolio-filters::-webkit-scrollbar {
         display: none !important;
+        width: 0 !important;
+        height: 0 !important;
     }
     
     .filter-btn {
@@ -796,19 +798,32 @@ nav.initial-hidden .nav-arrow {
         border-radius: 20px !important;
         min-height: 44px !important;
         border: none !important;
-        background: #f7f7f7 !important;
-        color: #555 !important;
+        background: rgba(255, 255, 255, 0.1) !important;
+        color: #fff !important;
         font-weight: 400;
         transition: none !important;
+        backdrop-filter: blur(5px);
     }
     
     .filter-btn.active {
-        background: #333 !important;
+        background: rgba(255, 255, 255, 0.25) !important;
         color: #fff !important;
+        backdrop-filter: blur(10px);
+    }
+    
+    /* 手机端点击颜色改为 #1f1f1f */
+    .filter-btn:active:not(.active) {
+        background-color: #1f1f1f !important; /* 手机端点击颜色改为 #1f1f1f */
+        transform: scale(0.96) !important;
+    }
+    
+    .filter-btn.active:active {
+        background-color: #1f1f1f !important; /* 手机端点击颜色改为 #1f1f1f */
+        transform: scale(0.98) !important;
     }
     
     .filter-btn:hover:not(.active) {
-        background: #f7f7f7 !important;
+        background: rgba(255, 255, 255, 0.1) !important;
         transform: none !important;
         box-shadow: none !important;
         letter-spacing: normal !important;
@@ -858,16 +873,23 @@ nav.initial-hidden .nav-arrow {
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
-        background: #f7f7f7 !important;
+        background: rgba(255, 255, 255, 0.1) !important;
         border-radius: 8px !important;
-        color: #333 !important;
+        color: #fff !important;
         font-weight: 500;
         transition: none !important;
+        backdrop-filter: blur(5px);
+    }
+    
+    /* 手机端点击颜色改为 #1f1f1f */
+    .category-more-link a:active {
+        background-color: #1f1f1f !important; /* 手机端点击颜色改为 #1f1f1f */
+        transform: scale(0.98) !important;
     }
     
     .category-more-link a:hover {
-        background: #f7f7f7 !important;
-        color: #333 !important;
+        background: rgba(255, 255, 255, 0.1) !important;
+        color: #fff !important;
         letter-spacing: normal !important;
         transform: none !important;
     }
@@ -892,12 +914,13 @@ nav.initial-hidden .nav-arrow {
 }
 
 .contact-info-container {
-    background: #ffffff;
+    background: #1f1f1f !important; /* 圆矩形背景改为 #1f1f1f */
+    backdrop-filter: blur(20px);
     border-radius: 10px;
     padding: 32px 40px;
     margin: 0 auto;
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     position: relative;
     overflow: hidden;
 }
@@ -910,19 +933,19 @@ nav.initial-hidden .nav-arrow {
     margin-bottom: 14px;
     font-size: 2.2rem;
     line-height: 1.6;
-    color: #555;
+    color: #fff;
 }
 
 .contact-info img {
     border-radius: 10px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
     max-width: 100%;
     height: auto;
     display: block;
     margin: 20px auto;
     transition: none !important;
     transform: none !important;
-    background: white;
+    background: rgba(31, 31, 31, 0.5);
     padding: 8px;
 }
 
@@ -937,20 +960,22 @@ nav.initial-hidden .nav-arrow {
         padding: 2rem 1.5rem !important;
         border-radius: 8px !important;
         margin: 0 !important;
-        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05) !important;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3) !important;
+        backdrop-filter: blur(15px) !important;
     }
     
     .contact-info p {
         font-size: 1rem !important;
         line-height: 1.6 !important;
         margin-bottom: 1rem !important;
+        color: #fff !important;
     }
     
     .contact-info img {
         max-width: 200px !important;
         margin: 1.5rem auto !important;
         border-radius: 8px !important;
-        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1) !important;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3) !important;
     }
 }
 
@@ -976,7 +1001,8 @@ footer {
     margin-top: 0 !important;
     margin-bottom: 40px !important;
     
-    background-color: #8b8b8b !important;
+    background-color: #1f1f1f !important; /* 圆矩形背景改为 #1f1f1f */
+    backdrop-filter: blur(20px);
     background-image: none !important;
     
     display: flex;
@@ -991,7 +1017,7 @@ footer {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(245, 245, 245, 0.9) !important;
+    background-color: rgba(31, 31, 31, 0.8) !important;
     z-index: 1;
 }
 
@@ -1031,28 +1057,38 @@ footer {
     justify-content: center;
     width: 46px;
     height: 46px;
-    border: 1px solid rgba(51, 51, 51, 0.3) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
     border-radius: 10px;
     transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    background-color: rgba(51, 51, 51, 0.1) !important;
-    color: #333 !important;
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    color: #fff !important;
+    backdrop-filter: blur(5px);
 }
 
 .social-links a:hover {
-    background-color: rgba(51, 51, 51, 0.25) !important;
+    background-color: rgba(255, 255, 255, 0.25) !important;
     transform: translateY(-4px);
-    border-color: rgba(51, 51, 51, 0.8) !important;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    border-color: rgba(255, 255, 255, 0.8) !important;
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+}
+
+/* 手机端点击颜色改为 #1f1f1f */
+@media (max-width: 768px) {
+    .social-links a:active {
+        background-color: #1f1f1f !important; /* 手机端点击颜色改为 #1f1f1f */
+        transform: scale(0.9) !important;
+    }
 }
 
 .footer-copyright {
     font-size: 4px;
-    color: rgba(51, 51, 51, 0.9) !important;
+    color: rgba(255, 255, 255, 0.9) !important;
     font-weight: 300;
     margin-top: 6px;
     padding-top: 10px;
     padding-bottom: 90px;
-    border-top: 1px solid rgba(51, 51, 51, 0.2) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.2) !important;
     width: 100%;
     max-width: 800px;
     text-align: center;
@@ -1064,7 +1100,7 @@ footer {
 @media (max-width: 768px) {
     footer {
         background-attachment: scroll !important;
-        background-color: #8b8b8b !important;
+        background-color: #1f1f1f !important;
         background-image: none !important;
         height: 250px !important;
         min-height: 250px !important;
@@ -1072,10 +1108,11 @@ footer {
         border-radius: 0 !important;
         margin-top: 0 !important;
         margin-bottom: 1rem !important;
+        backdrop-filter: blur(15px) !important;
     }
     
     .footer-overlay {
-        background-color: rgba(245, 245, 245, 0.9) !important;
+        background-color: rgba(31, 31, 31, 0.8) !important;
     }
     
     .footer-content {
@@ -1096,17 +1133,17 @@ footer {
         width: 36px !important;
         height: 36px !important;
         font-size: 0.9rem !important;
-        border: 1px solid rgba(51, 51, 51, 0.3) !important;
-        background-color: rgba(51, 51, 51, 0.1) !important;
-        color: #333 !important;
+        border: 1px solid rgba(255, 255, 255, 0.3) !important;
+        background-color: rgba(255, 255, 255, 0.1) !important;
+        color: #fff !important;
         transition: none !important;
     }
     
     .social-links a:hover {
         transform: none !important;
         box-shadow: none !important;
-        background-color: rgba(51, 51, 51, 0.1) !important;
-        border-color: rgba(51, 51, 51, 0.3) !important;
+        background-color: rgba(255, 255, 255, 0.1) !important;
+        border-color: rgba(255, 255, 255, 0.3) !important;
     }
     
     .footer-copyright {
@@ -1115,8 +1152,8 @@ footer {
         font-size: 0.5rem !important;
         line-height: 1.4 !important;
         max-width: 90% !important;
-        color: rgba(51, 51, 51, 0.9) !important;
-        border-top: 1px solid rgba(51, 51, 51, 0.2) !important;
+        color: rgba(255, 255, 255, 0.9) !important;
+        border-top: 1px solid rgba(255, 255, 255, 0.2) !important;
     }
 }
 
