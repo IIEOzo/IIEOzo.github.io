@@ -13,55 +13,42 @@
 body {
     font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", sans-serif, -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", Roboto, Arial, sans-serif;
     background-color: #181818; /* 主页背景改为 #181818 */
-    color: #dbdbdb; /* 修改：所有文字颜色改为 #dbdbdb */
+    color: #dbdbdb; /* 修改：全局文字颜色改为 #dbdbdb */
     line-height: 1.6;
     overflow-x: hidden;
     -webkit-text-size-adjust: 100%;
     -webkit-tap-highlight-color: rgba(255, 255, 255, 0.1);
-    /* 修改：美化滚动栏 - 显示滚动条 */
-    scrollbar-width: thin; /* Firefox */
-    scrollbar-color: #181818 #1f1f1f; /* 滚动条颜色和轨道颜色 */
-    -ms-overflow-style: auto; /* IE and Edge - 改为auto显示滚动条 */
 }
 
-/* 美化滚动栏 - WebKit浏览器 */
+/* ==================== 美化滚动条 ==================== */
+/* 作用于桌面端和移动端 */
 body::-webkit-scrollbar {
     width: 10px; /* 滚动条宽度 */
-    height: 10px; /* 水平滚动条高度 */
+    height: 10px; /* 横向滚动条高度 */
 }
 
 body::-webkit-scrollbar-track {
-    background: #1f1f1f; /* 修改：导轨颜色改为 #1f1f1f */
+    background: #1f1f1f; /* 修改：滚动条导轨颜色改为 #1f1f1f */
     border-radius: 5px;
 }
 
 body::-webkit-scrollbar-thumb {
-    background: #181818; /* 修改：滑动条颜色改为 #181818 */
+    background: #181818; /* 修改：滚动条滑块颜色改为 #181818 */
     border-radius: 5px;
-    border: 2px solid #1f1f1f; /* 增加边框使滚动条更明显 */
+    border: 2px solid #1f1f1f; /* 滑块边框与导轨颜色一致 */
 }
 
 body::-webkit-scrollbar-thumb:hover {
-    background: #1a1a1a; /* 悬停时稍亮 */
+    background: #2a2a2a; /* 悬停时稍微亮一点 */
 }
 
-/* 模态框滚动条样式 */
-.modal-content::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+/* Firefox */
+body {
+    scrollbar-width: thin; /* 细滚动条 */
+    scrollbar-color: #181818 #1f1f1f; /* 滑块颜色 导轨颜色 */
 }
 
-.modal-content::-webkit-scrollbar-track {
-    background: #1f1f1f;
-    border-radius: 4px;
-}
-
-.modal-content::-webkit-scrollbar-thumb {
-    background: #181818;
-    border-radius: 4px;
-}
-
-/* 英文优先字体 */
+/* ==================== 英文优先字体 ==================== */
 h1, h2, h3, h4, h5, h6,
 button, input, textarea,
 .logo, .btn,
@@ -69,10 +56,10 @@ button, input, textarea,
 .footer-copyright, .hero h1,
 .section-title {
     font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", Roboto, Arial, sans-serif, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", sans-serif;
-    color: #dbdbdb; /* 修改：英文优先字体颜色改为 #dbdbdb */
+    color: #dbdbdb; /* 修改：颜色改为 #dbdbdb */
 }
 
-/* 中文优先字体 */
+/* ==================== 中文优先字体 ==================== */
 p, span, a, li,
 .about-text p, 
 .contact-info p,
@@ -81,7 +68,7 @@ p, span, a, li,
 .category-more-link a,
 .portfolio-overlay .btn {
     font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", sans-serif, -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", Roboto, Arial, sans-serif;
-    color: #dbdbdb; /* 修改：中文优先字体颜色改为 #dbdbdb */
+    color: #dbdbdb; /* 修改：颜色改为 #dbdbdb */
 }
 
 /* ==================== 桌面端全局文字大小 ==================== */
@@ -97,17 +84,18 @@ footer .footer-copyright {
     font-size: 100% !important;
 }
 
-/* ==================== 桌面端滚动条美化 ==================== */
+/* ==================== 桌面端滚动条隐藏 ==================== */
 @media (min-width: 769px) {
-    body {
-        scrollbar-width: thin;
-        scrollbar-color: #181818 #1f1f1f;
+    /* 确保模态框的滚动条也被隐藏 */
+    .modal-content {
+        scrollbar-width: none;
+        -ms-overflow-style: none;
     }
     
-    /* 确保模态框的滚动条也被美化 */
-    .modal-content {
-        scrollbar-width: thin;
-        scrollbar-color: #181818 #1f1f1f;
+    .modal-content::-webkit-scrollbar {
+        display: none;
+        width: 0;
+        height: 0;
     }
 }
 
@@ -149,7 +137,7 @@ body.modal-open {
 
 .btn:hover {
     background-color: transparent;
-    color: #dbdbdb; /* 修改：按钮悬停文字颜色改为 #dbdbdb */
+    color: #dbdbdb; /* 修改：悬停颜色改为 #dbdbdb */
 }
 
 /* ==================== 基础链接样式 ==================== */
@@ -176,7 +164,7 @@ a {
     margin-bottom: 18px;
     font-size: 28px;
     line-height: 1.6;
-    color: #dbdbdb; /* 修改：关于我们文字颜色改为 #dbdbdb */
+    color: #dbdbdb; /* 修改：颜色改为 #dbdbdb */
 }
 
 .about-text p:last-child {
@@ -225,26 +213,9 @@ a {
     }
     
     /* 移动端滚动条美化 */
-    body {
-        -ms-overflow-style: auto;
-        scrollbar-width: thin;
-        scrollbar-color: #181818 #1f1f1f;
-    }
-    
     body::-webkit-scrollbar {
-        width: 8px;
+        width: 8px; /* 移动端滚动条稍细 */
         height: 8px;
-    }
-    
-    body::-webkit-scrollbar-track {
-        background: #1f1f1f;
-        border-radius: 4px;
-    }
-    
-    body::-webkit-scrollbar-thumb {
-        background: #181818;
-        border-radius: 4px;
-        border: 1px solid #1f1f1f;
     }
     
     /* 移动端容器优化 */
@@ -346,6 +317,8 @@ a {
         color: #dbdbdb !important;
     }
     
+    /* 联系信息文字颜色在components.css中已统一修改为 #dbdbdb */
+    
     /* 页脚文字颜色改为 #dbdbdb */
     .footer-copyright {
         color: #dbdbdb !important;
@@ -353,7 +326,7 @@ a {
     
     /* 社交链接图标颜色改为 #dbdbdb */
     .social-links a {
-        color: #dbdbdb !important; /* 修改：社交图标颜色改为 #dbdbdb */
+        color: #dbdbdb !important;
     }
     
     /* 特别排除：部分作品下的点击按钮颜色保持原样（灰色 #888） */

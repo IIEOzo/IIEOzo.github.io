@@ -65,7 +65,7 @@ nav.transparent .nav-links a::after {
 }
 
 nav.transparent .nav-links a:hover {
-    color: #dbdbdb; /* 修改：透明状态下悬停颜色改为 #dbdbdb */
+    color: #dbdbdb; /* 修改：悬停颜色改为 #dbdbdb */
 }
 
 /* ==================== 图片悬停效果 ==================== */
@@ -136,7 +136,7 @@ nav.transparent .nav-links a:hover {
 /* ==================== 查看详情按钮特殊样式 ==================== */
 .portfolio-overlay .btn {
     padding: 9px 20px;
-    color: #dbdbdb; /* 修改：查看详情按钮文字颜色改为 #dbdbdb */
+    color: #dbdbdb; /* 修改：按钮文字颜色改为 #dbdbdb */
     font-size: 24px;
     margin-top: 9px;
 }
@@ -186,7 +186,7 @@ nav.transparent .nav-links a:hover {
 /* ==================== 查看更多链接样式 ==================== */
 .category-more-link a {
     padding: 10px 0;
-    color: #dbdbdb; /* 修改：查看更多链接文字颜色改为 #dbdbdb */
+    color: #dbdbdb; /* 修改：文字颜色改为 #dbdbdb */
     font-size: 28px;
     font-weight: 500;
 }
@@ -311,7 +311,7 @@ nav.transparent .nav-links a:hover {
     
     /* 简化按钮交互 - 取消所有动画 */
     .filter-btn {
-        transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important; /* 修改：保留分类按钮动画 */
+        transition: none !important;
         animation: none !important;
         transform: none !important;
         border-radius: 8px !important;
@@ -324,7 +324,7 @@ nav.transparent .nav-links a:hover {
     .filter-btn:hover:not(.active),
     .filter-btn:focus:not(.active),
     .filter-btn:active:not(.active) {
-        background-color: #1f1f1f !important; /* 修改：未选中时保持 #1f1f1f */
+        background-color: transparent;
         transform: none !important;
         box-shadow: none !important;
         letter-spacing: normal !important;
@@ -337,7 +337,7 @@ nav.transparent .nav-links a:hover {
     }
     
     .filter-btn.active:active {
-        background-color: rgba(255, 255, 255, 0.25) !important;
+        background-color: #1f1f1f !important;
         transform: none !important;
     }
     
@@ -554,6 +554,38 @@ nav.transparent .nav-links a:hover {
         transform: translateY(-5px) scale(1.1);
         box-shadow: 0 8px 20px rgba(255, 255, 255, 0.25);
         transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    
+    /* 修改：桌面端标题下划线动画 - 每次鼠标悬停都重新从中间向两边延伸 */
+    .section-title {
+        position: relative;
+    }
+    
+    .section-title::after {
+        content: "";
+        display: block;
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 0;
+        height: 4px;
+        background-color: #dbdbdb;
+        transform: translateX(-50%);
+        opacity: 0;
+        transition: width 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                    opacity 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    
+    /* 修改：鼠标悬停时下划线从中间向两边延伸 */
+    .section-title:hover::after {
+        width: 70px;
+        opacity: 1;
+    }
+    
+    /* 修改：已激活的下划线在鼠标离开后保持显示 */
+    .section-title.animated::after {
+        width: 70px;
+        opacity: 1;
     }
 }
 
