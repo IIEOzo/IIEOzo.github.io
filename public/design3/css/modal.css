@@ -1,0 +1,505 @@
+/* 
+ * modal.css - 模态框专用样式
+ * 目的：创建全屏模态框，支持多图片展示和优雅的动画效果
+ */
+
+/* ==================== 模态框基础样式 ==================== */
+/* 目的：创建覆盖全屏的模态框容器 */
+.portfolio-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2000;
+    opacity: 0;
+    transition: opacity 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.portfolio-modal.active {
+    display: block;
+    opacity: 1;
+}
+
+/* 模态框遮罩层 */
+.modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(12px);
+    opacity: 0;
+    transition: opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.portfolio-modal.active .modal-overlay {
+    opacity: 1;
+}
+
+/* ==================== 模态框内容容器 ==================== */
+/* 目的：居中对齐的模态框内容区域，支持滚动 */
+.modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.96);
+    background: #1f1f1f; /* 模态框背景改为 #1f1f1f */
+    width: 82%;
+    max-width: 1200px;
+    max-height: 84vh;
+    overflow-y: auto;
+    border-radius: 6px;
+    padding: 48px;
+    opacity: 0;
+    transition: all 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    
+    /* 隐藏滚动条 */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+}
+
+/* 隐藏模态框滚动条 - WebKit */
+.modal-content::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+}
+
+.portfolio-modal.active .modal-content {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* ==================== 模态框关闭按钮 ==================== */
+/* 目的：无框下划线动画按钮，与导航栏保持一致的交互体验 */
+.modal-close {
+    position: absolute;
+    top: 28px;
+    right: 28px;
+    background: none;
+    border: none;
+    font-size: 26px;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.85);
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", Roboto, Arial, sans-serif;
+    font-weight: 400;
+    letter-spacing: 1px;
+    white-space: nowrap;
+    position: relative;
+    padding-bottom: 4px;
+    transition: color 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* 下划线动画 - 与导航栏相同 */
+.modal-close::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 0.5px;
+    background-color: #dbdbdb; /* 下划线改为 #dbdbdb */
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transform: translateX(-50%);
+    opacity: 0;
+}
+
+.modal-close:hover {
+    color: white;
+}
+
+.modal-close:hover::after {
+    width: 100%;
+    opacity: 1;
+}
+
+/* ==================== 模态框内容样式 ==================== */
+.design-thought {
+    margin-bottom: 24px;
+    line-height: 1.7;
+    color: #ddd;
+    font-size: 2.1rem;
+    /* 中文内容使用中文无衬线字体 */
+    font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", sans-serif;
+}
+
+/* ==================== 图片展示系统 ==================== */
+/* 目的：支持多张图片展示，图片间距为0，直角设计 */
+
+/* 图片容器 */
+.modal-images-container {
+    margin: 28px 0 0;
+    width: 100%;
+}
+
+/* 单张图片容器 - 图片间距为0 */
+.modal-image-item {
+    margin-bottom: 0;
+    text-align: center;
+    overflow: hidden;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 最后一张图片没有下边距 */
+.modal-image-item:last-child {
+    margin-bottom: 0;
+}
+
+/* 图片样式 - 直角，无圆角 */
+.modal-image-item img {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+    border-radius: 0;
+    transform: scale(1.04);
+    transition: transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    display: block;
+    margin: 0 auto;
+}
+
+.portfolio-modal.active .modal-image-item img {
+    transform: scale(1);
+}
+
+/* ==================== 内容淡入动画 ==================== */
+/* 目的：模态框内容交错淡入动画，创造层次感 */
+.modal-body h2,
+.modal-body p,
+.design-thought-section,
+.modal-images-container {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: all 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.portfolio-modal.active .modal-body h2 {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.15s;
+}
+
+.portfolio-modal.active .modal-body p {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.25s;
+}
+
+.portfolio-modal.active .design-thought-section {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.35s;
+}
+
+.portfolio-modal.active .modal-images-container {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.45s;
+}
+
+/* ==================== 设计思路部分 ==================== */
+.design-thought-section {
+    margin-bottom: 28px;
+    padding: 24px;
+    background-color: #2a2a2a;
+    border-radius: 6px;
+    border-left: 4px solid #dbdbdb; /* 边框改为 #dbdbdb */
+}
+
+.design-thought-section h3 {
+    margin-bottom: 14px;
+    font-size: 2.5rem;
+    color: #fff;
+    font-weight: 500;
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+/* ==================== 模态框标题样式 ==================== */
+.modal-body h2 {
+    font-size: 4rem;
+    margin-bottom: 18px;
+    color: #fff;
+    font-weight: 400;
+    position: relative;
+    padding-bottom: 14px;
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+.modal-body h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 2.5px;
+    background-color: #dbdbdb; /* 下划线改为 #dbdbdb */
+    border-radius: 1.5px;
+}
+
+/* ==================== 项目简介样式 ==================== */
+.modal-body > p {
+    font-size: 2.2rem;
+    line-height: 1.7;
+    margin-bottom: 28px;
+    color: #ddd;
+    padding-left: 4px;
+    /* 中文内容使用中文无衬线字体 */
+    font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", sans-serif;
+}
+
+/* ==================== 模态框滚动锁定解决方案 ==================== */
+/* 目的：解决模态框打开时主页位置跳转的问题 */
+body.modal-open {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+/* ==================== 空白区域返回提示 ==================== */
+/* 目的：在模态框左右两侧添加垂直居中排列的返回提示 */
+.modal-close-hint {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 20px;
+    background-color: rgba(31, 31, 31, 0.9);
+    padding: 12px 20px;
+    border-radius: 12px;
+    backdrop-filter: blur(8px);
+    font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", sans-serif;
+    font-weight: 300;
+    letter-spacing: 1px;
+    opacity: 0;
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    pointer-events: none;
+    z-index: 1999;
+    text-align: center;
+    white-space: nowrap;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    cursor: pointer;
+    pointer-events: all;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: auto;
+    min-height: 180px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* 左侧提示 */
+.modal-close-hint.left {
+    left: 30px;
+}
+
+/* 右侧提示 */
+.modal-close-hint.right {
+    right: 30px;
+}
+
+/* 下划线动画效果 */
+.modal-close-hint::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 0.5px;
+    height: 0;
+    background-color: #dbdbdb; /* 改为 #dbdbdb */
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    opacity: 0;
+}
+
+/* 左侧提示下划线在右侧 */
+.modal-close-hint.left::after {
+    right: -8px;
+    transform: translateY(-50%);
+}
+
+/* 右侧提示下划线在左侧 */
+.modal-close-hint.right::after {
+    left: -8px;
+    transform: translateY(-50%);
+}
+
+.portfolio-modal.active .modal-close-hint {
+    opacity: 0.8;
+    transition-delay: 0.8s;
+}
+
+.modal-close-hint:hover {
+    opacity: 1 !important;
+    background-color: rgba(42, 42, 42, 0.95);
+    color: #fff;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+}
+
+.modal-close-hint:hover::after {
+    height: 80%;
+    opacity: 1;
+}
+
+/* ==================== 响应式设计 ==================== */
+/* 目的：确保模态框在不同设备上都有良好的显示效果 */
+
+@media (max-width: 1024px) {
+    .modal-content {
+        width: 85%;
+        padding: 40px;
+    }
+}
+
+@media (max-width: 768px) {
+    .modal-content {
+        width: 92% !important;
+        padding: 24px !important;
+        max-height: 82vh !important;
+        border-radius: 8px !important;
+        top: 50% !important;
+        transform: translate(-50%, -50%) scale(0.98) !important;
+        /* 移动端隐藏滚动条 */
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+    
+    .modal-content::-webkit-scrollbar {
+        display: none;
+        width: 0;
+        height: 0;
+    }
+    
+    .portfolio-modal.active .modal-content {
+        transform: translate(-50%, -50%) scale(1) !important;
+    }
+    
+    .modal-close {
+        top: 20px !important;
+        right: 20px !important;
+        font-size: 1.8rem !important;
+        min-width: 44px !important;
+        min-height: 44px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        background: rgba(255, 255, 255, 0.2) !important;
+        border-radius: 6px !important;
+        padding: 10px !important;
+    }
+    
+    /* 移动端隐藏垂直排列的提示 */
+    .modal-close-hint {
+        display: none !important;
+    }
+    
+    .modal-body h2 {
+        font-size: 2.4rem !important;
+        margin-bottom: 15px !important;
+        padding-bottom: 12px !important;
+    }
+    
+    .modal-body > p {
+        font-size: 1.6rem !important;
+        line-height: 1.6 !important;
+        margin-bottom: 20px !important;
+    }
+    
+    .design-thought-section {
+        padding: 18px !important;
+        margin-bottom: 20px !important;
+    }
+    
+    .design-thought-section h3 {
+        font-size: 1.8rem !important;
+        margin-bottom: 12px !important;
+    }
+    
+    .design-thought {
+        font-size: 1.5rem !important;
+        line-height: 1.6 !important;
+    }
+    
+    .modal-images-container {
+        margin: 20px 0 0 !important;
+    }
+    
+    .modal-image-item img {
+        max-width: 100% !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .modal-content {
+        width: 96% !important;
+        padding: 20px !important;
+        max-height: 84vh !important;
+        border-radius: 6px !important;
+    }
+    
+    .modal-close {
+        top: 16px !important;
+        right: 16px !important;
+        font-size: 1.6rem !important;
+        min-width: 40px !important;
+        min-height: 40px !important;
+        padding: 8px !important;
+    }
+    
+    .modal-body h2 {
+        font-size: 2.0rem !important;
+        padding-bottom: 10px !important;
+    }
+    
+    .modal-body > p {
+        font-size: 1.4rem !important;
+        line-height: 1.5 !important;
+    }
+    
+    .modal-images-container {
+        margin: 16px 0 0 !important;
+    }
+}
+
+/* ==================== 触摸设备优化 ==================== */
+@media (hover: none) and (pointer: coarse) {
+    .modal-close {
+        min-width: 44px !important;
+        min-height: 44px !important;
+        padding-bottom: 6px !important;
+    }
+    
+    .modal-close:active {
+        background: rgba(255, 255, 255, 0.3) !important;
+        transform: scale(0.95) !important;
+    }
+    
+    /* 触摸设备隐藏滚动条 */
+    .modal-content::-webkit-scrollbar {
+        display: none;
+        width: 0;
+        height: 0;
+    }
+    
+    /* 图片触摸优化 */
+    .modal-image-item img:active {
+        opacity: 0.9 !important;
+    }
+}

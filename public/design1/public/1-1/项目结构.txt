@@ -7,8 +7,7 @@ design-studio/
 │ └── deploy.yml # 自动部署配置
 ├── css/ # 样式文件
 ├── js/ # 脚本文件
-├── assets/ # 静态资源
-└── public/ # 作品集里的作品1-1—1-4为主页作品
+└── assets/ # 静态资源
 
 
 可后续加入：优化图片加载性能 preload-images.js （可选）

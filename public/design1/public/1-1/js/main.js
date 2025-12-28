@@ -1,4 +1,3 @@
-
 // 在现有文件顶部添加路径优化代码 针对 GitHub Pages 环境
 (function() {
     // GitHub Pages路径自动修正
@@ -47,10 +46,6 @@
     }
 })();
 
-
-
-// 下方代码针对设计工作室网站功能
-
 // 主应用程序入口
 document.addEventListener('DOMContentLoaded', function() {
     console.log('设计工作室网站已加载');
@@ -61,7 +56,6 @@ document.addEventListener('DOMContentLoaded', function() {
     initScrollAnimations();
     initTitleAnimations();
     initLazyLoading();
-    initBackToTop(); // 初始化回到顶部功能
 });
 
 // 滚动动画
@@ -122,116 +116,4 @@ function initLazyLoading() {
         
         images.forEach(img => imageObserver.observe(img));
     }
-}
-
-// 主应用程序入口
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('设计工作室网站已加载');
-    
-    // 初始化模块
-    initNavigation();
-    initPortfolio();
-    initScrollAnimations();
-    initTitleAnimations();
-    initLazyLoading();
-    initBackToTop(); // 初始化回到顶部功能
-    
-    // 初始化自定义鼠标系统（仅在桌面端）
-    if (window.innerWidth >= 769) {
-        // cursor.js 会自动初始化
-        // 如果需要手动控制，可以在这里调用
-    }
-});
-
-// 滚动动画
-function initScrollAnimations() {
-    const revealElements = document.querySelectorAll('.reveal');
-    
-    function checkScroll() {
-        revealElements.forEach(element => {
-            const elementTop = element.getBoundingClientRect().top;
-            const windowHeight = window.innerHeight;
-            
-            if (elementTop < windowHeight - 100) {
-                element.classList.add('active');
-            }
-        });
-    }
-    
-    window.addEventListener('scroll', checkScroll);
-    checkScroll();
-}
-
-// 标题横线动画
-function initTitleAnimations() {
-    const sectionTitles = document.querySelectorAll('.section-title');
-    
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('animated');
-                observer.unobserve(entry.target);
-            }
-        });
-    }, {
-        threshold: 0.5,
-        rootMargin: '-50px 0px -50px 0px'
-    });
-    
-    sectionTitles.forEach(title => {
-        observer.observe(title);
-    });
-}
-
-// 图片懒加载
-function initLazyLoading() {
-    const images = document.querySelectorAll('img[data-src]');
-    
-    if ('IntersectionObserver' in window) {
-        const imageObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const img = entry.target;
-                    img.src = img.dataset.src;
-                    img.removeAttribute('data-src');
-                    imageObserver.unobserve(img);
-                }
-            });
-        });
-        
-        images.forEach(img => imageObserver.observe(img));
-    }
-}
-
-// 回到顶部功能
-function initBackToTop() {
-    const backToTopButton = document.getElementById('backToTop');
-    
-    if (!backToTopButton) return;
-    
-    // 显示/隐藏回到顶部按钮
-    function toggleBackToTop() {
-        if (window.scrollY > 300) {
-            backToTopButton.classList.add('show');
-        } else {
-            backToTopButton.classList.remove('show');
-        }
-    }
-    
-    // 滚动到顶部
-    function scrollToTop() {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    }
-    
-    // 监听滚动事件
-    window.addEventListener('scroll', toggleBackToTop);
-    
-    // 点击回到顶部
-    backToTopButton.addEventListener('click', scrollToTop);
-    
-    // 初始化检查
-    toggleBackToTop();
 }

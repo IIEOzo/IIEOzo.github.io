@@ -1,4 +1,3 @@
-
 // 在现有文件顶部添加路径优化代码 针对 GitHub Pages 环境
 (function() {
     // GitHub Pages路径自动修正
@@ -61,7 +60,6 @@ document.addEventListener('DOMContentLoaded', function() {
     initScrollAnimations();
     initTitleAnimations();
     initLazyLoading();
-    initBackToTop(); // 初始化回到顶部功能
 });
 
 // 滚动动画
@@ -134,7 +132,6 @@ document.addEventListener('DOMContentLoaded', function() {
     initScrollAnimations();
     initTitleAnimations();
     initLazyLoading();
-    initBackToTop(); // 初始化回到顶部功能
     
     // 初始化自定义鼠标系统（仅在桌面端）
     if (window.innerWidth >= 769) {
@@ -201,37 +198,4 @@ function initLazyLoading() {
         
         images.forEach(img => imageObserver.observe(img));
     }
-}
-
-// 回到顶部功能
-function initBackToTop() {
-    const backToTopButton = document.getElementById('backToTop');
-    
-    if (!backToTopButton) return;
-    
-    // 显示/隐藏回到顶部按钮
-    function toggleBackToTop() {
-        if (window.scrollY > 300) {
-            backToTopButton.classList.add('show');
-        } else {
-            backToTopButton.classList.remove('show');
-        }
-    }
-    
-    // 滚动到顶部
-    function scrollToTop() {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    }
-    
-    // 监听滚动事件
-    window.addEventListener('scroll', toggleBackToTop);
-    
-    // 点击回到顶部
-    backToTopButton.addEventListener('click', scrollToTop);
-    
-    // 初始化检查
-    toggleBackToTop();
 }
