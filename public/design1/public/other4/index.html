@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>时尚品牌LOGO设计 | 设计工作室</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* 全局样式重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #ffffff;
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            border: 1px solid #333;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .btn:hover {
+            background-color: #333;
+            color: #fff;
+        }
+        
+        /* 导航栏样式 */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 0;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-weight: 700;
+            font-size: 20px;
+            letter-spacing: 1px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-links a {
+            font-size: 14px;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: #333;
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        /* 作品详情页样式 */
+        .project-detail {
+            padding: 120px 0 60px;
+        }
+        
+        .project-header {
+            margin-bottom: 60px;
+        }
+        
+        .project-title {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            font-weight: 400;
+        }
+        
+        .project-category {
+            color: #666;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .project-gallery {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        .project-image {
+            height: 600px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .project-description {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .project-description p {
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-top: 40px;
+            color: #666;
+            transition: color 0.3s;
+        }
+        
+        .back-link:hover {
+            color: #333;
+        }
+        
+        /* 页脚样式 */
+        footer {
+            padding: 60px 0;
+            background-color: #f5f5f5;
+            text-align: center;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .social-links a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border: 1px solid #333;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: #333;
+            color: #fff;
+        }
+        
+        .copyright {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .project-gallery {
+                grid-template-columns: 1fr;
+            }
+            
+            .project-title {
+                font-size: 1.8rem;
+            }
+            
+            .project-image {
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav>
+        <div class="container nav-container">
+            <a href="index.html" class="logo">设计工作室</a>
+            <div class="nav-links">
+                <a href="index.html#work">作品</a>
+                <a href="index.html#about">关于</a>
+                <a href="index.html#contact">联系</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 作品详情 -->
+    <section class="project-detail">
+        <div class="container">
+            <div class="project-header">
+                <h1 class="project-title">时尚品牌LOGO设计</h1>
+                <div class="project-category">LOGO设计</div>
+            </div>
+            
+            <div class="project-gallery">
+                <div class="project-image">
+                    <img src="https://images.unsplash.com/photo-1620336655052-b57986f766e5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="时尚品牌LOGO设计">
+                </div>
+                <div class="project-image">
+                    <img src="https://images.unsplash.com/photo-1551650975-87deada944c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="时尚品牌LOGO应用">
+                </div>
+            </div>
+            
+            <div class="project-description">
+                <p>这个项目是为一家新兴时尚品牌设计的LOGO。客户希望传达简约、现代和优雅的品牌形象，同时保持足够的独特性以在竞争激烈的市场中脱颖而出。</p>
+                <p>我们通过深入研究时尚行业的视觉语言，结合客户的品牌价值观，最终设计出一个既简洁又富有深度的标识。LOGO采用了纤细的线条和柔和的曲线，传达出品牌的精致感和对细节的关注。</p>
+                <p>在色彩选择上，我们使用了单色方案，确保LOGO在各种应用场景中都能保持一致性。同时，我们开发了多种变体，以适应不同背景和尺寸要求。</p>
+                
+                <a href="index.html" class="back-link">← 返回作品列表</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <div class="logo">设计工作室</div>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-behance"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-dribbble"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+            <div class="copyright">© 2023 设计工作室. 保留所有权利</div>
+        </div>
+    </footer>
+
+    <script>
+        // 导航栏滚动效果
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                navbar.style.background = 'rgba(255,255,255,0.95)';
+                navbar.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
+            } else {
+                navbar.style.background = 'rgba(255,255,255,0.95)';
+                navbar.style.boxShadow = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
