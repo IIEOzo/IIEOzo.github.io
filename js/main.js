@@ -1,3 +1,55 @@
+// 在现有文件顶部添加路径优化代码 针对 GitHub Pages 环境
+(function() {
+    // GitHub Pages路径自动修正
+    function fixGitHubPagesPaths() {
+        // 获取当前页面的基本URL
+        const baseUrl = window.location.href.includes('github.io') 
+            ? window.location.pathname.split('/').slice(0, -1).join('/') 
+            : '';
+        
+        // 修正CSS文件路径
+        document.querySelectorAll('link[rel="stylesheet"]').forEach(link => {
+            if (link.href.includes('/css/') && !link.href.startsWith('http')) {
+                link.href = baseUrl + link.getAttribute('href');
+            }
+        });
+        
+        // 修正JS文件路径
+        document.querySelectorAll('script[src]').forEach(script => {
+            if (script.src.includes('/js/') && !script.src.startsWith('http')) {
+                script.src = baseUrl + script.getAttribute('src');
+            }
+        });
+        
+        // 修正图片路径（相对路径）
+        document.querySelectorAll('img[src^="./"], img[src^="/"], img[src^="public/"]').forEach(img => {
+            const src = img.getAttribute('src');
+            if (!src.startsWith('http') && !src.startsWith('data:')) {
+                img.src = baseUrl + (src.startsWith('/') ? src : '/' + src);
+            }
+        });
+        
+        // 修正内部链接路径
+        document.querySelectorAll('a[href^="./"], a[href^="/"], a[href^="public/"]').forEach(link => {
+            const href = link.getAttribute('href');
+            if (!href.startsWith('http') && !href.startsWith('#') && !href.startsWith('mailto:')) {
+                link.href = baseUrl + (href.startsWith('/') ? href : '/' + href);
+            }
+        });
+    }
+    
+    // 页面加载完成后执行路径修正
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', fixGitHubPagesPaths);
+    } else {
+        fixGitHubPagesPaths();
+    }
+})();
+
+
+
+// 下方代码针对设计工作室网站功能
+
 // 主应用程序入口
 document.addEventListener('DOMContentLoaded', function() {
     console.log('设计工作室网站已加载');
