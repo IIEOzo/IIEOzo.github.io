@@ -475,7 +475,7 @@ nav.transparent .nav-links a:hover {
         animation: none !important;
         transform: none !important;
         color: #dbdbdb !important; /* 文字颜色改为 #dbdbdb */
-        background: #1f1f1f !important; /* 背景颜色改为 #1f1f1f */
+        background: rgba(31, 31, 31, 0.3) !important; /* 修改：背景颜色改为30%不透明度 */
         border-radius: 8px !important; /* 圆角统一为8px */
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important; /* 添加阴影 */
         font-size: 0.7rem !important;
@@ -502,11 +502,11 @@ nav.transparent .nav-links a:hover {
         display: none !important;
     }
     
-    /* 手机端点击颜色改为 #1f1f1f */
+    /* 手机端点击颜色改为 rgba(31,31,31,0.3) */
     .portfolio-overlay .btn:active,
     .portfolio-overlay .btn:hover,
     .portfolio-overlay .btn:focus {
-        background-color: #1f1f1f !important;
+        background-color: rgba(31, 31, 31, 0.3) !important; /* 修改：改为30%不透明度 */
         transform: none !important;
     }
     

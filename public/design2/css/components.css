@@ -1,4 +1,3 @@
-
 /* 
  * components.css - 组件样式文件
  */
@@ -638,6 +637,7 @@ nav.initial-hidden .logo-image {
         animation: none !important;
         transform: none !important;
         pointer-events: none; /* 确保按钮不干扰链接点击 */
+        opacity: 0.3; /* 新增：不透明度改为30% */
     }
     
     /* 无链接的作品项不显示点击按钮 */

@@ -510,7 +510,7 @@ nav.initial-transparent .logo-image {
     /* 修改：说明文字字体大小放大一倍（从0.7rem 改为 1.4rem） */
     .info-text {
         font-size: 1.4rem !important; /* 原来0.7rem * 2 = 1.4rem */
-        margin-bottom: 15px !important; /* 保持原来的一半 */
+        margin-bottom: 60px !important; /* 修改：与下方查看按钮距离放大4倍，从15px改为60px */
         padding-bottom: 5px !important; /* 保持原来的一半 */
     }
     
@@ -531,6 +531,7 @@ nav.initial-transparent .logo-image {
         border-radius: 10px !important; /* 原来5px * 2 = 10px */
         border: 1px solid #dbdbdb !important; /* 添加小圆角矩形线框 */
         margin-bottom: 0px !important; /* 修改：查看按钮下边为0px */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3) !important; /* 添加阴影效果 */
     }
     
     .detail-btn::after {
