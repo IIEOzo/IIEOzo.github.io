@@ -514,10 +514,11 @@ nav.initial-transparent .logo-image {
         padding-bottom: 5px !important; /* 保持原来的一半 */
     }
     
-    /* 修改：下划线尺寸保持原样 */
+    /* 修改：下划线尺寸与桌面端相同，并向下移动15px */
     .info-text::after {
-        width: 20px !important; /* 保持原来的一半 */
-        height: 1px !important; /* 保持原来的一半 */
+        width: 70px !important; /* 与桌面端相同 */
+        height: 4px !important; /* 与桌面端相同 */
+        bottom: -15px !important; /* 修改：向下移动15px */
         opacity: 1 !important;
         /* 移动端不应用动画 */
         transition: none !important;
