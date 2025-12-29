@@ -1,0 +1,416 @@
+/* 
+ * animations.css - 动画和交互样式文件
+ */
+
+/* ==================== 导航栏透明动画 ==================== */
+nav {
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                opacity 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                border-color 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    /* 删除背景颜色和模糊效果的过渡动画 */
+    background-color: rgba(24, 24, 24, 0) !important;
+}
+
+nav.transparent {
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                opacity 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                border-color 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    background-color: rgba(24, 24, 24, 0) !important;
+}
+
+nav.opaque {
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                opacity 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                border-color 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    background-color: rgba(24, 24, 24, 1) !important;
+    /* 直接设置模糊效果，无过渡 */
+    backdrop-filter: blur(10px) !important;
+}
+
+nav.transparent .nav-links a,
+nav.transparent .logo {
+    transition: color 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                text-shadow 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+nav.transparent .logo-image {
+    transition: filter 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* ==================== 导航栏下划线动画 ==================== */
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 0.5px;
+    background-color: #dbdbdb; /* 下划线改为 #dbdbdb */
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transform: translateX(-50%);
+    opacity: 0;
+}
+
+.nav-links a:hover {
+    color: #dbdbdb; /* 修改：悬停颜色改为 #dbdbdb */
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+    opacity: 1;
+}
+
+nav.transparent .nav-links a::after {
+    background-color: #dbdbdb; /* 透明状态下下划线也改为 #dbdbdb */
+}
+
+nav.transparent .nav-links a:hover {
+    color: #dbdbdb; /* 修改：悬停颜色改为 #dbdbdb */
+}
+
+/* ==================== 图片悬停效果 ==================== */
+/* 只对有链接的作品项应用悬停效果 */
+.portfolio-item:not(.no-link):hover img {
+    transform: none;
+}
+
+.portfolio-item:not(.no-link):hover .portfolio-overlay {
+    opacity: 0.9;
+}
+
+/* ==================== 统一的按钮动画系统 ==================== */
+.portfolio-overlay .btn {
+    position: relative;
+    display: inline-block;
+    padding: 10px 24px;
+    color: #dbdbdb; /* 修改：按钮文字颜色改为 #dbdbdb */
+    background: transparent;
+    font-size: 28px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    overflow: hidden;
+    border: none;
+    border-radius: 10px;
+    font-weight: 400;
+}
+
+.portfolio-overlay .btn::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 1.5px;
+    background-color: #dbdbdb; /* 下划线改为 #dbdbdb */
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transform: translateX(-50%);
+    opacity: 0;
+}
+
+/* ==================== 查看详情按钮特殊样式 ==================== */
+.portfolio-overlay .btn {
+    padding: 9px 20px;
+    color: #dbdbdb; /* 修改：按钮文字颜色改为 #dbdbdb */
+    font-size: 24px;
+    margin-top: 9px;
+}
+
+.portfolio-overlay .btn::after {
+    background-color: #dbdbdb; /* 下划线改为 #dbdbdb */
+    height: 1px;
+}
+
+.portfolio-overlay .btn:hover {
+    color: #dbdbdb; /* 修改：悬停颜色改为 #dbdbdb */
+    background: transparent;
+    transform: translateY(-2px);
+}
+
+.portfolio-overlay .btn:hover::after {
+    width: 100%;
+    opacity: 1;
+}
+
+/* ==================== 按钮点击反馈 ==================== */
+.portfolio-overlay .btn:active {
+    transform: translateY(1px) !important;
+    transition-duration: 0.1s;
+}
+
+/* ==================== 桌面端标题渐入动画 ==================== */
+@media (min-width: 769px) {
+    /* .section-title 动画在 components.css 中定义 */
+    
+    /* .info-text 渐入动画 */
+    .info-text {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                    transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    
+    .info-text.animated {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ==================== 移动端触摸优化 ==================== */
+@media (max-width: 768px) {
+    /* 简化移动端所有动画 - 取消所有互动动画 */
+    * {
+        transition: none !important;
+        animation: none !important;
+        transform: none !important;
+    }
+    
+    nav,
+    nav.transparent,
+    nav.opaque,
+    .nav-links a,
+    .portfolio-item,
+    .portfolio-overlay,
+    .portfolio-overlay .btn,
+    .social-links a,
+    .hero h1,
+    .hero p,
+    .section-title,
+    .reveal,
+    .logo,
+    .logo-image,
+    .nav-arrow,
+    .btn,
+    a,
+    button,
+    img,
+    .portfolio-link,
+    .portfolio-category,
+    .about-container,
+    .portfolio-container,
+    .contact-info-container {
+        transition: none !important;
+        animation: none !important;
+        transform: none !important;
+    }
+    
+    /* 导航栏始终保持深色背景，不透明 */
+    nav {
+        background-color: rgba(24, 24, 24, 1) !important;
+        backdrop-filter: none !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+        /* 确保导航栏没有transform动画 */
+        transform: none !important;
+    }
+    
+    /* 取消导航栏透明状态的所有动画和效果 */
+    nav.transparent,
+    nav.opaque {
+        background-color: rgba(24, 24, 24, 1) !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+        transform: none !important;
+    }
+    
+    /* 取消导航链接透明效果 */
+    nav.transparent .nav-links a,
+    nav.transparent .logo,
+    nav.opaque .nav-links a,
+    nav.opaque .logo {
+        color: #dbdbdb !important; /* 修改：移动端导航文字颜色改为 #dbdbdb */
+        text-shadow: none !important;
+    }
+    
+    /* 修改：清除移动端导航栏所有交互动画 */
+    .nav-links a {
+        transition: none !important;
+        animation: none !important;
+    }
+    
+    .nav-links a::after {
+        display: none !important;
+    }
+    
+    /* 取消导航链接悬停效果 */
+    .nav-links a:hover,
+    .nav-links a:active,
+    .nav-links a:focus {
+        color: #dbdbdb !important; /* 修改：移动端导航文字颜色改为 #dbdbdb */
+        transform: none !important;
+        text-shadow: none !important;
+        opacity: 1 !important;
+        background: transparent !important;
+    }
+    
+    /* 修改：清除移动端导航栏所有悬停下划线动画 */
+    .nav-links a::after {
+        display: none !important;
+        opacity: 0 !important;
+        width: 0 !important;
+        height: 0 !important;
+    }
+    
+    /* 简化作品项交互 */
+    .portfolio-item:active,
+    .portfolio-item:hover,
+    .portfolio-item:focus {
+        transform: none !important;
+    }
+    
+    .portfolio-overlay .btn {
+        transition: none !important;
+        animation: none !important;
+        transform: none !important;
+        color: #888 !important; /* 保持原颜色不变 */
+    }
+    
+    .portfolio-overlay .btn::after {
+        display: none !important;
+    }
+    
+    /* 手机端点击颜色改为 #1f1f1f */
+    .portfolio-overlay .btn:active,
+    .portfolio-overlay .btn:hover,
+    .portfolio-overlay .btn:focus {
+        background-color: transparent !important;
+        transform: none !important;
+    }
+    
+    /* 取消作品项悬停动画 */
+    .portfolio-item:hover .portfolio-overlay,
+    .portfolio-item:active .portfolio-overlay,
+    .portfolio-item:focus .portfolio-overlay {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+    
+    .portfolio-item:hover img,
+    .portfolio-item:active img,
+    .portfolio-item:focus img {
+        transform: none !important;
+    }
+    
+    /* 简化页面加载动画 */
+    .hero h1,
+    .hero p,
+    .hero .btn {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+    
+    /* 简化滚动显示动画 */
+    .reveal,
+    .reveal.active {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+    }
+    
+    /* 修改：删除section-title下划线动画 */
+    .section-title::after {
+        display: none !important;
+    }
+    
+    .section-title.animated::after {
+        display: none !important;
+    }
+    
+    /* 取消所有悬停状态下的动画效果 */
+    a:hover, a:active, a:focus,
+    button:hover, button:active, button:focus,
+    .btn:hover, .btn:active, .btn:focus,
+    .portfolio-link:hover, .portfolio-link:active, .portfolio-link:focus,
+    .social-links a:hover, .social-links a:active, .social-links a:focus {
+        transform: none !important;
+        transition: none !important;
+        animation: none !important;
+        box-shadow: none !important;
+        letter-spacing: normal !important;
+        background-color: transparent !important;
+    }
+}
+
+/* ==================== 滚动显示动画 ==================== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ==================== 链接悬停增强效果 ==================== */
+@media (min-width: 769px) {
+    .nav-links a:hover {
+        transform: translateY(-2px);
+        transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    
+    .portfolio-link:hover .portfolio-overlay {
+        background-color: rgba(0, 0, 0, 0.9);
+    }
+    
+    .portfolio-link:hover .portfolio-overlay h3 {
+        transform: translateY(-5px);
+        transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    
+    .portfolio-link:hover .portfolio-overlay .btn {
+        transform: translateY(0) scale(1.05);
+        transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    
+    .btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 15px rgba(255, 255, 255, 0.15);
+        transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    
+    .category-more-link a:hover {
+        letter-spacing: 1.5px;
+        transform: translateY(-3px);
+        transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    
+    .social-links a:hover {
+        transform: translateY(-5px) scale(1.1);
+        box-shadow: 0 8px 20px rgba(255, 255, 255, 0.25);
+        transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    
+    /* 修改：桌面端标题下划线动画 - 已移动到.info-text中 */
+    .section-title {
+        position: relative;
+    }
+    
+    /* 修改：删除.section-title的下划线 */
+    .section-title::after {
+        display: none !important;
+    }
+    
+    /* 修改：鼠标悬停时下划线从中间向两边延伸 - 已移动到.info-text中 */
+    .section-title:hover::after {
+        display: none !important;
+    }
+    
+    /* 修改：已激活的下划线在鼠标离开后保持显示 - 已移动到.info-text中 */
+    .section-title.animated::after {
+        display: none !important;
+    }
+}

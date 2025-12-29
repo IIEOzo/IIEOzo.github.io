@@ -1,0 +1,252 @@
+/* 
+ * main.css - 主样式文件
+ * 目的：提供全局样式、基础布局、响应式容器和基础组件样式
+ */
+
+/* ==================== 全局样式重置 ==================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", sans-serif, -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", Roboto, Arial, sans-serif;
+    background-color: #181818; /* 主页背景改为 #181818 */
+    color: #dbdbdb; /* 修改：全局文字颜色改为 #dbdbdb */
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0.1);
+}
+
+/* ==================== 美化滚动条 ==================== */
+/* 作用于桌面端和移动端 */
+body::-webkit-scrollbar {
+    width: 10px; /* 滚动条宽度 */
+    height: 10px; /* 横向滚动条高度 */
+}
+
+body::-webkit-scrollbar-track {
+    background: #1f1f1f; /* 修改：滚动条导轨颜色改为 #1f1f1f */
+    border-radius: 5px;
+}
+
+body::-webkit-scrollbar-thumb {
+    background: #181818; /* 修改：滚动条滑块颜色改为 #181818 */
+    border-radius: 5px;
+    border: 2px solid #1f1f1f; /* 滑块边框与导轨颜色一致 */
+}
+
+body::-webkit-scrollbar-thumb:hover {
+    background: #2a2a2a; /* 悬停时稍微亮一点 */
+}
+
+/* Firefox */
+body {
+    scrollbar-width: thin; /* 细滚动条 */
+    scrollbar-color: #181818 #1f1f1f; /* 滑块颜色 导轨颜色 */
+}
+
+/* ==================== 英文优先字体 ==================== */
+h1, h2, h3, h4, h5, h6,
+button, input, textarea,
+.logo, .btn,
+.filter-btn, .modal-close,
+.footer-copyright, .hero h1,
+.section-title {
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", Roboto, Arial, sans-serif, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", sans-serif;
+    color: #dbdbdb; /* 修改：颜色改为 #dbdbdb */
+}
+
+/* ==================== 中文优先字体 ==================== */
+p, span, a, li,
+.about-text p, 
+.contact-info p,
+.hero p,
+.portfolio-overlay p,
+.category-more-link a,
+.portfolio-overlay .btn {
+    font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", sans-serif, -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", Roboto, Arial, sans-serif;
+    color: #dbdbdb; /* 修改：颜色改为 #dbdbdb */
+}
+
+/* ==================== 桌面端全局文字大小 ==================== */
+body:not(footer) {
+    font-size: 200% !important;
+}
+
+/* ==================== 统一板块间距系统 ==================== */
+/* 桌面端：每个板块之间的统一间距为0px */
+.section-container {
+    margin-bottom: 0 !important;
+    display: block;
+    width: 100%;
+}
+
+/* 移动端：每个板块之间的统一间距为0px */
+@media (max-width: 768px) {
+    .section-container {
+        margin-bottom: 0 !important;
+    }
+    
+    /* 移动端全局重置 - 所有文字颜色改为 #dbdbdb */
+    body:not(footer) {
+        font-size: 16px !important;
+        line-height: 1.5;
+        color: #dbdbdb !important; /* 修改：移动端所有文字颜色改为 #dbdbdb */
+    }
+    
+    /* 移动端滚动条美化 */
+    body::-webkit-scrollbar {
+        width: 8px; /* 移动端滚动条稍细 */
+        height: 8px;
+    }
+}
+
+/* ==================== 桌面端滚动条隐藏 ==================== */
+@media (min-width: 769px) {
+    /* 确保模态框的滚动条也被隐藏 */
+    .modal-content {
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+    
+    .modal-content::-webkit-scrollbar {
+        display: none;
+        width: 0;
+        height: 0;
+    }
+}
+
+/* ==================== 模态框滚动控制 ==================== */
+body.modal-open {
+    overflow: hidden !important;
+    height: 100vh !important;
+    width: 100% !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+}
+
+/* ==================== 响应式容器系统 ==================== */
+.container {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0 50px;
+}
+
+/* ==================== 基础组件样式 ==================== */
+.btn {
+    display: inline-block;
+    padding: 10px 22px;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    border-radius: 10px;
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", Roboto, Arial, sans-serif;
+    color: #dbdbdb; /* 修改：按钮文字颜色改为 #dbdbdb */
+}
+
+.btn:hover {
+    background-color: transparent;
+    color: #dbdbdb; /* 修改：悬停颜色改为 #dbdbdb */
+}
+
+/* ==================== 基础链接样式 ==================== */
+a {
+    text-decoration: none;
+    color: #dbdbdb; /* 修改：链接颜色改为 #dbdbdb */
+    transition: color 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* ==================== 移动端响应式设计 ==================== */
+@media (max-width: 768px) {
+    /* 移动端容器优化 */
+    .container {
+        padding: 0 16px !important;
+    }
+    
+    /* 导航栏容器调整 */
+    .nav-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding: 0 !important;
+    }
+    
+    /* 确保logo容器有足够空间 */
+    .logo-image-container {
+        display: flex;
+        align-items: center;
+        flex-shrink: 0;
+        min-width: 0;
+    }
+    
+    /* 确保导航链接不会挤压logo */
+    .nav-links {
+        flex-shrink: 0;
+    }
+    
+    /* 移动端标题系统 */
+    .section-title {
+        font-size: 1.75rem !important;
+        margin-bottom: 2.5rem !important;
+        padding-bottom: 0.75rem !important;
+        color: #dbdbdb !important; /* 修改：标题颜色改为 #dbdbdb */
+    }
+    
+    .section-title::after {
+        width: 40px !important;
+        height: 2px !important;
+        background-color: #dbdbdb !important; /* 下划线改为 #dbdbdb */
+    }
+    
+    /* 导航链接颜色改为 #dbdbdb */
+    .nav-links a {
+        color: #dbdbdb !important;
+    }
+    
+    .logo {
+        color: #dbdbdb !important;
+    }
+    
+    /* 作品集文字颜色改为 #dbdbdb */
+    .portfolio-overlay h3,
+    .portfolio-overlay p,
+    .portfolio-overlay .category-more-link a {
+        color: #dbdbdb !important;
+    }
+    
+    /* 特别排除：部分作品下的点击按钮颜色保持原样（灰色 #888） */
+    .portfolio-overlay .btn {
+        color: #888 !important; /* 保持原颜色不变 */
+    }
+}
+
+/* 超小屏幕进一步优化 */
+@media (max-width: 480px) {
+    .container {
+        padding: 0 20px !important;
+    }
+    
+    .section-title {
+        font-size: 1.5rem !important;
+        margin-bottom: 2rem !important;
+    }
+}
+
+/* ==================== 板块紧贴样式 ==================== */
+/* 确保所有板块之间没有间隙，只调整间距 */
+.portfolio {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}

@@ -1,0 +1,1430 @@
+/* 
+ * components.css - 组件样式文件
+ */
+
+/* ==================== 导航栏组件 ==================== */
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 26px 0;
+    background-color: #181818; /* 导航栏背景改为 #181818 */
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", Roboto, Arial, sans-serif;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                opacity 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                border-color 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                backdrop-filter 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* 初始隐藏状态 - 刷新页面时完全隐藏 */
+nav.initial-hidden {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-100%);
+}
+
+/* 透明状态 - 在首页横幅区域内 */
+nav.transparent {
+    background-color: rgba(24, 24, 24, 0); /* 透明时完全透明 */
+    backdrop-filter: blur(0);
+    border-bottom: 1px solid transparent;
+}
+
+/* 非透明状态 - 离开首页横幅后 */
+nav:not(.transparent):not(.initial-hidden) {
+    background-color: #181818; /* 导航栏背景改为 #181818 */
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+nav.nav-hidden {
+    transform: translateY(-100%);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: none;
+    margin: 0;
+    padding: 0 50px;
+    position: relative;
+    width: 100%;
+}
+
+/* Logo样式 */
+.logo-image-container {
+    margin-right: 4px;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.logo-image {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    display: block;
+    border-radius: 10px;
+    transition: opacity 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.logo {
+    font-weight: 300;
+    font-size: 28px;
+    letter-spacing: 0.5px;
+    color: #dbdbdb; /* 修改：颜色改为 #dbdbdb */
+    flex-shrink: 0;
+    transition: opacity 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+/* 导航箭头样式 - 桌面端显示 */
+.nav-arrow {
+    position: absolute;
+    right: -25px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-arrow i {
+    font-size: 19.6px;
+    color: #dbdbdb; /* 修改：颜色改为 #dbdbdb */
+    animation: arrowPulse 1.5s ease-in-out infinite;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 19.6px;
+    line-height: 1;
+}
+
+@keyframes arrowPulse {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(-3px);
+    }
+}
+
+/* 当在底部时显示箭头 */
+nav.at-bottom .nav-arrow {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* 桌面端导航链接 */
+.nav-links {
+    display: flex;
+    gap: 48px;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.nav-links a {
+    font-size: 28px;
+    font-weight: 300;
+    color: #dbdbdb; /* 修改：颜色改为 #dbdbdb */
+    letter-spacing: 1.2px;
+    position: relative;
+    transition: color 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                opacity 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    text-decoration: none;
+    padding: 8px 0;
+    white-space: nowrap;
+}
+
+nav.transparent .nav-links a {
+    color: #dbdbdb; /* 修改：透明状态下也改为 #dbdbdb */
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+nav.transparent .logo {
+    color: #dbdbdb; /* 修改：透明状态下也改为 #dbdbdb */
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+nav.transparent .logo-image {
+    filter: brightness(1.2);
+}
+
+nav.transparent .nav-arrow i {
+    color: #dbdbdb; /* 修改：透明状态下也改为 #dbdbdb */
+}
+
+/* 初始隐藏状态下隐藏所有内容 */
+nav.initial-hidden .logo,
+nav.initial-hidden .nav-links a,
+nav.initial-hidden .logo-image,
+nav.initial-hidden .nav-arrow {
+    opacity: 0;
+}
+
+/* ==================== 移动端导航菜单 ==================== */
+@media (max-width: 768px) {
+    /* 移动端导航栏优化 - 常驻显示，深色背景，不透明，取消所有动画 */
+    nav {
+        padding: 16px 0 !important;
+        background-color: #181818 !important;
+        backdrop-filter: blur(10px) !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: none !important;
+        transition: none !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+        animation: none !important;
+        height: 60px !important; /* 固定导航栏高度 */
+        min-height: 60px !important; /* 确保最小高度 */
+        display: flex !important;
+        align-items: center !important;
+    }
+    
+    /* 修改：取消导航栏所有收缩动画和隐藏效果 */
+    nav.initial-hidden,
+    nav.transparent,
+    nav.nav-hidden,
+    nav.at-bottom {
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: none !important;
+        background-color: #181818 !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+        transition: none !important;
+        animation: none !important;
+        height: 60px !important; /* 固定导航栏高度 */
+        min-height: 60px !important; /* 确保最小高度 */
+    }
+    
+    nav.initial-hidden .logo,
+    nav.initial-hidden .nav-links a,
+    nav.initial-hidden .logo-image,
+    nav.initial-hidden .nav-arrow,
+    nav.transparent .logo,
+    nav.transparent .nav-links a,
+    nav.transparent .logo-image,
+    nav.transparent .nav-arrow {
+        opacity: 1 !important;
+        transition: none !important;
+    }
+    
+    /* 移动端导航栏透明状态下的样式 */
+    nav.transparent {
+        background-color: #181818 !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+        transition: none !important;
+    }
+    
+    nav.transparent .nav-links a,
+    nav.transparent .logo {
+        color: #dbdbdb !important; /* 修改：移动端透明状态下也改为 #dbdbdb */
+        text-shadow: none !important;
+        transition: none !important;
+    }
+    
+    nav.transparent .logo-image {
+        filter: none !important;
+        transition: none !important;
+    }
+    
+    /* 修改：清除移动端导航栏所有交互动画 */
+    .nav-container {
+        padding: 0 16px !important;
+        transition: none !important;
+        transform: none !important;
+        height: 100% !important;
+        display: flex !important;
+        align-items: center !important;
+    }
+    
+    .logo-image {
+        width: 28px !important;
+        height: 28px !important;
+        margin-right: 8px !important;
+        transition: none !important;
+        animation: none !important;
+    }
+    
+    /* 修改：个人设计作品站文字全部展示 */
+    .logo {
+        font-size: 16px !important;
+        font-weight: 400;
+        white-space: nowrap;
+        overflow: visible !important;
+        text-overflow: clip !important;
+        max-width: none !important;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        transition: none !important;
+        transform: none !important;
+        animation: none !important;
+        height: 28px !important; /* 固定logo高度 */
+        line-height: 28px !important; /* 确保垂直居中 */
+        color: #dbdbdb !important; /* 修改：移动端logo颜色改为 #dbdbdb */
+    }
+    
+    /* 移动端导航链接始终显示 */
+    .nav-links {
+        display: flex !important;
+        position: static !important;
+        width: auto !important;
+        height: 28px !important; /* 固定导航链接容器高度 */
+        background: transparent !important;
+        transform: none !important;
+        opacity: 1 !important;
+        gap: 16px;
+        flex-wrap: nowrap;
+        margin: 0;
+        flex-shrink: 0;
+        transition: none !important;
+        animation: none !important;
+        align-items: center !important; /* 确保垂直居中 */
+        overflow: hidden; /* 防止内容溢出影响高度 */
+    }
+    
+    .nav-links a {
+        font-size: 14px !important;
+        font-weight: 400;
+        color: #dbdbdb !important; /* 修改：移动端导航链接颜色改为 #dbdbdb */
+        padding: 8px 0 !important;
+        margin: 0;
+        opacity: 1 !important;
+        transform: none !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        white-space: nowrap;
+        transition: none !important;
+        animation: none !important;
+        height: 20px !important; /* 固定链接高度 */
+        line-height: 20px !important; /* 确保垂直居中 */
+        display: flex !important;
+        align-items: center !important;
+    }
+    
+    /* 修改：清除移动端导航链接所有悬停效果 */
+    .nav-links a:hover,
+    .nav-links a:active,
+    .nav-links a:focus {
+        color: #dbdbdb !important; /* 修改：移动端导航链接悬停颜色改为 #dbdbdb */
+        background: transparent !important;
+        transform: none !important;
+        text-shadow: none !important;
+        opacity: 1 !important;
+    }
+    
+    .nav-links a::after {
+        display: none;
+    }
+    
+    /* 隐藏汉堡菜单按钮 */
+    .mobile-menu-btn {
+        display: none !important;
+    }
+    
+    /* 修改：移动端在底部时显示箭头 */
+    .nav-arrow {
+        display: flex !important;
+        position: absolute !important;
+        right: -15px !important; /* 移动端调整位置 */
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+        transition: none !important;
+        animation: none !important;
+        z-index: 1 !important;
+    }
+    
+    .nav-arrow i {
+        font-size: 16px !important;
+        color: #dbdbdb !important; /* 修改：移动端箭头颜色改为 #dbdbdb */
+        animation: arrowPulse 1.5s ease-in-out infinite !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        height: 16px !important;
+        line-height: 1 !important;
+    }
+    
+    /* 当在底部时显示箭头（移动端） */
+    nav.at-bottom .nav-arrow {
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+    
+    /* 取消箭头动画 */
+    .nav-arrow i {
+        animation: arrowPulse 1.5s ease-in-out infinite !important;
+    }
+}
+
+/* 桌面端隐藏汉堡菜单按钮 */
+@media (min-width: 769px) {
+    .mobile-menu-btn {
+        display: none !important;
+    }
+}
+
+/* ==================== 首页横幅组件 - 16:9比例 ==================== */
+.hero {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    margin-bottom: 40px !important;
+    
+    /* 16:9比例 */
+    aspect-ratio: 16/9;
+    height: 0;
+    padding-bottom: 56.25%;
+    
+    background-image: linear-gradient(
+        rgba(0, 0, 0, 0.6),
+        rgba(0, 0, 0, 0.6)
+    ), url('https://images.pexels.com/photos/28839480/pexels-photo-28839480.jpeg');
+    
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    border-radius: 10px;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 1;
+}
+
+.hero-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    z-index: 2;
+    padding: 20px 50px;
+    color: white;
+}
+
+.hero h1 {
+    font-size: clamp(3.8rem, 5vw, 6.6rem);
+    margin-bottom: 18px;
+    font-weight: 400;
+    line-height: 1.2;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    color: #dbdbdb; /* 修改：颜色改为 #dbdbdb */
+}
+
+.hero p {
+    max-width: 580px;
+    margin: 0 auto 28px;
+    color: #dbdbdb; /* 修改：颜色改为 #dbdbdb */
+    font-size: clamp(1.9rem, 2vw, 2.3rem);
+    text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+    padding: 0;
+}
+
+/* ==================== 移动端首页横幅优化 ==================== */
+@media (max-width: 768px) {
+    /* 移动端取消背景固定 */
+    .hero {
+        background-attachment: scroll !important;
+        aspect-ratio: 2/3 !important;
+        padding-bottom: 150% !important;
+        border-radius: 0 !important;
+        margin-top: 0 !important; /* 修改：与导航栏距离为0px */
+        margin-bottom: 1rem !important;
+        background-image: linear-gradient(
+            rgba(0, 0, 0, 0.6), 
+            rgba(0, 0, 0, 0.6)
+        ), url('https://images.pexels.com/photos/35002554/pexels-photo-35002554.jpeg') !important;
+        transition: none !important;
+        animation: none !important;
+    }
+    
+    /* 修改：首页横幅里的文字距离图片顶部为120px，距离图片左边边框为30px */
+    .hero-content {
+        padding: 120px 0 0 30px !important; /* 修改：距离顶部120px，左边30px */
+        justify-content: flex-start !important;
+        align-items: flex-start !important;
+        text-align: left !important;
+        flex-direction: column !important;
+        height: 100%;
+        width: 100%;
+        transition: none !important;
+        animation: none !important;
+    }
+    
+    /* 修改：重新设计移动端横幅布局 */
+    .hero h1 {
+        font-size: 1.5rem !important;
+        margin-bottom: 0 !important;
+        line-height: 1.2 !important;
+        width: 100%;
+        padding-right: 0 !important;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        transform: none !important;
+        transition: none !important;
+        animation: none !important;
+        color: #dbdbdb !important; /* 修改：移动端颜色改为 #dbdbdb */
+    }
+    
+    /* 修改：让"压缩创意，解压价值"文字垂直排列在左边 */
+    .hero h1 b {
+        display: flex !important;
+        flex-direction: column !important;
+        writing-mode: vertical-lr;
+        text-orientation: mixed;
+        transform: none !important;
+        margin-left: 0 !important;
+        margin-right: auto !important;
+        height: 140px !important;
+        line-height: 1.8;
+        font-size: 1.6rem !important;
+        letter-spacing: 6px;
+        margin-bottom: 15px !important;
+        padding: 5px 0;
+        border-left: 2px solid rgba(255, 255, 255, 0.7);
+        padding-left: 10px;
+        justify-content: flex-start;
+        align-items: flex-start;
+        transition: none !important;
+        animation: none !important;
+        color: #dbdbdb !important; /* 修改：移动端颜色改为 #dbdbdb */
+    }
+    
+    /* 修改：将描述文字垂直排列在"压缩创意，解压价值"的右侧 */
+    .hero p {
+        font-size: 0.8rem !important;
+        line-height: 1.5 !important;
+        max-width: 100% !important;
+        text-align: left !important;
+        width: 100%;
+        margin: 0 !important;
+        writing-mode: vertical-lr;
+        text-orientation: mixed;
+        height: 140px !important;
+        margin-left: 50px !important;
+        padding: 5px 0;
+        border-left: 1px solid rgba(255, 255, 255, 0.4);
+        padding-left: 8px;
+        color: #dbdbdb !important; /* 修改：移动端颜色改为 #dbdbdb */
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        transition: none !important;
+        animation: none !important;
+    }
+    
+    /* 调整破折号样式 - 隐藏破折号，因为现在布局已经改变 */
+    .hero p:nth-of-type(1) {
+        display: none !important;
+    }
+    
+    /* 调整描述文字样式 */
+    .hero p:nth-of-type(2) {
+        display: block !important;
+        font-size: 0.75rem !important;
+        letter-spacing: 2px;
+        line-height: 1.6 !important;
+        color: #dbdbdb !important; /* 修改：移动端颜色改为 #dbdbdb */
+        writing-mode: vertical-lr;
+        text-orientation: mixed;
+        transition: none !important;
+        animation: none !important;
+    }
+    
+    /* 调整整体布局，让标题和描述在同一行显示 */
+    .hero-content {
+        flex-direction: row !important;
+        align-items: flex-start !important;
+        justify-content: flex-start !important;
+        padding-top: 120px !important; /* 修改：距离顶部120px */
+        padding-left: 30px !important; /* 修改：距离左边30px */
+    }
+    
+    .hero h1 {
+        flex: 0 0 auto !important;
+        width: auto !important;
+    }
+    
+    .hero p {
+        flex: 0 0 auto !important;
+        width: auto !important;
+    }
+}
+
+/* ==================== 板块标题组件 ==================== */
+.section-title {
+    text-align: center;
+    margin-bottom: 56px;
+    font-size: 3.8rem;
+    font-weight: 400;
+    position: relative;
+    padding-bottom: 18px;
+    color: #dbdbdb; /* 修改：颜色改为 #dbdbdb */
+}
+
+.section-title::after {
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 4px;
+    background-color: #dbdbdb;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: width 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                opacity 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.section-title.animated::after {
+    width: 70px;
+    opacity: 1;
+}
+
+/* ==================== 关于我们容器 ==================== */
+.about-container {
+    background: #1f1f1f !important;
+    backdrop-filter: blur(20px);
+    border-radius: 10px;
+    padding: 40px 50px;
+    margin: 0 auto 40px !important;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.about-container::before {
+    content: none;
+}
+
+/* ==================== 作品集组件 ==================== */
+.portfolio {
+    padding: 96px 0 40px !important;
+    margin-bottom: 40px !important;
+}
+
+.portfolio-filters-container {
+    margin-bottom: 40px;
+    width: 100%;
+}
+
+.portfolio-container {
+    background: #1f1f1f !important;
+    backdrop-filter: blur(20px);
+    border-radius: 10px;
+    padding: 50px 60px;
+    margin: 0 auto;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    position: relative;
+    overflow: hidden;
+}
+
+.portfolio-container::before {
+    content: none;
+}
+
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-bottom: 36px;
+    width: 100%;
+}
+
+.portfolio-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    aspect-ratio: 1/1;
+    cursor: pointer;
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    transition: opacity 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                border-radius 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    width: 100%;
+    height: auto;
+}
+
+.portfolio-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: none;
+    display: block;
+}
+
+.portfolio-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    color: #fff;
+    padding: 12px;
+    text-align: center;
+    box-sizing: border-box;
+    border-radius: 10px;
+}
+
+.portfolio-overlay h3 {
+    margin-bottom: 6px;
+    font-size: 2.1rem;
+    font-weight: 500;
+    line-height: 1.2;
+    color: #dbdbdb; /* 修改：颜色改为 #dbdbdb */
+}
+
+.portfolio-overlay p {
+    color: #dbdbdb; /* 修改：颜色改为 #dbdbdb */
+    font-size: 1.56rem;
+    margin-bottom: 8px;
+    line-height: 1.3;
+}
+
+/* ==================== 无链接作品项样式 ==================== */
+.portfolio-item.no-link {
+    cursor: default !important;
+}
+
+.portfolio-item.no-link img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 10px;
+    cursor: default;
+}
+
+.portfolio-item.no-link .portfolio-overlay {
+    display: none !important;
+}
+
+/* 桌面端悬停效果 - 无链接作品无悬停效果 */
+@media (min-width: 769px) {
+    .portfolio-item.no-link:hover img {
+        transform: none !important;
+        filter: none !important;
+    }
+    
+    .portfolio-item.no-link:hover {
+        transform: none !important;
+    }
+    
+    /* 有链接的作品保持原有悬停效果 */
+    .portfolio-item:not(.no-link):hover img {
+        transform: none;
+    }
+    
+    .portfolio-item:not(.no-link):hover .portfolio-overlay {
+        opacity: 0.9;
+    }
+}
+
+/* 移动端无链接作品项 */
+@media (max-width: 768px) {
+    .portfolio-item.no-link {
+        cursor: default !important;
+    }
+    
+    .portfolio-item.no-link:active img,
+    .portfolio-item.no-link:hover img,
+    .portfolio-item.no-link:focus img {
+        transform: none !important;
+        opacity: 1 !important;
+    }
+    
+    /* 移动端无链接作品无遮蔽框 */
+    .portfolio-item.no-link .portfolio-overlay {
+        display: none !important;
+    }
+}
+
+/* ==================== 移动端作品集优化 ==================== */
+@media (max-width: 768px) {
+    .portfolio {
+        padding: 2rem 0 !important;
+        margin-bottom: 1rem !important;
+        transition: none !important;
+        animation: none !important;
+    }
+    
+    .portfolio-filters-container {
+        margin-bottom: 1.5rem !important;
+        transition: none !important;
+        animation: none !important;
+    }
+    
+    .portfolio-container {
+        padding: 2rem 1.5rem !important;
+        border-radius: 8px !important;
+        margin: 0 !important;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3) !important;
+        backdrop-filter: blur(15px) !important;
+        transition: none !important;
+        animation: none !important;
+    }
+    
+    .portfolio-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem !important;
+        margin-bottom: 2rem !important;
+        transition: none !important;
+        animation: none !important;
+    }
+    
+    .portfolio-item {
+        aspect-ratio: 1/1 !important;
+        border-radius: 8px !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+        transition: none !important;
+        animation: none !important;
+        transform: none !important;
+    }
+    
+    /* 修改：移动端取消遮蔽框里的文字（h3和p） */
+    .portfolio-overlay h3,
+    .portfolio-overlay p {
+        display: none !important;
+    }
+    
+    /* 修改：遮蔽框只显示三分之一在下方，改为全透明，只保留点击按钮 */
+    .portfolio-overlay {
+        padding: 0 !important;
+        background-color: transparent !important;
+        border-radius: 8px !important;
+        top: 0 !important;
+        bottom: 0 !important;
+        height: 100% !important;
+        transition: none !important;
+        animation: none !important;
+        opacity: 1 !important;
+        justify-content: flex-start !important;
+        align-items: flex-start !important;
+        text-align: left !important;
+        transform: none !important;
+    }
+    
+    /* 修改：将有链接作品的"点击"按钮尺寸改为高30px，宽60px */
+    .portfolio-overlay .btn {
+        font-size: 0.7rem !important;
+        padding: 6px 10px !important;
+        position: absolute !important;
+        top: 12px !important;
+        right: 12px !important;
+        margin: 0 !important;
+        background: #1f1f1f !important; /* 背景颜色改为 #1f1f1f */
+        border: none !important;
+        border-radius: 8px !important; /* 圆角统一为8px */
+        color: #dbdbdb !important; /* 文字颜色改为 #dbdbdb */
+        z-index: 10 !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important; /* 添加阴影 */
+        font-weight: 500;
+        transition: none !important;
+        animation: none !important;
+        transform: none !important;
+        letter-spacing: 0.5px;
+        width: 60px !important; /* 宽度改为60px */
+        height: 30px !important; /* 高度改为30px */
+        text-align: center;
+        text-shadow: none; /* 去掉文字阴影 */
+        line-height: 18px !important; /* 调整文字垂直居中 */
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+    
+    /* 确保"点击"按钮在图片上可见，而不是在遮蔽框内 */
+    .portfolio-overlay .btn::before {
+        content: none !important;
+    }
+    
+    /* 无链接作品项不显示按钮 */
+    .portfolio-item.no-link .portfolio-overlay .btn {
+        display: none !important;
+    }
+    
+    .portfolio-item:hover .portfolio-overlay,
+    .portfolio-item:active .portfolio-overlay,
+    .portfolio-item:focus .portfolio-overlay {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+}
+
+/* ==================== 作品分类筛选 ==================== */
+.portfolio-filters {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 48px;
+    margin-bottom: 36px;
+}
+
+/* 移动端分类筛选优化 */
+@media (max-width: 768px) {
+    .portfolio-filters {
+        gap: 12px !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        justify-content: flex-start !important;
+        padding: 0 0 15px !important;
+        margin-bottom: 1.5rem !important;
+        -webkit-overflow-scrolling: touch !important;
+        scrollbar-width: none !important;
+        transition: none !important;
+        animation: none !important;
+    }
+    
+    .portfolio-filters::-webkit-scrollbar {
+        display: none !important;
+        width: 0 !important;
+        height: 0 !important;
+    }
+    
+    .filter-btn {
+        flex-shrink: 0 !important;
+        padding: 12px 20px !important;
+        font-size: 0.95rem !important;
+        border-radius: 8px !important;
+        min-height: 44px !important;
+        border: none !important;
+        background: #1f1f1f !important; /* 修改：移动端未选中状态颜色改为 #1f1f1f */
+        color: #dbdbdb !important; /* 修改：文字颜色改为 #dbdbdb */
+        font-weight: 400;
+        transition: background-color 0.3s ease !important; /* 保留背景颜色过渡动画 */
+        animation: none !important;
+        backdrop-filter: blur(5px);
+        transform: none !important;
+        opacity: 1 !important;
+    }
+    
+    /* 分类按钮淡入淡出动画 - 已删除 */
+    .filter-btn:not(.active) {
+        animation: none !important; /* 删除动画 */
+    }
+    
+    .filter-btn.active {
+        background: rgba(255, 255, 255, 0.25) !important;
+        color: #dbdbdb !important; /* 修改：文字颜色改为 #dbdbdb */
+        backdrop-filter: blur(10px);
+        border-radius: 8px !important;
+        transform: none !important;
+        animation: none !important; /* 删除动画 */
+    }
+    
+    /* 手机端点击颜色改为 #1f1f1f */
+    .filter-btn:active:not(.active),
+    .filter-btn:hover:not(.active),
+    .filter-btn:focus:not(.active) {
+        background-color: #1f1f1f !important; /* 修改：悬停状态也保持 #1f1f1f */
+        transform: none !important;
+    }
+    
+    .filter-btn.active:active,
+    .filter-btn.active:hover,
+    .filter-btn.active:focus {
+        background-color: rgba(255, 255, 255, 0.25) !important;
+        transform: none !important;
+    }
+    
+    .filter-btn:hover:not(.active) {
+        background: #1f1f1f !important; /* 修改：悬停状态也保持 #1f1f1f */
+        transform: none !important;
+        box-shadow: none !important;
+        letter-spacing: normal !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .portfolio-filters {
+        gap: 10px !important;
+    }
+    
+    .filter-btn {
+        padding: 10px 16px !important;
+        font-size: 0.85rem !important;
+        min-height: 40px !important;
+        border-radius: 8px !important;
+    }
+}
+
+.portfolio-category {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.category-more-link {
+    display: flex;
+    justify-content: center;
+    margin-top: 48px;
+    margin-bottom: 28px;
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+@media (max-width: 768px) {
+    .portfolio-category,
+    .category-more-link {
+        transition: none !important;
+        animation: none !important;
+        transform: none !important;
+        opacity: 1 !important;
+    }
+    
+    .category-more-link {
+        margin-top: 2rem !important;
+        margin-bottom: 1rem !important;
+    }
+    
+    .category-more-link a {
+        font-size: 0.95rem !important;
+        padding: 12px 24px !important;
+        min-height: 44px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        background: rgba(255, 255, 255, 0.1) !important;
+        border-radius: 8px !important;
+        color: #dbdbdb !important; /* 修改：文字颜色改为 #dbdbdb */
+        font-weight: 500;
+        transition: none !important;
+        animation: none !important;
+        backdrop-filter: blur(5px);
+        transform: none !important;
+    }
+    
+    /* 手机端点击颜色改为 #1f1f1f */
+    .category-more-link a:active,
+    .category-more-link a:hover,
+    .category-more-link a:focus {
+        background-color: rgba(255, 255, 255, 0.1) !important;
+        transform: none !important;
+        color: #dbdbdb !important; /* 修改：文字颜色改为 #dbdbdb */
+        letter-spacing: normal !important;
+    }
+}
+
+/* ==================== 联系我们组件 ==================== */
+.contact {
+    padding: 40px 0 40px !important;
+    margin-top: 0 !important;
+    margin-bottom: 40px !important;
+}
+
+.contact-content {
+    display: flex;
+    justify-content: center;
+}
+
+.contact-info {
+    text-align: center;
+    max-width: 580px;
+    width: 100%;
+}
+
+.contact-info-container {
+    background: #1f1f1f !important;
+    backdrop-filter: blur(20px);
+    border-radius: 10px;
+    padding: 32px 40px;
+    margin: 0 auto;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.contact-info-container::before {
+    content: none;
+}
+
+/* 修改：期待您的联系里面的所有文字颜色改为 #dbdbdb */
+.contact-info p {
+    margin-bottom: 14px;
+    font-size: 2.2rem;
+    line-height: 1.6;
+    color: #dbdbdb !important; /* 修改：文字颜色改为 #dbdbdb */
+}
+
+.contact-info img {
+    border-radius: 10px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 20px auto;
+    transition: none !important;
+    transform: none !important;
+    background: rgba(31, 31, 31, 0.5);
+    padding: 8px;
+}
+
+/* 移动端联系信息容器优化 */
+@media (max-width: 768px) {
+    .contact {
+        padding: 1rem 0 !important;
+        margin-bottom: 1rem !important;
+        transition: none !important;
+        animation: none !important;
+    }
+    
+    .contact-info-container {
+        padding: 2rem 1.5rem !important;
+        border-radius: 8px !important;
+        margin: 0 !important;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3) !important;
+        backdrop-filter: blur(15px) !important;
+        transition: none !important;
+        animation: none !important;
+    }
+    
+    .contact-info p {
+        font-size: 1rem !important;
+        line-height: 1.6 !important;
+        margin-bottom: 1rem !important;
+        color: #dbdbdb !important; /* 修改：移动端文字颜色也改为 #dbdbdb */
+        transition: none !important;
+        animation: none !important;
+    }
+    
+    .contact-info img {
+        max-width: 200px !important;
+        margin: 1.5rem auto !important;
+        border-radius: 8px !important;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3) !important;
+        transition: none !important;
+        animation: none !important;
+        transform: none !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .contact-info-container {
+        padding: 1.5rem 1.25rem !important;
+    }
+    
+    .contact-info img {
+        max-width: 180px !important;
+        margin: 1.25rem auto !important;
+    }
+}
+
+/* ==================== 页脚组件 ==================== */
+/* 修改：桌面端页脚高度为300px */
+footer {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    height: 300px; /* 修改：桌面端高度改为300px */
+    min-height: 300px; /* 修改：最小高度改为300px */
+    max-height: 300px; /* 修改：最大高度改为300px */
+    margin-top: 0 !important;
+    margin-bottom: 40px !important;
+    
+    background-color: #1f1f1f !important;
+    backdrop-filter: blur(20px);
+    background-image: none !important;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+}
+
+.footer-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(31, 31, 31, 0.8) !important;
+    z-index: 1;
+}
+
+.footer-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 50px 28px;
+    height: 100%;
+}
+
+.footer-logo-placeholder {
+    height: 40px;
+    margin-bottom: 28px;
+    width: 100%;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin: 24px 0;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.social-links a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    border-radius: 10px;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    color: #dbdbdb !important; /* 修改：图标颜色改为 #dbdbdb */
+    backdrop-filter: blur(5px);
+}
+
+.social-links a:hover {
+    background-color: rgba(255, 255, 255, 0.25) !important;
+    transform: translateY(-4px);
+    border-color: rgba(255, 255, 255, 0.8) !important;
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+}
+
+/* 手机端点击颜色改为 #1f1f1f */
+@media (max-width: 768px) {
+    .social-links a {
+        transition: none !important;
+        animation: none !important;
+        color: #dbdbdb !important; /* 修改：移动端图标颜色改为 #dbdbdb */
+    }
+    
+    .social-links a:active,
+    .social-links a:hover,
+    .social-links a:focus {
+        background-color: rgba(255, 255, 255, 0.1) !important;
+        transform: none !important;
+        border-color: rgba(255, 255, 255, 0.3) !important;
+        box-shadow: none !important;
+    }
+}
+
+.footer-copyright {
+    font-size: 4px;
+    color: #dbdbdb !important; /* 修改：文字颜色改为 #dbdbdb */
+    font-weight: 300;
+    margin-top: 6px;
+    padding-top: 10px;
+    padding-bottom: 90px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2) !important;
+    width: 100%;
+    max-width: 800px;
+    text-align: center;
+    letter-spacing: 0.5px;
+    line-height: 1.4;
+}
+
+/* ==================== 移动端页脚优化 ==================== */
+@media (max-width: 768px) {
+    /* 修改：移动端页脚高度为200px */
+    footer {
+        background-attachment: scroll !important;
+        background-color: #1f1f1f !important;
+        background-image: none !important;
+        height: 200px !important; /* 修改：移动端高度改为200px */
+        min-height: 200px !important; /* 修改：最小高度改为200px */
+        max-height: 200px !important; /* 修改：最大高度改为200px */
+        border-radius: 0 !important;
+        margin-top: 0 !important;
+        margin-bottom: 1rem !important;
+        backdrop-filter: blur(15px) !important;
+        transition: none !important;
+        animation: none !important;
+    }
+    
+    .footer-overlay {
+        background-color: rgba(31, 31, 31, 0.8) !important;
+    }
+    
+    .footer-content {
+        padding: 2rem 24px 1.5rem !important;
+        transition: none !important;
+        animation: none !important;
+    }
+    
+    .footer-logo-placeholder {
+        height: 24px !important;
+        margin-bottom: 1.5rem !important;
+    }
+    
+    .social-links {
+        margin: 1.5rem 0 !important;
+        gap: 20px !important; /* 修改：图标间距缩小一半（原40px改为20px） */
+        transition: none !important;
+        animation: none !important;
+    }
+    
+    .social-links a {
+        width: 36px !important;
+        height: 36px !important;
+        font-size: 0.9rem !important;
+        border: 1px solid rgba(255, 255, 255, 0.3) !important;
+        background-color: rgba(255, 255, 255, 0.1) !important;
+        color: #dbdbdb !important; /* 修改：移动端图标颜色改为 #dbdbdb */
+        transition: none !important;
+        animation: none !important;
+        transform: none !important;
+    }
+    
+    .social-links a:hover {
+        transform: none !important;
+        box-shadow: none !important;
+        background-color: rgba(255, 255, 255, 0.1) !important;
+        border-color: rgba(255, 255, 255, 0.3) !important;
+    }
+    
+    .footer-copyright {
+        margin-top: 0.75rem !important; /* 修改：页脚图标和下方横线之间的距离缩短一半 */
+        padding-top: 0.75rem !important; /* 修改：内部上边距也适当减小 */
+        font-size: 0.5rem !important;
+        line-height: 1.4 !important;
+        max-width: 90% !important;
+        color: #dbdbdb !important; /* 修改：移动端文字颜色改为 #dbdbdb */
+        border-top: 1px solid rgba(255, 255, 255, 0.2) !important;
+        transition: none !important;
+        animation: none !important;
+    }
+}
+
+@media (max-width: 480px) {
+    footer {
+        height: 200px !important; /* 修改：超小屏幕保持200px高度 */
+        min-height: 200px !important;
+        max-height: 200px !important;
+    }
+    
+    .footer-content {
+        padding: 1.5rem 20px 1rem !important;
+    }
+    
+    .social-links {
+        margin: 1.25rem 0 !important;
+        gap: 20px !important; /* 修改：图标间距缩小一半（原40px改为20px） */
+    }
+    
+    .social-links a {
+        width: 32px !important;
+        height: 32px !important;
+        font-size: 0.8rem !important;
+    }
+    
+    .footer-copyright {
+        margin-top: 0.625rem !important; /* 修改：页脚图标和下方横线之间的距离缩短一半 */
+        padding-top: 0.625rem !important; /* 修改：内部上边距也适当减小 */
+        font-size: 0.45rem !important;
+    }
+}
+
+/* ==================== 回到顶部按钮 ==================== */
+.back-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background-color: #1f1f1f;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #dbdbdb;
+    font-size: 1.2rem;
+    z-index: 999;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.back-to-top.show {
+    opacity: 0.8;
+    visibility: visible;
+}
+
+.back-to-top:hover {
+    opacity: 1;
+    background-color: #2a2a2a;
+}
+
+/* 移动端回到顶部按钮 */
+@media (max-width: 768px) {
+    .back-to-top {
+        width: 45px;
+        height: 45px;
+        bottom: 15px;
+        right: 15px;
+        font-size: 1rem;
+        border-radius: 8px;
+        transition: none !important;
+    }
+    
+    .back-to-top.show {
+        opacity: 0.9;
+    }
+    
+    .back-to-top:active {
+        background-color: #2a2a2a;
+        transform: scale(0.95);
+    }
+}
