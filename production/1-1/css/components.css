@@ -500,16 +500,16 @@ nav.initial-transparent .logo-image {
         margin-bottom: 20px !important; /* 查看按钮与下方图片距离缩短一半 */
     }
     
-    /* 修改：标题字体大小放大0.5倍（从0.875rem * 1.5 = 1.3125rem） */
+    /* 修改：标题字体大小放大一倍（从0.875rem * 1.5 = 1.3125rem 改为 2.625rem） */
     .section-title {
-        font-size: 1.3125rem !important; /* 原来0.875rem * 1.5 = 1.3125rem */
+        font-size: 2.625rem !important; /* 原来0.875rem * 1.5 * 2 = 2.625rem */
         margin-bottom: 1.25rem !important; /* 保持原来的一半 */
         padding-bottom: 0.375rem !important; /* 保持原来的一半 */
     }
     
-    /* 修改：说明文字字体大小保持原样（0.7rem） */
+    /* 修改：说明文字字体大小放大一倍（从0.7rem 改为 1.4rem） */
     .info-text {
-        font-size: 0.7rem !important; /* 保持原来的一半 */
+        font-size: 1.4rem !important; /* 原来0.7rem * 2 = 1.4rem */
         margin-bottom: 15px !important; /* 保持原来的一半 */
         padding-bottom: 5px !important; /* 保持原来的一半 */
     }
@@ -523,23 +523,23 @@ nav.initial-transparent .logo-image {
         transition: none !important;
     }
     
-    /* 修改：查看按钮字体大小和长宽保持原样 */
+    /* 修改：查看按钮字体大小和长宽放大一倍 */
     .detail-btn {
-        font-size: 0.6rem !important; /* 保持原来的一半 */
-        padding: 5px 10px !important; /* 保持原来的一半 */
+        font-size: 1.2rem !important; /* 原来0.6rem * 2 = 1.2rem */
+        padding: 10px 20px !important; /* 原来5px 10px * 2 = 10px 20px */
         background-color: #181818 !important; /* 移动端也使用 #181818 */
-        border-radius: 5px !important; /* 保持原来的一半 */
+        border-radius: 10px !important; /* 原来5px * 2 = 10px */
         border: 1px solid #dbdbdb !important; /* 添加小圆角矩形线框 */
         margin-bottom: 0px !important; /* 修改：查看按钮下边为0px */
     }
     
     .detail-btn::after {
-        height: 0.5px !important; /* 保持原来的一半 */
+        height: 1px !important; /* 原来0.5px * 2 = 1px */
     }
     
     .detail-text {
-        font-size: 0.6rem !important; /* 保持原来的一半 */
-        padding: 7.5px !important; /* 保持原来的一半 */
+        font-size: 1.2rem !important; /* 原来0.6rem * 2 = 1.2rem */
+        padding: 15px !important; /* 原来7.5px * 2 = 15px */
         /* 移动端也保持动画 */
         opacity: 0;
         max-height: 0;
@@ -551,8 +551,8 @@ nav.initial-transparent .logo-image {
     
     .detail-text.show {
         opacity: 1 !important;
-        max-height: 400px !important; /* 保持缩小一倍 */
-        padding: 7.5px !important; /* 保持原来的一半 */
+        max-height: 800px !important; /* 保持放大一倍 */
+        padding: 15px !important; /* 原来7.5px * 2 = 15px */
     }
 }
 
@@ -790,7 +790,7 @@ nav.initial-transparent .logo-image {
         position: relative;
     }
     
-    /* 只在有链接的作品项上显示点击按钮 */
+    /* 只在有链接的作品项上显示点击按钮 - 不透明度改为30% */
     .portfolio-item:not(.no-link)::after {
         content: '点击';
         position: absolute;
@@ -799,7 +799,7 @@ nav.initial-transparent .logo-image {
         /* 修改：宽度60px，高度30px */
         width: 60px;
         height: 30px;
-        background-color: #1f1f1f !important; /* 背景颜色改为 #1f1f1f */
+        background-color: rgba(31, 31, 31, 0.3) !important; /* 修改：不透明度改为30% */
         color: #dbdbdb !important; /* 文字颜色改为 #dbdbdb */
         font-size: 12px !important;
         font-weight: 500;
