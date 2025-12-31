@@ -1,35 +1,35 @@
 /* 
- * cursor.css - 自定义鼠标光标系统（白色版）
- * 目的：白色圆形光标，带背景反向效果，可交互元素放大效果
- * 注意：移动设备将保持默认光标
+ * cursor.css - 优化版自定义光标系统
+ * 使用现代CSS特性和性能优化
  */
 
-/* ==================== 基础光标样式 ==================== */
-/* 目的：替换默认箭头光标，仅在桌面端生效 */
-
-@media (min-width: 769px) {
+@media (min-width: 769px) and (pointer: fine) {
+    /* 基础光标隐藏 */
     body {
-        cursor: none !important; /* 隐藏默认光标 */
+        cursor: none !important;
     }
     
-    /* 自定义主光标 - 白色圆形色块 */
+    /* 主光标 */
     .custom-cursor {
         position: fixed;
         top: 0;
         left: 0;
-        width: 40px; /* 放大两倍 */
-        height: 40px; /* 放大两倍 */
-        border-radius: 10px; /* 修改：圆角统一为10px */
-        background-color: #ffffff; /* 白色 */
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: var(--color-text);
         pointer-events: none;
-        z-index: 9999;
+        z-index: var(--z-index-tooltip);
         transform: translate(-50%, -50%);
-        transition: transform 0.15s ease-out, 
-                    width 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
-                    height 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        mix-blend-mode: difference; /* 背景反向效果 - 在黑色背景下效果更好 */
-        box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.3); /* 加强边框可见性 */
-        filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.6)); /* 加强阴影 */
+        transition: 
+            width 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+            height 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+            background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+            transform 0.1s linear;
+        mix-blend-mode: difference;
+        filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.6));
+        will-change: transform;
+        backface-visibility: hidden;
     }
     
     /* 光标点击效果 */
@@ -39,82 +39,56 @@
         left: 0;
         width: 60px;
         height: 60px;
-        border-radius: 10px; /* 修改：圆角统一为10px */
-        background-color: rgba(255, 255, 255, 0.4); /* 白色半透明 - 加强可见性 */
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.4);
         pointer-events: none;
-        z-index: 9997;
+        z-index: calc(var(--z-index-tooltip) - 1);
         transform: translate(-50%, -50%) scale(0);
         opacity: 0;
-        transition: transform 0.2s ease, opacity 0.2s ease;
-        mix-blend-mode: difference; /* 背景反向效果 */
+        transition: 
+            transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+            opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        mix-blend-mode: difference;
+        will-change: transform;
     }
     
     .cursor-click.active {
         transform: translate(-50%, -50%) scale(1);
         opacity: 1;
     }
-}
-
-/* ==================== 链接悬停状态光标 ==================== */
-/* 目的：当鼠标悬停在链接上时放大光标 */
-
-@media (min-width: 769px) {
-    /* 链接悬停效果 */
-    a, .btn, .filter-btn, .portfolio-link, 
-    .category-more-link a, .portfolio-overlay .btn,
-    .social-links a, .mobile-menu-btn,
-    .portfolio-item, .nav-links a {
-        position: relative;
-        z-index: 1;
+    
+    /* 链接悬停状态 */
+    a:hover ~ .custom-cursor,
+    button:hover ~ .custom-cursor,
+    .btn:hover ~ .custom-cursor,
+    .portfolio-item:hover ~ .custom-cursor {
+        width: 80px;
+        height: 80px;
+        background: var(--color-accent);
+        animation: cursor-pulse 1.5s ease-in-out infinite;
     }
     
-    /* 悬停在可交互元素上时的光标效果 - 再放大两倍（总共4倍） */
-    body.link-hover .custom-cursor {
-        width: 80px; /* 再放大两倍 */
-        height: 80px; /* 再放大两倍 */
-        background-color: #ffffff; /* 保持白色 */
-        mix-blend-mode: difference; /* 保持背景反向 */
-        transform: translate(-50%, -50%) scale(1);
-        animation: cursorPulse 1.5s infinite;
-    }
-    
-    @keyframes cursorPulse {
+    @keyframes cursor-pulse {
         0%, 100% {
-            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.4);
+            box-shadow: 
+                0 0 0 0 rgba(255, 255, 255, 0.4),
+                0 0 0 0 rgba(255, 255, 255, 0.2);
         }
         50% {
-            box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.2);
+            box-shadow: 
+                0 0 0 8px rgba(255, 255, 255, 0.2),
+                0 0 0 16px rgba(255, 255, 255, 0.1);
         }
     }
     
-    /* 导航链接悬停效果 */
-    .nav-links a:hover ~ .custom-cursor {
-        background-color: #ffffff; /* 白色 */
-        mix-blend-mode: difference;
+    /* 按钮悬停特殊效果 */
+    .filter-btn:hover ~ .custom-cursor,
+    .btn-view:hover ~ .custom-cursor {
+        background: var(--color-accent);
+        animation: cursor-spin 2s linear infinite;
     }
     
-    /* 作品链接悬停效果 */
-    .portfolio-link:hover ~ .custom-cursor,
-    .portfolio-item:hover ~ .custom-cursor {
-        background-color: #ffffff; /* 白色 */
-        mix-blend-mode: difference;
-    }
-    
-    /* 按钮悬停效果 */
-    .btn:hover ~ .custom-cursor,
-    .filter-btn:hover ~ .custom-cursor {
-        background-color: #ffffff; /* 白色 */
-        mix-blend-mode: difference;
-    }
-    
-    /* 社交链接悬停效果 */
-    .social-links a:hover ~ .custom-cursor {
-        background-color: #ffffff; /* 白色 */
-        mix-blend-mode: difference;
-        animation: cursorSpin 2s infinite linear;
-    }
-    
-    @keyframes cursorSpin {
+    @keyframes cursor-spin {
         from {
             transform: translate(-50%, -50%) rotate(0deg);
         }
@@ -122,22 +96,29 @@
             transform: translate(-50%, -50%) rotate(360deg);
         }
     }
-}
-
-/* ==================== 滚动时隐藏光标 ==================== */
-/* 目的：用户滚动时隐藏自定义光标，提升性能 */
-
-@media (min-width: 769px) {
+    
+    /* 社交媒体链接悬停 */
+    .social-links a:hover ~ .custom-cursor {
+        background: var(--color-text);
+        animation: cursor-float 3s ease-in-out infinite;
+    }
+    
+    @keyframes cursor-float {
+        0%, 100% {
+            transform: translate(-50%, -50%);
+        }
+        50% {
+            transform: translate(-50%, calc(-50% - 8px));
+        }
+    }
+    
+    /* 滚动时隐藏光标 */
     body.scrolling .custom-cursor {
         opacity: 0.5;
         transform: translate(-50%, -50%) scale(0.8);
     }
-}
-
-/* ==================== 禁用状态 ==================== */
-/* 目的：某些情况下恢复默认光标 */
-
-@media (min-width: 769px) {
+    
+    /* 禁用状态 */
     body.cursor-disabled {
         cursor: auto !important;
     }
@@ -145,5 +126,25 @@
     body.cursor-disabled .custom-cursor,
     body.cursor-disabled .cursor-click {
         display: none;
+    }
+}
+
+/* 触摸设备禁用自定义光标 */
+@media (pointer: coarse), (max-width: 768px) {
+    body {
+        cursor: auto !important;
+    }
+    
+    .custom-cursor,
+    .cursor-click {
+        display: none !important;
+    }
+}
+
+/* 高对比度模式支持 */
+@media (prefers-contrast: high) {
+    .custom-cursor {
+        background: #ffffff !important;
+        border: 2px solid #000000 !important;
     }
 }
