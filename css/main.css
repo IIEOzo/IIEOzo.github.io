@@ -1,228 +1,277 @@
 /* 
- * main.css - 优化版主样式文件
- * 使用CSS变量、现代布局和优化技术
+ * main.css - 主样式文件（优化版）
+ * 优化：代码压缩、变量提取、性能优化
  */
 
-/* ==================== CSS变量系统 ==================== */
 :root {
-    /* 颜色系统 - 基于您的配色方案 */
-    --color-bg: #181818;
-    --color-card: #1f1f1f;
-    --color-text: #dbdbdb;
-    --color-text-secondary: #888888;
-    --color-accent: #dbdbdb;
+    /* 颜色系统 */
+    --color-bg-dark: #181818;
+    --color-bg-card: #1f1f1f;
+    --color-bg-card-light: #2a2a2a;
+    --color-text-primary: #dbdbdb;
+    --color-text-secondary: #aaaaaa;
     --color-border: rgba(255, 255, 255, 0.1);
-    --color-overlay: rgba(0, 0, 0, 0.95);
+    --color-border-light: rgba(255, 255, 255, 0.2);
     
     /* 字体系统 */
-    --font-primary: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    --font-secondary: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', '微软雅黑', sans-serif;
+    --font-family-en: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", Roboto, Arial, sans-serif;
+    --font-family-zh: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", sans-serif;
     
     /* 间距系统 */
-    --spacing-xs: 0.5rem;
-    --spacing-sm: 1rem;
-    --spacing-md: 2rem;
-    --spacing-lg: 3rem;
-    --spacing-xl: 4rem;
+    --spacing-xs: 8px;
+    --spacing-sm: 16px;
+    --spacing-md: 24px;
+    --spacing-lg: 32px;
+    --spacing-xl: 48px;
     
-    /* 边框半径 */
-    --radius-sm: 4px;
-    --radius-md: 8px;
-    --radius-lg: 12px;
-    --radius-xl: 16px;
+    /* 响应式断点 */
+    --breakpoint-mobile: 768px;
+    --breakpoint-tablet: 1024px;
+    --breakpoint-desktop: 1200px;
     
-    /* 过渡动画 */
-    --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-normal: 300ms cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+    /* 动画时间 */
+    --transition-fast: 0.3s;
+    --transition-normal: 0.5s;
+    --transition-slow: 0.8s;
+    
+    /* 圆角 */
+    --border-radius-sm: 8px;
+    --border-radius-md: 10px;
+    --border-radius-lg: 12px;
     
     /* 阴影 */
-    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
-    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.2);
-    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.3);
-    --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.4);
-    
-    /* 层级 */
-    --z-index-dropdown: 1000;
-    --z-index-sticky: 1020;
-    --z-index-fixed: 1030;
-    --z-index-modal: 1040;
-    --z-index-popover: 1050;
-    --z-index-tooltip: 1060;
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.4);
 }
 
-/* ==================== 现代CSS重置 ==================== */
+/* ==================== 重置与基础 ==================== */
 *, *::before, *::after {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 html {
-    font-size: 100%;
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-rendering: optimizeLegibility;
+    -moz-text-size-adjust: 100%;
+    text-size-adjust: 100%;
 }
 
 body {
-    font-family: var(--font-secondary);
-    font-size: clamp(1rem, 2vw, 1.125rem);
+    font-family: var(--font-family-zh), var(--font-family-en);
+    background-color: var(--color-bg-dark);
+    color: var(--color-text-primary);
     line-height: 1.6;
-    color: var(--color-text);
-    background-color: var(--color-bg);
-    min-height: 100vh;
     overflow-x: hidden;
-    position: relative;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
-/* 减少运动偏好 */
-@media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
+/* 触摸设备优化 */
+@media (hover: none) and (pointer: coarse) {
+    * {
+        -webkit-tap-highlight-color: rgba(255, 255, 255, 0.1);
     }
 }
 
-/* ==================== 现代滚动条 ==================== */
-@media (hover: hover) and (pointer: fine) {
-    ::-webkit-scrollbar {
-        width: 10px;
-        height: 10px;
-    }
+/* ==================== 滚动条美化 ==================== */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
 
-    ::-webkit-scrollbar-track {
-        background: var(--color-card);
-        border-radius: var(--radius-md);
-    }
+::-webkit-scrollbar-track {
+    background: var(--color-bg-card);
+    border-radius: 5px;
+}
 
-    ::-webkit-scrollbar-thumb {
-        background: var(--color-bg);
-        border-radius: var(--radius-md);
-        border: 2px solid var(--color-card);
-        transition: background-color var(--transition-fast);
-    }
+::-webkit-scrollbar-thumb {
+    background: var(--color-bg-dark);
+    border-radius: 5px;
+    border: 2px solid var(--color-bg-card);
+}
 
-    ::-webkit-scrollbar-thumb:hover {
-        background: #2a2a2a;
-    }
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-bg-card-light);
 }
 
 /* Firefox */
 * {
     scrollbar-width: thin;
-    scrollbar-color: var(--color-bg) var(--color-card);
+    scrollbar-color: var(--color-bg-dark) var(--color-bg-card);
 }
 
-/* ==================== 排版系统 ==================== */
-h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-primary);
-    font-weight: 400;
-    line-height: 1.2;
-    color: var(--color-text);
-    margin-bottom: var(--spacing-sm);
+/* ==================== 字体系统 ==================== */
+h1, h2, h3, h4, h5, h6,
+button, input, textarea,
+.logo, .btn,
+.filter-btn, .modal-close,
+.footer-copyright, .hero h1,
+.section-title {
+    font-family: var(--font-family-en), var(--font-family-zh);
+    color: var(--color-text-primary);
 }
 
-h1 {
-    font-size: clamp(2.5rem, 5vw, 4rem);
+p, span, a, li,
+.about-text p, 
+.contact-info p,
+.hero p,
+.portfolio-overlay p,
+.category-more-link a,
+.portfolio-overlay .btn {
+    font-family: var(--font-family-zh), var(--font-family-en);
+    color: var(--color-text-primary);
 }
 
-h2 {
-    font-size: clamp(2rem, 4vw, 3rem);
+/* ==================== 桌面端全局文字大小 ==================== */
+body:not(footer) {
+    font-size: 200% !important;
 }
 
-h3 {
-    font-size: clamp(1.5rem, 3vw, 2rem);
+footer,
+footer *,
+footer .social-links a,
+footer .footer-copyright {
+    font-size: 100% !important;
 }
 
-p {
-    margin-bottom: var(--spacing-sm);
-    font-size: inherit;
-    line-height: 1.7;
-}
-
-/* ==================== 链接样式 ==================== */
-a {
-    color: var(--color-text);
-    text-decoration: none;
-    transition: color var(--transition-fast);
-    position: relative;
-}
-
-a:hover,
-a:focus-visible {
-    color: var(--color-accent);
-    outline: none;
-}
-
-/* ==================== 按钮系统 ==================== */
-.btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.75rem 1.5rem;
-    font-family: var(--font-primary);
-    font-size: 1rem;
-    font-weight: 500;
-    line-height: 1;
-    color: var(--color-text);
-    text-align: center;
-    text-decoration: none;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    border: none;
-    border-radius: var(--radius-md);
-    background: transparent;
-    cursor: pointer;
-    transition: all var(--transition-normal);
-    user-select: none;
-    touch-action: manipulation;
-    gap: 0.5rem;
-}
-
-.btn:focus-visible {
-    outline: 2px solid var(--color-accent);
-    outline-offset: 2px;
-}
-
-.btn:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-}
-
-/* ==================== 卡片组件 ==================== */
-.card {
-    background: var(--color-card);
-    backdrop-filter: blur(20px);
-    border-radius: var(--radius-lg);
-    border: 1px solid var(--color-border);
-    padding: var(--spacing-lg);
-    position: relative;
-    overflow: hidden;
-    box-shadow: var(--shadow-md);
-    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
-}
-
-.card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-lg);
-}
-
-/* ==================== 容器系统 ==================== */
+/* ==================== 基础组件 ==================== */
 .container {
     width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 var(--spacing-md);
+    max-width: none;
+    margin: 0;
+    padding: 0 50px;
 }
 
-/* ==================== 通用工具类 ==================== */
+@media (max-width: var(--breakpoint-mobile)) {
+    .container {
+        padding: 0 var(--spacing-sm) !important;
+    }
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 22px;
+    transition: all var(--transition-fast) cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    border-radius: var(--border-radius-md);
+    font-family: var(--font-family-en);
+    color: var(--color-text-primary);
+}
+
+.btn:hover {
+    background-color: transparent;
+    color: var(--color-text-primary);
+}
+
+a {
+    text-decoration: none;
+    color: var(--color-text-primary);
+    transition: color var(--transition-fast) cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* ==================== 响应式系统 ==================== */
+@media (max-width: var(--breakpoint-mobile)) {
+    /* 移动端全局重置 */
+    body:not(footer) {
+        font-size: 16px !important;
+        line-height: 1.5;
+        color: var(--color-text-primary) !important;
+    }
+    
+    /* 移动端滚动条 */
+    ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+    
+    /* 移动端容器 */
+    .nav-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding: 0 !important;
+    }
+    
+    /* 移动端标题 */
+    .section-title {
+        font-size: 1.75rem !important;
+        margin-bottom: 2.5rem !important;
+        padding-bottom: 0.75rem !important;
+        color: var(--color-text-primary) !important;
+    }
+    
+    .section-title::after {
+        width: 40px !important;
+        height: 2px !important;
+        background-color: var(--color-text-primary) !important;
+    }
+    
+    /* 关于我们移动端优化 */
+    .about {
+        padding: 2rem 0 !important;
+    }
+    
+    .about-container {
+        padding: 2rem 1.5rem !important;
+        border-radius: var(--border-radius-sm) !important;
+        margin: 0 0 2rem !important;
+        box-shadow: var(--shadow-md) !important;
+    }
+    
+    .about-content {
+        flex-direction: column !important;
+        gap: 2.5rem !important;
+    }
+    
+    .about-text p {
+        font-size: 1rem !important;
+        line-height: 1.6 !important;
+        margin-bottom: 1rem !important;
+        color: var(--color-text-primary) !important;
+    }
+    
+    .about-image-wrapper {
+        width: 100% !important;
+        min-height: 200px !important;
+    }
+    
+    .about-image-container {
+        min-height: 200px !important;
+        aspect-ratio: 1/1 !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 20px !important;
+    }
+    
+    .section-title {
+        font-size: 1.5rem !important;
+        margin-bottom: 2rem !important;
+    }
+    
+    .hero h1 {
+        font-size: 1.75rem !important;
+    }
+    
+    .about-container,
+    .portfolio-container,
+    .contact-info-container {
+        padding: 1.5rem 1.25rem !important;
+    }
+}
+
+/* ==================== 无障碍优化 ==================== */
 .visually-hidden {
     position: absolute !important;
     width: 1px !important;
@@ -235,147 +284,25 @@ a:focus-visible {
     border: 0 !important;
 }
 
-.text-center {
-    text-align: center;
-}
-
-.text-left {
-    text-align: left;
-}
-
-.text-right {
-    text-align: right;
-}
-
-.mt-auto {
-    margin-top: auto;
-}
-
-.mb-auto {
-    margin-bottom: auto;
-}
-
-/* ==================== 加载动画 ==================== */
-.loading-spinner {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: var(--color-bg);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: var(--z-index-modal);
-    opacity: 1;
-    visibility: visible;
-    transition: opacity var(--transition-normal), visibility var(--transition-normal);
-}
-
-.loading-spinner.hidden {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-}
-
-.spinner {
-    width: 50px;
-    height: 50px;
-    border: 3px solid var(--color-border);
-    border-top-color: var(--color-accent);
-    border-radius: 50%;
-    animation: spinner-rotate 1s linear infinite;
-}
-
-@keyframes spinner-rotate {
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-/* ==================== 移动端优化 ==================== */
-@media (max-width: 768px) {
-    :root {
-        --spacing-md: 1rem;
-        --spacing-lg: 1.5rem;
-        --spacing-xl: 2rem;
-    }
-    
-    .container {
-        padding: 0 var(--spacing-sm);
-    }
-    
-    .card {
-        padding: var(--spacing-md);
-        border-radius: var(--radius-md);
-    }
-    
-    /* 移动端触摸优化 */
-    button,
-    a,
-    input,
-    select,
-    textarea {
-        min-height: 44px;
-        min-width: 44px;
-    }
-    
-    /* 防止移动端缩放 */
-    input[type="color"],
-    input[type="date"],
-    input[type="datetime"],
-    input[type="datetime-local"],
-    input[type="email"],
-    input[type="month"],
-    input[type="number"],
-    input[type="password"],
-    input[type="search"],
-    input[type="tel"],
-    input[type="text"],
-    input[type="time"],
-    input[type="url"],
-    input[type="week"],
-    select:focus,
-    textarea {
-        font-size: 16px;
-    }
-}
-
-/* ==================== 暗色模式支持 ==================== */
-@media (prefers-color-scheme: dark) {
-    :root {
-        --color-bg: #181818;
-        --color-card: #1f1f1f;
-        --color-text: #dbdbdb;
-    }
-}
-
-/* ==================== 高对比度模式支持 ==================== */
-@media (prefers-contrast: high) {
-    :root {
-        --color-text: #ffffff;
-        --color-border: rgba(255, 255, 255, 0.3);
-    }
-}
-
 /* ==================== 打印样式 ==================== */
 @media print {
-    .no-print {
+    body {
+        background: white !important;
+        color: black !important;
+    }
+    
+    .hero, .back-to-top, .nav-arrow {
         display: none !important;
     }
     
-    body {
-        background: white;
-        color: black;
-    }
-    
     a {
-        color: black;
-        text-decoration: underline;
+        color: black !important;
+        text-decoration: underline !important;
     }
     
-    .card {
-        border: 1px solid #ccc;
-        box-shadow: none;
+    a[href^="http"]::after {
+        content: " (" attr(href) ")";
+        font-size: 0.9em;
+        font-weight: normal;
     }
 }
