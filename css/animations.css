@@ -1,3 +1,4 @@
+
 /* 
  * animations.css - 动画和交互样式文件（优化版）
  * 优化内容：合并重复样式、精简媒体查询、使用CSS变量、优化选择器性能
@@ -282,23 +283,49 @@
     display: none !important;
   }
   
-  /* 移动端作品项简化 */
+  /* 移动端作品项简化 - 重点修改部分：移动端点击按钮 */
   .portfolio-overlay h3,
   .portfolio-overlay p {
     display: none !important;
   }
   
+  /* 完全移除原有的移动端按钮样式，改为使用伪元素实现 */
   .portfolio-overlay .btn {
-    font-size: 0.7rem !important;
-    padding: 6px 10px !important;
-    width: 60px !important;
-    height: 30px !important;
-    line-height: 18px !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
+    display: none !important; /* 隐藏桌面端按钮 */
   }
   
+  /* 为有链接的作品项添加点击按钮（通过伪元素） */
+  .portfolio-item:not(.no-link)::after {
+    content: '点击';
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 60px;
+    height: 30px;
+    background-color: #1f1f1f !important;
+    color: #dbdbdb !important;
+    font-size: 12px !important;
+    font-weight: 500;
+    border-radius: 10px !important;
+    z-index: 5;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5) !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: none !important;
+    animation: none !important;
+    transform: none !important;
+    pointer-events: none;
+    opacity: 0.3 !important; /* 设置透明度为0.3 */
+  }
+  
+  /* 无链接作品不显示按钮 */
+  .portfolio-item.no-link::after {
+    content: none !important;
+    display: none !important;
+  }
+  
+  /* 隐藏原有按钮元素 */
   .portfolio-overlay .btn::after {
     display: none !important;
   }

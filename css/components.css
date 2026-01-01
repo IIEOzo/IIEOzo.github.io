@@ -1,3 +1,4 @@
+
 /* 
  * components.css - 组件样式文件（优化版）
  * 优化内容：精简重复代码、优化选择器性能、使用CSS变量、模块化组织
@@ -659,46 +660,55 @@ nav.initial-hidden .nav-arrow {
     box-shadow: var(--shadow-sm) !important;
   }
   
+  /* 移动端隐藏所有覆盖层内容 */
   .portfolio-overlay h3,
   .portfolio-overlay p {
     display: none !important;
   }
   
-  .portfolio-overlay {
-    padding: 0 !important;
-    background-color: transparent !important;
-    border-radius: var(--radius-md) !important;
-    opacity: 1 !important;
-    justify-content: flex-start !important;
-    align-items: flex-start !important;
-    text-align: left !important;
-  }
-  
-  .portfolio-overlay .btn {
-    font-size: 0.7rem !important;
-    padding: 6px 10px !important;
+  /* 移动端使用伪元素::after显示"点击"按钮 */
+  .portfolio-item:not(.no-link)::after {
+    content: '点击' !important;
     position: absolute !important;
     top: 12px !important;
     right: 12px !important;
-    margin: 0 !important;
-    background: var(--bg-card) !important;
-    border: none !important;
-    border-radius: var(--radius-md) !important;
-    color: var(--text-primary) !important;
-    z-index: 10 !important;
-    box-shadow: var(--shadow-sm) !important;
-    font-weight: 500;
     width: 60px !important;
     height: 30px !important;
-    text-align: center;
-    line-height: 18px !important;
+    background-color: #1f1f1f !important;
+    color: #dbdbdb !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    border-radius: 10px !important;
+    z-index: 5 !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5) !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
+    transition: none !important;
+    animation: none !important;
+    transform: none !important;
+    pointer-events: none !important;
+    opacity: 0.3 !important;
   }
   
-  .portfolio-item.no-link .portfolio-overlay .btn {
+  /* 无链接作品不显示按钮 */
+  .portfolio-item.no-link::after {
+    content: none !important;
     display: none !important;
+  }
+  
+  /* 移动端隐藏桌面端按钮 */
+  .portfolio-overlay .btn {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+  }
+  
+  /* 确保覆盖层在移动端不可见 */
+  .portfolio-overlay {
+    background-color: transparent !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
   }
 }
 
@@ -1015,19 +1025,20 @@ footer {
 }
 
 /* ==================== 回到顶部按钮 ==================== */
+/* 按第一个网站标准修改：桌面端75px×75px，字体30px，位置bottom:40px right:40px */
 .back-to-top {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 50px;
-  height: 50px;
+  bottom: 40px; /* 修改：从20px改为40px */
+  right: 40px; /* 修改：从20px改为40px */
+  width: 75px; /* 修改：从50px改为75px */
+  height: 75px; /* 修改：从50px改为75px */
   background-color: var(--bg-card);
   border-radius: var(--radius-lg);
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--text-primary);
-  font-size: 1.2rem;
+  font-size: 30px; /* 修改：从1.2rem改为30px */
   z-index: 999;
   box-shadow: var(--shadow-md);
   cursor: pointer;
@@ -1048,13 +1059,14 @@ footer {
 }
 
 /* 移动端回到顶部按钮 */
+/* 按第一个网站标准修改：移动端44px×44px，字体18px，位置bottom:20px right:20px */
 @media (max-width: 768px) {
   .back-to-top {
-    width: 45px;
-    height: 45px;
-    bottom: 15px;
-    right: 15px;
-    font-size: 1rem;
+    width: 44px !important; /* 修改：从45px改为44px */
+    height: 44px !important; /* 修改：从45px改为44px */
+    bottom: 20px !important; /* 修改：从15px改为20px */
+    right: 20px !important; /* 修改：从15px改为20px */
+    font-size: 18px !important; /* 修改：从1rem改为18px */
     border-radius: var(--radius-md);
   }
   
