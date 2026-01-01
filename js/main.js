@@ -1,343 +1,603 @@
-// main.js - 主应用程序入口（优化版）
-// 使用现代JavaScript特性，模块化设计，性能优化
+/**
+ * main.js - 主JavaScript文件（优化版）
+ * 优化内容：模块化组织、性能优化、错误处理、代码复用
+ */
 
-// 在现有文件顶部添加路径优化代码
-(function() {
-    // GitHub Pages路径自动修正
-    function fixGitHubPagesPaths() {
-        // 获取当前页面的基本URL
-        const baseUrl = window.location.href.includes('github.io') 
-            ? window.location.pathname.split('/').slice(0, -1).join('/') 
-            : '';
-        
-        // 修正CSS文件路径
-        document.querySelectorAll('link[rel="stylesheet"]').forEach(link => {
-            if (link.href.includes('/css/') && !link.href.startsWith('http')) {
-                link.href = baseUrl + link.getAttribute('href');
-            }
-        });
-        
-        // 修正JS文件路径
-        document.querySelectorAll('script[src]').forEach(script => {
-            if (script.src.includes('/js/') && !script.src.startsWith('http')) {
-                script.src = baseUrl + script.getAttribute('src');
-            }
-        });
-        
-        // 修正图片路径（相对路径）
-        document.querySelectorAll('img[src^="./"], img[src^="/"], img[src^="public/"]').forEach(img => {
-            const src = img.getAttribute('src');
-            if (!src.startsWith('http') && !src.startsWith('data:')) {
-                img.src = baseUrl + (src.startsWith('/') ? src : '/' + src);
-            }
-        });
-        
-        // 修正内部链接路径
-        document.querySelectorAll('a[href^="./"], a[href^="/"], a[href^="public/"]').forEach(link => {
-            const href = link.getAttribute('href');
-            if (!href.startsWith('http') && !href.startsWith('#') && !href.startsWith('mailto:')) {
-                link.href = baseUrl + (href.startsWith('/') ? href : '/' + href);
-            }
-        });
-    }
+// 设计工作室网站主应用程序
+class DesignStudioApp {
+  constructor() {
+    this.modules = [];
+    this.init();
+  }
+  
+  // 初始化应用
+  init() {
+    console.log('设计工作室网站已加载');
     
-    // 页面加载完成后执行路径修正
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', fixGitHubPagesPaths);
-    } else {
-        fixGitHubPagesPaths();
-    }
-})();
-
-// 主应用程序模块
-const App = {
+    // 修复GitHub Pages路径
+    this.fixGitHubPagesPaths();
+    
     // 初始化所有模块
-    init() {
-        console.log('设计工作室网站已加载 - 优化版');
-        
-        // 初始化各个模块
-        this.initNavigation();
-        this.initPortfolio();
-        this.initScrollAnimations();
-        this.initTitleAnimations();
-        this.initLazyLoading();
-        this.initBackToTop();
-        this.initGroupAnimations();
-        this.initAccessibility();
-        
-        // 性能监控
-        this.monitorPerformance();
-    },
+    this.initModules();
     
-    // 初始化组动画
-    initGroupAnimations() {
-        const groupSelectors = {
-            'group-1': '#about .section-title',
-            'group-2': '.about-container',
-            'group-3': '#work .section-title',
-            'group-3-5': '.portfolio-filters-container',
-            'group-4': '.portfolio-container',
-            'group-5': '#contact .section-title',
-            'group-6': '.contact-info-container'
-        };
-        
-        // 为每个元素添加对应的组类
-        Object.entries(groupSelectors).forEach(([className, selector]) => {
-            const element = document.querySelector(selector);
-            if (element) {
-                element.classList.add(className);
-            }
-        });
-        
-        // 检查组是否在视口中
-        const checkGroupAnimations = () => {
-            const groups = document.querySelectorAll('[class^="group-"]');
-            
-            groups.forEach(group => {
-                const groupTop = group.getBoundingClientRect().top;
-                const windowHeight = window.innerHeight;
-                
-                // 当组进入视口时添加active类
-                if (groupTop < windowHeight - 100) {
-                    group.classList.add('active');
-                }
-            });
-        };
-        
-        // 使用Intersection Observer优化性能
-        if ('IntersectionObserver' in window) {
-            const groupObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('active');
-                        groupObserver.unobserve(entry.target);
-                    }
-                });
-            }, {
-                threshold: 0.1,
-                rootMargin: '50px 0px'
-            });
-            
-            document.querySelectorAll('[class^="group-"]').forEach(group => {
-                groupObserver.observe(group);
-            });
-        } else {
-            // 回退方案
-            window.addEventListener('scroll', checkGroupAnimations);
-            checkGroupAnimations();
-        }
-    },
+    // 初始化性能监控
+    this.initPerformanceMonitoring();
+  }
+  
+  // 修复GitHub Pages路径
+  fixGitHubPagesPaths() {
+    if (!window.location.href.includes('github.io')) return;
     
-    // 滚动动画
-    initScrollAnimations() {
-        const revealElements = document.querySelectorAll('.reveal');
-        
-        if (!revealElements.length) return;
-        
-        if ('IntersectionObserver' in window) {
-            const revealObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('active');
-                        revealObserver.unobserve(entry.target);
-                    }
-                });
-            }, {
-                threshold: 0.1,
-                rootMargin: '50px 0px'
-            });
-            
-            revealElements.forEach(element => {
-                revealObserver.observe(element);
-            });
-        } else {
-            // 回退方案
-            const checkScroll = () => {
-                revealElements.forEach(element => {
-                    const elementTop = element.getBoundingClientRect().top;
-                    const windowHeight = window.innerHeight;
-                    
-                    if (elementTop < windowHeight - 100) {
-                        element.classList.add('active');
-                    }
-                });
-            };
-            
-            window.addEventListener('scroll', checkScroll);
-            checkScroll();
-        }
-    },
+    const baseUrl = window.location.pathname.split('/').slice(0, -1).join('/');
     
-    // 标题横线动画
-    initTitleAnimations() {
-        const sectionTitles = document.querySelectorAll('.section-title');
-        
-        if (!sectionTitles.length) return;
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('animated');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, {
-            threshold: 0.5,
-            rootMargin: '-50px 0px -50px 0px'
-        });
-        
-        sectionTitles.forEach(title => {
-            observer.observe(title);
-        });
-    },
+    // 修正CSS文件路径
+    document.querySelectorAll('link[rel="stylesheet"]').forEach(link => {
+      const href = link.getAttribute('href');
+      if (href && href.includes('/css/') && !href.startsWith('http')) {
+        link.href = baseUrl + href;
+      }
+    });
     
-    // 图片懒加载
-    initLazyLoading() {
-        const images = document.querySelectorAll('img[data-src]');
-        
-        if (!images.length) return;
-        
-        if ('IntersectionObserver' in window) {
-            const imageObserver = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const img = entry.target;
-                        
-                        // 添加加载效果
-                        img.style.opacity = '0';
-                        img.style.transition = 'opacity 0.3s ease';
-                        
-                        // 设置src
-                        img.src = img.dataset.src;
-                        
-                        // 加载完成后显示
-                        img.onload = () => {
-                            img.style.opacity = '1';
-                            img.removeAttribute('data-src');
-                        };
-                        
-                        // 加载失败处理
-                        img.onerror = () => {
-                            console.error(`Failed to load image: ${img.dataset.src}`);
-                            img.style.opacity = '1';
-                        };
-                        
-                        observer.unobserve(img);
-                    }
-                });
-            }, {
-                rootMargin: '50px 0px',
-                threshold: 0.01
-            });
-            
-            images.forEach(img => imageObserver.observe(img));
-        } else {
-            // 回退方案：直接加载所有图片
-            images.forEach(img => {
-                img.src = img.dataset.src;
-                img.removeAttribute('data-src');
-            });
-        }
-    },
+    // 修正JS文件路径
+    document.querySelectorAll('script[src]').forEach(script => {
+      const src = script.getAttribute('src');
+      if (src && src.includes('/js/') && !src.startsWith('http')) {
+        script.src = baseUrl + src;
+      }
+    });
+  }
+  
+  // 初始化所有模块
+  initModules() {
+    // 按依赖顺序初始化模块
+    this.modules = [
+      NavigationManager,
+      PortfolioManager,
+      ScrollAnimator,
+      GroupAnimator,
+      LazyLoader,
+      BackToTopButton
+    ];
     
-    // 回到顶部功能
-    initBackToTop() {
-        const backToTopButton = document.getElementById('backToTop');
-        
-        if (!backToTopButton) return;
-        
-        const toggleBackToTop = () => {
-            if (window.scrollY > 300) {
-                backToTopButton.classList.add('show');
-            } else {
-                backToTopButton.classList.remove('show');
-            }
-        };
-        
-        const scrollToTop = () => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        };
-        
-        window.addEventListener('scroll', toggleBackToTop);
-        backToTopButton.addEventListener('click', scrollToTop);
-        toggleBackToTop();
-    },
+    this.modules.forEach(ModuleClass => {
+      try {
+        new ModuleClass();
+      } catch (error) {
+        console.error(`初始化模块 ${ModuleClass.name} 失败:`, error);
+      }
+    });
+  }
+  
+  // 初始化性能监控
+  initPerformanceMonitoring() {
+    window.addEventListener('load', () => {
+      if ('performance' in window) {
+        const perfData = window.performance.timing;
+        const loadTime = perfData.loadEventEnd - perfData.navigationStart;
+        console.log(`页面加载时间: ${loadTime}ms`);
+      }
+    });
+  }
+}
+
+// 导航管理器
+class NavigationManager {
+  constructor() {
+    this.nav = document.querySelector('nav');
+    this.lastScrollY = window.scrollY;
+    this.scrollThreshold = 150;
+    this.initialScrollTriggered = false;
+    this.autoShowTimer = null;
     
-    // 无障碍支持
-    initAccessibility() {
-        // 为所有按钮添加键盘支持
-        document.querySelectorAll('button, [role="button"]').forEach(button => {
-            button.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    button.click();
-                }
-            });
-        });
-        
-        // 跳过导航链接
-        const skipLink = document.createElement('a');
-        skipLink.href = '#main-content';
-        skipLink.className = 'skip-to-content';
-        skipLink.textContent = '跳转到主要内容';
-        skipLink.style.cssText = `
-            position: absolute;
-            top: -40px;
-            left: 0;
-            background: #000;
-            color: white;
-            padding: 8px;
-            z-index: 10000;
-        `;
-        
-        skipLink.addEventListener('focus', () => {
-            skipLink.style.top = '0';
-        });
-        
-        skipLink.addEventListener('blur', () => {
-            skipLink.style.top = '-40px';
-        });
-        
-        document.body.prepend(skipLink);
-    },
+    this.init();
+  }
+  
+  init() {
+    this.bindEvents();
+    this.checkInitialState();
+  }
+  
+  bindEvents() {
+    window.addEventListener('scroll', () => this.handleScroll());
+    window.addEventListener('resize', () => this.handleResize());
     
-    // 性能监控
-    monitorPerformance() {
-        if ('performance' in window && 'getEntriesByType' in performance) {
-            // 监控资源加载时间
-            window.addEventListener('load', () => {
-                const perfData = performance.getEntriesByType('navigation')[0];
-                if (perfData) {
-                    console.log(`页面完全加载时间: ${perfData.loadEventEnd - perfData.startTime}ms`);
-                }
-            });
-        }
-    },
+    // 平滑滚动
+    document.addEventListener('click', (e) => this.handleLinkClick(e));
+  }
+  
+  handleScroll() {
+    const currentScrollY = window.scrollY;
     
-    // 导航初始化（将在navigation.js中实现）
-    initNavigation() {
-        // 这个函数将在navigation.js中实现
-        console.log('导航初始化');
-    },
-    
-    // 作品集初始化（将在portfolio.js中实现）
-    initPortfolio() {
-        // 这个函数将在portfolio.js中实现
-        console.log('作品集初始化');
+    // 移动端逻辑
+    if (window.innerWidth <= 768) {
+      this.updateMobileNavLinks();
+      return;
     }
-};
-
-// DOM加载完成后初始化应用
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => App.init());
-} else {
-    App.init();
+    
+    // 桌面端逻辑
+    const isScrollingDown = currentScrollY > this.lastScrollY;
+    const isScrollingUp = currentScrollY < this.lastScrollY;
+    
+    window.requestAnimationFrame(() => {
+      this.checkHeroVisibility();
+      this.checkBottom();
+      
+      // 首次滚动时移除初始隐藏类
+      if (!this.initialScrollTriggered && currentScrollY > 5) {
+        this.nav.classList.remove('initial-hidden');
+        this.initialScrollTriggered = true;
+        
+        if (this.autoShowTimer) {
+          clearTimeout(this.autoShowTimer);
+          this.autoShowTimer = null;
+        }
+      }
+      
+      // 正常的导航栏显示/隐藏逻辑
+      if (!this.nav.classList.contains('at-bottom')) {
+        if (isScrollingUp) {
+          this.nav.classList.remove('nav-hidden');
+        } else if (isScrollingDown) {
+          this.nav.classList.add('nav-hidden');
+        }
+      }
+    });
+    
+    this.lastScrollY = currentScrollY;
+  }
+  
+  checkHeroVisibility() {
+    if (window.innerWidth <= 768) return;
+    
+    const heroSection = document.querySelector('.hero');
+    if (!heroSection) return;
+    
+    const heroRect = heroSection.getBoundingClientRect();
+    const heroBottom = heroRect.bottom;
+    
+    if (heroBottom > 0 && window.scrollY < heroRect.height) {
+      this.nav.classList.add('transparent');
+      this.nav.style.backgroundColor = 'rgba(24, 24, 24, 0)';
+      this.nav.style.backdropFilter = 'none';
+      this.nav.style.borderBottom = '1px solid transparent';
+    } else {
+      this.nav.classList.remove('transparent');
+      this.nav.style.backgroundColor = 'rgba(24, 24, 24, 0.98)';
+      this.nav.style.backdropFilter = 'blur(10px)';
+      this.nav.style.borderBottom = '1px solid rgba(255, 255, 255, 0.1)';
+    }
+  }
+  
+  checkBottom() {
+    if (window.innerWidth <= 768) return;
+    
+    const windowHeight = window.innerHeight;
+    const documentHeight = document.documentElement.scrollHeight;
+    const scrollTop = window.scrollY;
+    
+    const isAtBottom = (scrollTop + windowHeight) >= (documentHeight - 100);
+    
+    if (isAtBottom) {
+      this.nav.classList.remove('nav-hidden');
+      this.nav.classList.add('at-bottom');
+    } else {
+      this.nav.classList.remove('at-bottom');
+    }
+  }
+  
+  updateMobileNavLinks() {
+    // 移动端导航链接更新逻辑
+    const navLinks = document.querySelector('.nav-links');
+    if (!navLinks) return;
+    
+    // 简化的移动端导航逻辑
+    const sections = ['about', 'work', 'contact'];
+    const currentSection = this.getCurrentSection();
+    
+    let linksHTML = '';
+    sections.forEach(section => {
+      if (section !== currentSection) {
+        const label = this.getSectionLabel(section);
+        linksHTML += `<a href="#${section}">${label}</a>`;
+      }
+    });
+    
+    navLinks.innerHTML = linksHTML;
+  }
+  
+  getCurrentSection() {
+    // 简化的当前板块检测逻辑
+    const scrollPosition = window.scrollY + 100;
+    const sections = [
+      { id: 'about', offset: document.querySelector('#about')?.offsetTop || 0 },
+      { id: 'work', offset: document.querySelector('#work')?.offsetTop || 0 },
+      { id: 'contact', offset: document.querySelector('#contact')?.offsetTop || 0 }
+    ];
+    
+    for (const section of sections) {
+      if (scrollPosition >= section.offset) {
+        return section.id;
+      }
+    }
+    
+    return 'hero';
+  }
+  
+  getSectionLabel(sectionId) {
+    const labels = {
+      'about': '关于',
+      'work': '作品',
+      'contact': '联系'
+    };
+    
+    return labels[sectionId] || sectionId;
+  }
+  
+  handleLinkClick(e) {
+    if (e.target.matches('.nav-links a')) {
+      e.preventDefault();
+      const href = e.target.getAttribute('href');
+      
+      if (href.startsWith('#')) {
+        this.scrollToSection(href.substring(1));
+      }
+    }
+  }
+  
+  scrollToSection(sectionId) {
+    const targetElement = document.getElementById(sectionId);
+    if (!targetElement) return;
+    
+    const navbarHeight = this.nav.offsetHeight;
+    const targetPosition = targetElement.offsetTop - navbarHeight;
+    
+    window.scrollTo({
+      top: targetPosition,
+      behavior: 'smooth'
+    });
+  }
+  
+  handleResize() {
+    if (window.innerWidth <= 768) {
+      this.updateMobileNavLinks();
+    } else {
+      // 恢复桌面端导航链接
+      const navLinks = document.querySelector('.nav-links');
+      if (navLinks) {
+        navLinks.innerHTML = `
+          <a href="#about">关于</a>
+          <a href="#work">作品</a>
+          <a href="#contact">联系</a>
+        `;
+      }
+      
+      this.checkBottom();
+    }
+  }
+  
+  checkInitialState() {
+    if (window.innerWidth > 768) {
+      this.nav.classList.add('initial-hidden', 'transparent');
+      
+      // 10秒后自动显示导航栏
+      this.autoShowTimer = setTimeout(() => {
+        if (!this.initialScrollTriggered) {
+          this.nav.classList.remove('initial-hidden');
+          this.initialScrollTriggered = true;
+        }
+      }, 10000);
+    } else {
+      this.nav.classList.remove('initial-hidden');
+      this.updateMobileNavLinks();
+    }
+  }
 }
 
-// 导出供其他模块使用
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = App;
+// 作品集管理器
+class PortfolioManager {
+  constructor() {
+    this.filterButtons = document.querySelectorAll('.filter-btn');
+    this.portfolioCategories = document.querySelectorAll('.portfolio-category');
+    this.currentFilter = 'brand';
+    
+    this.init();
+  }
+  
+  init() {
+    this.bindEvents();
+    this.initPortfolio();
+  }
+  
+  bindEvents() {
+    this.filterButtons.forEach(button => {
+      button.addEventListener('click', (e) => this.handleFilterClick(e));
+    });
+  }
+  
+  handleFilterClick(e) {
+    const targetFilter = e.currentTarget.getAttribute('data-filter');
+    
+    if (targetFilter === this.currentFilter) return;
+    
+    this.filterButtons.forEach(btn => btn.classList.remove('active'));
+    e.currentTarget.classList.add('active');
+    
+    this.switchPortfolioCategories(targetFilter);
+    this.currentFilter = targetFilter;
+  }
+  
+  initPortfolio() {
+    // 初始化：只显示品牌设计
+    this.portfolioCategories.forEach(category => {
+      if (category.dataset.category === 'brand') {
+        category.style.display = 'block';
+        category.style.opacity = '1';
+        category.style.transform = 'translateY(0)';
+        
+        this.animateCategoryItems(category);
+      } else {
+        category.style.display = 'none';
+        category.style.opacity = '0';
+        category.style.transform = 'translateY(20px)';
+      }
+    });
+  }
+  
+  switchPortfolioCategories(targetFilter) {
+    const outgoingCategory = document.querySelector(`.portfolio-category[data-category="${this.currentFilter}"]`);
+    const incomingCategory = document.querySelector(`.portfolio-category[data-category="${targetFilter}"]`);
+    
+    if (!outgoingCategory || !incomingCategory) return;
+    
+    // 淡出当前分类
+    outgoingCategory.style.opacity = '0';
+    outgoingCategory.style.transform = 'translateY(20px)';
+    
+    // 短暂延迟后切换显示
+    setTimeout(() => {
+      outgoingCategory.style.display = 'none';
+      incomingCategory.style.display = 'block';
+      
+      // 强制重绘
+      void incomingCategory.offsetHeight;
+      
+      // 淡入新分类
+      incomingCategory.style.opacity = '1';
+      incomingCategory.style.transform = 'translateY(0)';
+      
+      // 为新分类添加动画
+      this.animateCategoryItems(incomingCategory);
+    }, 300);
+  }
+  
+  animateCategoryItems(category) {
+    const portfolioItems = category.querySelectorAll('.portfolio-item');
+    const moreLink = category.querySelector('.category-more-link');
+    
+    const allAnimatedElements = [...portfolioItems];
+    if (moreLink) allAnimatedElements.push(moreLink);
+    
+    // 为每个元素设置初始状态
+    allAnimatedElements.forEach(el => {
+      el.style.opacity = '0';
+      if (el.classList.contains('portfolio-item')) {
+        el.style.transform = 'translateY(15px) scale(0.98)';
+      } else {
+        el.style.transform = 'translateY(20px)';
+      }
+    });
+    
+    // 强制重绘以启动动画
+    if (allAnimatedElements[0]) {
+      void allAnimatedElements[0].offsetHeight;
+    }
+    
+    // 交错淡入动画
+    allAnimatedElements.forEach((el, index) => {
+      setTimeout(() => {
+        el.style.opacity = '1';
+        if (el.classList.contains('portfolio-item')) {
+          el.style.transform = 'translateY(0) scale(1)';
+        } else {
+          el.style.transform = 'translateY(0)';
+        }
+      }, index * 50);
+    });
+  }
 }
+
+// 滚动动画管理器
+class ScrollAnimator {
+  constructor() {
+    this.revealElements = document.querySelectorAll('.reveal');
+    
+    this.init();
+  }
+  
+  init() {
+    this.bindEvents();
+    this.checkScroll();
+  }
+  
+  bindEvents() {
+    window.addEventListener('scroll', () => this.checkScroll());
+  }
+  
+  checkScroll() {
+    const windowHeight = window.innerHeight;
+    
+    this.revealElements.forEach(element => {
+      const elementTop = element.getBoundingClientRect().top;
+      
+      if (elementTop < windowHeight - 100) {
+        element.classList.add('active');
+      }
+    });
+  }
+}
+
+// 组动画管理器
+class GroupAnimator {
+  constructor() {
+    this.groups = [];
+    
+    this.init();
+  }
+  
+  init() {
+    this.setupGroups();
+    this.bindEvents();
+    this.checkGroupAnimations();
+  }
+  
+  setupGroups() {
+    // 定义组配置
+    const groupConfigs = [
+      { selector: '#about .section-title', className: 'group-1' },
+      { selector: '.about-container', className: 'group-2' },
+      { selector: '#work .section-title', className: 'group-3' },
+      { selector: '.portfolio-filters-container', className: 'group-3-5' },
+      { selector: '.portfolio-container', className: 'group-4' },
+      { selector: '#contact .section-title', className: 'group-5' },
+      { selector: '.contact-info-container', className: 'group-6' }
+    ];
+    
+    groupConfigs.forEach(config => {
+      const element = document.querySelector(config.selector);
+      if (element) {
+        element.classList.add(config.className);
+        this.groups.push(element);
+      }
+    });
+  }
+  
+  bindEvents() {
+    window.addEventListener('scroll', () => this.checkGroupAnimations());
+  }
+  
+  checkGroupAnimations() {
+    const windowHeight = window.innerHeight;
+    
+    this.groups.forEach(group => {
+      const groupTop = group.getBoundingClientRect().top;
+      
+      if (groupTop < windowHeight - 100) {
+        group.classList.add('active');
+      }
+    });
+  }
+}
+
+// 懒加载管理器
+class LazyLoader {
+  constructor() {
+    this.images = document.querySelectorAll('img[data-src]');
+    
+    this.init();
+  }
+  
+  init() {
+    if ('IntersectionObserver' in window) {
+      this.initIntersectionObserver();
+    } else {
+      this.loadAllImages();
+    }
+  }
+  
+  initIntersectionObserver() {
+    const imageObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const img = entry.target;
+          img.src = img.dataset.src;
+          img.removeAttribute('data-src');
+          imageObserver.unobserve(img);
+        }
+      });
+    }, {
+      rootMargin: '50px 0px',
+      threshold: 0.01
+    });
+    
+    this.images.forEach(img => imageObserver.observe(img));
+  }
+  
+  loadAllImages() {
+    this.images.forEach(img => {
+      img.src = img.dataset.src;
+      img.removeAttribute('data-src');
+    });
+  }
+}
+
+// 回到顶部按钮管理器
+class BackToTopButton {
+  constructor() {
+    this.button = document.getElementById('backToTop');
+    
+    if (this.button) {
+      this.init();
+    }
+  }
+  
+  init() {
+    this.bindEvents();
+    this.toggleVisibility();
+  }
+  
+  bindEvents() {
+    window.addEventListener('scroll', () => this.toggleVisibility());
+    this.button.addEventListener('click', () => this.scrollToTop());
+  }
+  
+  toggleVisibility() {
+    if (window.scrollY > 300) {
+      this.button.classList.add('show');
+    } else {
+      this.button.classList.remove('show');
+    }
+  }
+  
+  scrollToTop() {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  }
+}
+
+// 标题动画管理器
+class TitleAnimator {
+  constructor() {
+    this.sectionTitles = document.querySelectorAll('.section-title');
+    
+    this.init();
+  }
+  
+  init() {
+    if ('IntersectionObserver' in window) {
+      this.initIntersectionObserver();
+    }
+  }
+  
+  initIntersectionObserver() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animated');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.5,
+      rootMargin: '-50px 0px -50px 0px'
+    });
+    
+    this.sectionTitles.forEach(title => observer.observe(title));
+  }
+}
+
+// 启动应用程序
+document.addEventListener('DOMContentLoaded', () => {
+  new DesignStudioApp();
+});

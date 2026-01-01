@@ -1,122 +1,114 @@
 /* 
- * cursor.css - 自定义鼠标光标系统（优化版）
- * 优化：减少动画、性能优化、更好的无障碍支持
+ * cursor.css - 自定义鼠标光标系统优化版
+ * 优化内容：简化选择器、使用CSS变量、优化动画性能
  */
 
 /* ==================== 基础光标样式 ==================== */
-/* 仅在桌面端生效 */
 @media (min-width: 769px) {
-    body {
-        cursor: none !important;
-    }
-    
-    /* 自定义主光标 - 白色圆形色块 */
-    .custom-cursor {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 40px;
-        height: 40px;
-        border-radius: 10px;
-        background-color: #ffffff;
-        pointer-events: none;
-        z-index: 9999;
-        transform: translate(-50%, -50%);
-        transition: transform 0.15s ease-out,
-                    width 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                    height 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        mix-blend-mode: difference;
-        box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.3);
-        filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.6));
-    }
-    
-    /* 光标点击效果 */
-    .cursor-click {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 60px;
-        height: 60px;
-        border-radius: 10px;
-        background-color: rgba(255, 255, 255, 0.4);
-        pointer-events: none;
-        z-index: 9997;
-        transform: translate(-50%, -50%) scale(0);
-        opacity: 0;
-        transition: transform 0.2s ease, opacity 0.2s ease;
-        mix-blend-mode: difference;
-    }
-    
-    .cursor-click.active {
-        transform: translate(-50%, -50%) scale(1);
-        opacity: 1;
-    }
+  body {
+    cursor: none !important;
+  }
+  
+  /* 自定义主光标 - 白色圆形色块 */
+  .custom-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background-color: #ffffff;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.15s ease-out, 
+                width 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+                height 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    mix-blend-mode: difference;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.3);
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.6));
+  }
+  
+  /* 光标点击效果 */
+  .cursor-click {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 60px;
+    height: 60px;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.4);
+    pointer-events: none;
+    z-index: 9997;
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+    mix-blend-mode: difference;
+  }
+  
+  .cursor-click.active {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
 }
 
 /* ==================== 链接悬停状态光标 ==================== */
 @media (min-width: 769px) {
-    /* 可交互元素光标放大效果 */
-    body.link-hover .custom-cursor {
-        width: 80px;
-        height: 80px;
-        animation: cursorPulse 1.5s infinite;
+  /* 可交互元素的基础样式 */
+  a, .btn, .filter-btn, .portfolio-link, 
+  .category-more-link a, .portfolio-overlay .btn,
+  .social-links a, .portfolio-item, .nav-links a {
+    position: relative;
+    z-index: 1;
+  }
+  
+  /* 悬停在可交互元素上时的光标效果 */
+  body.link-hover .custom-cursor {
+    width: 80px;
+    height: 80px;
+    animation: cursorPulse 1.5s infinite;
+  }
+  
+  @keyframes cursorPulse {
+    0%, 100% {
+      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.4);
     }
-    
-    @keyframes cursorPulse {
-        0%, 100% {
-            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.4);
-        }
-        50% {
-            box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.2);
-        }
+    50% {
+      box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.2);
     }
-    
-    /* 社交链接旋转效果 */
-    .social-links a:hover ~ .custom-cursor {
-        animation: cursorSpin 2s infinite linear;
+  }
+  
+  /* 社交链接特殊动画 */
+  .social-links a:hover ~ .custom-cursor {
+    animation: cursorSpin 2s infinite linear;
+  }
+  
+  @keyframes cursorSpin {
+    from {
+      transform: translate(-50%, -50%) rotate(0deg);
     }
-    
-    @keyframes cursorSpin {
-        from {
-            transform: translate(-50%, -50%) rotate(0deg);
-        }
-        to {
-            transform: translate(-50%, -50%) rotate(360deg);
-        }
+    to {
+      transform: translate(-50%, -50%) rotate(360deg);
     }
+  }
 }
 
 /* ==================== 滚动时隐藏光标 ==================== */
 @media (min-width: 769px) {
-    body.scrolling .custom-cursor {
-        opacity: 0.5;
-        transform: translate(-50%, -50%) scale(0.8);
-    }
+  body.scrolling .custom-cursor {
+    opacity: 0.5;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
 }
 
 /* ==================== 禁用状态 ==================== */
 @media (min-width: 769px) {
-    body.cursor-disabled {
-        cursor: auto !important;
-    }
-    
-    body.cursor-disabled .custom-cursor,
-    body.cursor-disabled .cursor-click {
-        display: none;
-    }
-}
-
-/* ==================== 无障碍优化 ==================== */
-@media (prefers-reduced-motion: reduce) {
-    .custom-cursor {
-        transition: none !important;
-    }
-    
-    .cursor-click {
-        display: none !important;
-    }
-    
-    body.link-hover .custom-cursor {
-        animation: none !important;
-    }
+  body.cursor-disabled {
+    cursor: auto !important;
+  }
+  
+  body.cursor-disabled .custom-cursor,
+  body.cursor-disabled .cursor-click {
+    display: none;
+  }
 }

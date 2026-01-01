@@ -3,74 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>唐泉 | 个人设计作品集</title>
-    <meta name="description" content="平面设计师唐泉的个人作品集，展示品牌设计、海报设计、标志设计等创意作品">
-    <meta name="keywords" content="平面设计,品牌设计,海报设计,标志设计,创意设计">
+    <title>个人设计作品站 | 创意设计</title>
     
-    <!-- 性能优化：预连接关键域 -->
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-    <link rel="preconnect" href="https://images.pexels.com">
-    <link rel="preconnect" href="https://mmbiz.qpic.cn">
+    <!-- 优化：预加载关键资源 -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://images.pexels.com">
+    <link rel="dns-prefetch" href="https://mmbiz.qpic.cn">
     
-    <!-- Font Awesome with integrity check -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-          integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-          crossorigin="anonymous" referrerpolicy="no-referrer">
+    <!-- 优化：添加网站描述和关键词 -->
+    <meta name="description" content="个人设计作品展示网站，展示品牌设计、海报设计、标志设计等创意作品">
+    <meta name="keywords" content="设计,作品集,品牌设计,海报设计,平面设计">
+    <meta name="author" content="唐泉">
     
-    <!-- 样式表 - 按依赖顺序加载 -->
-    <link rel="preload" href="css/main.css" as="style">
-    <link rel="preload" href="css/components.css" as="style">
-    <link rel="preload" href="css/animations.css" as="style">
-    <link rel="stylesheet" href="css/main.css" media="all">
-    <link rel="stylesheet" href="css/components.css" media="all">
-    <link rel="stylesheet" href="css/animations.css" media="all">
+    <!-- 优化：添加Open Graph元标签 -->
+    <meta property="og:title" content="个人设计作品站">
+    <meta property="og:description" content="展示个人设计作品的创意网站">
+    <meta property="og:type" content="website">
     
-    <!-- 条件加载：仅桌面端加载光标样式 -->
-    <link rel="stylesheet" href="css/cursor.css" media="(min-width: 769px)">
+    <!-- 优化：添加favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎨</text></svg>">
     
-    <!-- 预加载关键图片 -->
-    <link rel="preload" href="https://mmbiz.qpic.cn/sz_mmbiz_png/rxqg3PD859eSjb5XtQiacPrsO58ibq690xgkzicctyGuNZ3ZibAiaZkhHDRibLGwt3JMIhYuXDeSgNzicuOO26hnwiceOg/0?wxfrom=12&wx_fmt=png" as="image">
-    <link rel="preload" href="https://images.pexels.com/photos/28839480/pexels-photo-28839480.jpeg" as="image">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
     
-    <!-- 结构化数据 -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "唐泉",
-        "jobTitle": "平面设计师",
-        "url": "https://your-domain.com",
-        "sameAs": [],
-        "worksFor": {
-            "@type": "Organization",
-            "name": "磊鑫品牌设计公司"
-        }
-    }
-    </script>
+    <!-- 优化：使用defer加载CSS -->
+    <link rel="stylesheet" href="css/main.css" defer>
+    <link rel="stylesheet" href="css/components.css" defer>
+    <link rel="stylesheet" href="css/animations.css" defer>
+    <link rel="stylesheet" href="css/cursor.css" defer>
 </head>
 
 <body>
     <!-- 导航栏 -->
-    <nav class="transparent" aria-label="主导航">
+    <nav class="transparent">
         <div class="container nav-container">
             <div class="logo-image-container">
-                <img src="https://mmbiz.qpic.cn/sz_mmbiz_png/rxqg3PD859eSjb5XtQiacPrsO58ibq690xgkzicctyGuNZ3ZibAiaZkhHDRibLGwt3JMIhYuXDeSgNzicuOO26hnwiceOg/0?wxfrom=12&wx_fmt=png&tp=wxpic&usePicPrefetch=1" 
-                     alt="个人设计作品站Logo" 
-                     class="logo-image" 
-                     width="40" 
-                     height="40"
-                     loading="eager"
-                     decoding="async">
+                <img src="https://mmbiz.qpic.cn/sz_mmbiz_png/rxqg3PD859eSjb5XtQiacPrsO58ibq690xgkzicctyGuNZ3ZibAiaZkhHDRibLGwt3JMIhYuXDeSgNzicuOO26hnwiceOg/0?wxfrom=12&wx_fmt=png&tp=wxpic&usePicPrefetch=1" alt="个人设计作品站Logo" class="logo-image" width="40" height="40" loading="lazy" referrerpolicy="no-referrer">
                 <div class="logo">个人设计作品站</div>
                 <div class="nav-arrow" aria-hidden="true">
                     <i class="fas fa-arrow-left"></i>
                 </div>
             </div>
-            <ul class="nav-links" role="menubar">
-                <li role="none"><a href="#about" role="menuitem">关于</a></li>
-                <li role="none"><a href="#work" role="menuitem">作品</a></li>
-                <li role="none"><a href="#contact" role="menuitem">联系</a></li>
-            </ul>
+            <div class="nav-links">
+                <a href="#about">关于</a>
+                <a href="#work">作品</a>
+                <a href="#contact">联系</a>
+            </div>
         </div>
     </nav>
 
@@ -85,11 +64,11 @@
     </section>
 
     <!-- 关于我板块 -->
-    <section id="about" class="about" aria-labelledby="about-title">
+    <section id="about" class="about" aria-label="关于我">
         <div class="container">
             <br/>
             <br/>
-            <h2 class="section-title" id="about-title">关于我</h2>
+            <h2 class="section-title">关于我</h2>
             <div class="about-container">
                 <div class="about-content">
                     <div class="about-text">
@@ -104,13 +83,7 @@
                     </div>
                     <div class="about-image-wrapper">
                         <div class="about-image-container">
-                            <img src="https://mmbiz.qpic.cn/sz_mmbiz_png/rxqg3PD859eSjb5XtQiacPrsO58ibq690xnCxsUvOpoTkZZ2CbMyUan64DPRNrhK0D2Q1XficSDpFVxAiaIib2jdaicg/0?wxfrom=12&wx_fmt=png&tp=wxpic" 
-                                 alt="唐泉个人照片" 
-                                 width="280" 
-                                 height="280"
-                                 loading="lazy"
-                                 decoding="async"
-                                 referrerpolicy="no-referrer">
+                            <img src="https://mmbiz.qpic.cn/sz_mmbiz_png/rxqg3PD859eSjb5XtQiacPrsO58ibq690xnCxsUvOpoTkZZ2CbMyUan64DPRNrhK0D2Q1XficSDpFVxAiaIib2jdaicg/0?wxfrom=12&wx_fmt=png&tp=wxpic" alt="设计工作室团队" width="400" height="400" loading="lazy" referrerpolicy="no-referrer">
                         </div>
                     </div>
                 </div>
@@ -120,31 +93,28 @@
 
     <!-- 作品集板块 -->
     <div class="section-container" style="margin-bottom: 30px;">
-        <section id="work" class="portfolio" aria-labelledby="work-title">
+        <section id="work" class="portfolio" aria-label="作品集">
             <div class="container">
-                <h2 class="section-title" id="work-title">部分作品</h2>
+                <h2 class="section-title">部分作品</h2>
                 
-                <div class="portfolio-filters-container" role="toolbar" aria-label="作品分类筛选">
+                <!-- 分类筛选按钮 -->
+                <div class="portfolio-filters-container">
                     <div class="portfolio-filters">
-                        <button class="filter-btn active" data-filter="brand" aria-pressed="true">品牌塑造</button>
-                        <button class="filter-btn" data-filter="poster" aria-pressed="false">海报与宣传物料</button>
-                        <button class="filter-btn" data-filter="logo" aria-pressed="false">品牌标志与字体</button>
-                        <button class="filter-btn" data-filter="other" aria-pressed="false">创意类</button>
+                        <button class="filter-btn active" data-filter="brand" aria-label="查看品牌塑造作品">品牌塑造</button>
+                        <button class="filter-btn" data-filter="poster" aria-label="查看海报与宣传物料作品">海报与宣传物料</button>
+                        <button class="filter-btn" data-filter="logo" aria-label="查看品牌标志与字体作品">品牌标志与字体</button>
+                        <button class="filter-btn" data-filter="other" aria-label="查看创意类作品">创意类</button>
                     </div>
                 </div>
                 
+                <!-- 作品容器 -->
                 <div class="portfolio-container">
                     <!-- 品牌设计 -->
-                    <div class="portfolio-category active" data-category="brand" role="tabpanel" aria-labelledby="brand-tab">
-                        <div class="portfolio-grid" role="list">
-                            <div class="portfolio-item" role="listitem" data-category="brand">
+                    <div class="portfolio-category" data-category="brand">
+                        <div class="portfolio-grid">
+                            <div class="portfolio-item" data-category="brand">
                                 <a href="production/1-1/index.html" target="_blank" class="portfolio-link" rel="noopener">
-                                    <img src="https://images.pexels.com/photos/28839480/pexels-photo-28839480.jpeg" 
-                                         alt="科技企业品牌焕新设计"
-                                         width="500"
-                                         height="500"
-                                         loading="lazy"
-                                         decoding="async">
+                                    <img src="https://images.pexels.com/photos/28839480/pexels-photo-28839480.jpeg" alt="科技企业品牌焕新设计" width="400" height="400" loading="lazy">
                                     <div class="portfolio-overlay">
                                         <h3>科技企业品牌焕新</h3>
                                         <p>整套视觉识别系统与品牌语言构建</p>
@@ -153,23 +123,13 @@
                                 </a>
                             </div>
                             
-                            <div class="portfolio-item no-link" role="listitem" data-category="brand">
-                                <img src="https://images.pexels.com/photos/28839480/pexels-photo-28839480.jpeg" 
-                                     alt="无链接作品示例"
-                                     width="500"
-                                     height="500"
-                                     loading="lazy"
-                                     decoding="async">
+                            <div class="portfolio-item no-link" data-category="brand">
+                                <img src="https://images.pexels.com/photos/28839480/pexels-photo-28839480.jpeg" alt="无链接作品示例" width="400" height="400" loading="lazy">
                             </div>
                             
-                            <div class="portfolio-item" role="listitem" data-category="brand">
+                            <div class="portfolio-item" data-category="brand">
                                 <a href="https://www.baidu.com" target="_blank" class="portfolio-link" rel="noopener">
-                                    <img src="https://images.pexels.com/photos/28839480/pexels-photo-28839480.jpeg" 
-                                         alt="金融科技品牌升级设计"
-                                         width="500"
-                                         height="500"
-                                         loading="lazy"
-                                         decoding="async">
+                                    <img src="https://images.pexels.com/photos/28839480/pexels-photo-28839480.jpeg" alt="金融科技品牌升级设计" width="400" height="400" loading="lazy">
                                     <div class="portfolio-overlay">
                                         <h3>金融科技品牌升级</h3>
                                         <p>建立专业、可靠且创新的品牌形象</p>
@@ -177,15 +137,9 @@
                                     </div>
                                 </a>
                             </div>
-                            
-                            <div class="portfolio-item" role="listitem" data-category="brand">
+                            <div class="portfolio-item" data-category="brand">
                                 <a href="https://www.baidu.com" target="_blank" class="portfolio-link" rel="noopener">
-                                    <img src="https://images.pexels.com/photos/28839480/pexels-photo-28839480.jpeg" 
-                                         alt="精品咖啡品牌创建设计"
-                                         width="500"
-                                         height="500"
-                                         loading="lazy"
-                                         decoding="async">
+                                    <img src="https://images.pexels.com/photos/28839480/pexels-photo-28839480.jpeg" alt="精品咖啡品牌创建设计" width="400" height="400" loading="lazy">
                                     <div class="portfolio-overlay">
                                         <h3>精品咖啡品牌创建</h3>
                                         <p>打造具有独特空间体验的连锁品牌</p>
@@ -195,47 +149,147 @@
                             </div>
                         </div>
                         <div class="category-more-link">
-                            <a href="public/design1/index.html" target="_blank" rel="noopener">
+                            <a href="public/design1/index.html" target="_blank" rel="noopener noreferrer">
                                 更多设计作品 → 品牌塑造
                             </a>
                         </div>
                     </div>
                     
-                    <!-- 其他分类（隐藏） -->
-                    <div class="portfolio-category" data-category="poster" hidden role="tabpanel" aria-labelledby="poster-tab">
-                        <!-- 内容保持不变 -->
+                    <!-- 海报设计 -->
+                    <div class="portfolio-category" data-category="poster" style="display: none;">
+                        <div class="portfolio-grid">
+                            <div class="portfolio-item" data-category="poster">
+                                <a href="https://www.baidu.com" target="_blank" class="portfolio-link" rel="noopener">
+                                    <img src="https://mmbiz.qpic.cn/mmbiz_png/rxqg3PD859fZ1h2aFMnwel3Joibt1ziaXMQ9L29Fyq0Kg0Qb8icxT7k6lO1spJZstRccHgOKuVpzeJcfZ2VKWdbBQ/640?wx_fmt=png&wxfrom=13&tp=wxpic#imgIndex=1" alt="音乐节海报设计" width="400" height="400" loading="lazy">
+                                    <div class="portfolio-overlay">
+                                        <h3>夏季音乐节主视觉</h3>
+                                        <p>融合声音与色彩的动态视觉表达</p>
+                                        <div class="btn">点击</div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="portfolio-item" data-category="poster">
+                                <a href="https://www.baidu.com" target="_blank" class="portfolio-link" rel="noopener">
+                                    <img src="https://images.pexels.com/photos/28839480/pexels-photo-28839480.jpeg" alt="独立电影概念海报设计" width="400" height="400" loading="lazy">
+                                    <div class="portfolio-overlay">
+                                        <h3>独立电影概念海报</h3>
+                                        <p>用视觉叙事传递影片核心情感</p>
+                                        <div class="btn">点击</div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="portfolio-item no-link" data-category="poster">
+                                <img src="https://images.pexels.com/photos/28839480/pexels-photo-28839480.jpeg" alt="公益海报设计" width="400" height="400" loading="lazy">
+                            </div>
+                            <div class="portfolio-item" data-category="poster">
+                                <a href="https://www.baidu.com" target="_blank" class="portfolio-link" rel="noopener">
+                                    <img src="https://images.pexels.com/photos/28839480/pexels-photo-28839480.jpeg" alt="当代艺术展海报系列设计" width="400" height="400" loading="lazy">
+                                    <div class="portfolio-overlay">
+                                        <h3>当代艺术展海报系列</h3>
+                                        <p>解构与重组，诠释展览主题</p>
+                                        <div class="btn">点击</div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="category-more-link">
+                            <a href="public/design2/index.html" target="_blank" rel="noopener noreferrer">
+                                更多设计作品 → 海报与宣传物料
+                            </a>
+                        </div>
                     </div>
                     
-                    <div class="portfolio-category" data-category="logo" hidden role="tabpanel" aria-labelledby="logo-tab">
-                        <!-- 内容保持不变 -->
+                    <!-- 标志设计 -->
+                    <div class="portfolio-category" data-category="logo" style="display: none;">
+                        <div class="portfolio-grid">
+                            <div class="portfolio-item no-link" data-category="logo">
+                                <img src="https://images.pexels.com/photos/28839480/pexels-photo-28839480.jpeg" alt="极简字母标志设计" width="400" height="400" loading="lazy">
+                            </div>
+                            <div class="portfolio-item" data-category="logo">
+                                <a href="https://www.baidu.com" target="_blank" class="portfolio-link" rel="noopener">
+                                    <img src="https://images.pexels.com/photos/28839480/pexels-photo-28839480.jpeg" alt="户外品牌图形标志设计" width="400" height="400" loading="lazy">
+                                    <div class="portfolio-overlay">
+                                        <h3>户外品牌图形标志</h3>
+                                        <p>抽象山峰图形传递探索精神</p>
+                                        <div class="btn">点击</div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="portfolio-item" data-category="logo">
+                                <a href="https://www.baidu.com" target="_blank" class="portfolio-link" rel="noopener">
+                                    <img src="https://images.pexels.com/photos/28839480/pexels-photo-28839480.jpeg" alt="精酿啤酒厂徽章标志设计" width="400" height="400" loading="lazy">
+                                    <div class="portfolio-overlay">
+                                        <h3>精酿啤酒厂徽章标志</h3>
+                                        <p>融合传统工艺与现代美学的徽章</p>
+                                        <div class="btn">点击</div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="portfolio-item no-link" data-category="logo">
+                                <img src="https://images.pexels.com/photos/28839480/pexels-photo-28839480.jpeg" alt="动态标志设计" width="400" height="400" loading="lazy">
+                            </div>
+                        </div>
+                        <div class="category-more-link">
+                            <a href="public/design3/index.html" target="_blank" rel="noopener noreferrer">
+                                更多设计作品 → 品牌标志与字体
+                            </a>
+                        </div>
                     </div>
                     
-                    <div class="portfolio-category" data-category="other" hidden role="tabpanel" aria-labelledby="other-tab">
-                        <!-- 内容保持不变 -->
+                    <!-- 其他设计 -->
+                    <div class="portfolio-category" data-category="other" style="display: none;">
+                        <div class="portfolio-grid">
+                            <div class="portfolio-item" data-category="other">
+                                <a href="https://www.baidu.com" target="_blank" class="portfolio-link" rel="noopener">
+                                    <img src="https://images.pexels.com/photos/28839480/pexels-photo-28839480.jpeg" alt="文学小说书籍装帧设计" width="400" height="400" loading="lazy">
+                                    <div class="portfolio-overlay">
+                                        <h3>文学小说书籍装帧</h3>
+                                        <p>通过材质与工艺讲述故事</p>
+                                        <div class="btn">点击</div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="portfolio-item no-link" data-category="other">
+                                <img src="https://images.pexels.com/photos/28839480/pexels-photo-28839480.jpeg" alt="产品包装设计" width="400" height="400" loading="lazy">
+                            </div>
+                            <div class="portfolio-item" data-category="other">
+                                <a href="https://www.baidu.com" target="_blank" class="portfolio-link" rel="noopener">
+                                    <img src="https://images.pexels.com/photos/28839480/pexels-photo-28839480.jpeg" alt="年度数据报告视觉化设计" width="400" height="400" loading="lazy">
+                                    <div class="portfolio-overlay">
+                                        <h3>年度数据报告视觉化</h3>
+                                        <p>将复杂数据转化为清晰易懂的图表</p>
+                                        <div class="btn">点击</div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="portfolio-item no-link" data-category="other">
+                                <img src="https://images.pexels.com/photos/28839480/pexels-photo-28839480.jpeg" alt="网站界面设计" width="400" height="400" loading="lazy">
+                            </div>
+                        </div>
+                        <div class="category-more-link">
+                            <a href="public/design4/index.html" target="_blank" rel="noopener noreferrer">
+                                更多设计作品 → 创意类
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
     </div>
 
-    <!-- 联系板块 -->
+    <!-- 联系我们板块 -->
     <div class="section-container" style="margin-bottom: 30px;">
-        <section id="contact" class="contact" aria-labelledby="contact-title">
+        <section id="contact" class="contact" aria-label="联系信息">
             <div class="container">
-                <h2 class="section-title" id="contact-title">期待您的联系</h2>
+                <h2 class="section-title">期待您的联系</h2>
                 <div class="contact-content">
                     <div class="contact-info">
                         <div class="contact-info-container">
                             <p><b>现住地址：</b>深圳市龙岗区布吉（可随工作地点变动）</p>
-                            <p><b>电话：</b><a href="tel:+8618924658319">18924658319</a></p>
+                            <p><b>电话：</b><a href="tel:18924658319">18924658319</a></p>
                             <p><b>邮箱：</b><a href="mailto:875576191@qq.com">875576191@qq.com</a></p>
                             <p><b>工作状态：</b>待业中...</p>
-                            <img src="https://images.pexels.com/photos/28839480/pexels-photo-28839480.jpeg" 
-                                 alt="联系图片"
-                                 width="200"
-                                 height="200"
-                                 loading="lazy"
-                                 decoding="async">
+                            <img src="https://images.pexels.com/photos/28839480/pexels-photo-28839480.jpeg" alt="联系信息图片" width="200" height="200" loading="lazy">
                         </div>
                     </div>
                 </div>
@@ -245,17 +299,17 @@
 
     <!-- 页脚 -->
     <div class="section-container" style="margin-bottom: 30px;">
-        <footer>
+        <footer role="contentinfo">
             <div class="footer-overlay"></div>
             <div class="container footer-content">
-                <div class="footer-logo-placeholder" aria-hidden="true"></div>
+                <div class="footer-logo-placeholder"></div>
                 <div class="social-links">
-                    <a href="#" aria-label="Behance"><i class="fab fa-behance"></i></a>
-                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="#" aria-label="Dribbble"><i class="fab fa-dribbble"></i></a>
-                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" aria-label="访问Behance作品集"><i class="fab fa-behance"></i></a>
+                    <a href="#" aria-label="访问Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="访问Dribbble作品集"><i class="fab fa-dribbble"></i></a>
+                    <a href="#" aria-label="访问LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                 </div>
-                <div class="footer-copyright">© 2025 唐泉个人设计作品. 保留所有权利</div>
+                <div class="footer-copyright">© 2025唐泉个人设计作品. 保留所有权利</div>
             </div>
         </footer>
     </div>
@@ -265,7 +319,26 @@
         <i class="fas fa-arrow-up"></i>
     </button>
 
-    <!-- JavaScript - 使用现代模块化加载 -->
-    <script src="js/main.js" type="module"></script>
+    <!-- 优化：使用defer加载JavaScript -->
+    <script src="js/main.js" defer></script>
+    <script src="js/navigation.js" defer></script>
+    <script src="js/portfolio.js" defer></script>
+    <script src="js/cursor.js" defer></script>
+    
+    <!-- 优化：添加结构化数据 -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "个人设计作品站",
+        "description": "展示个人设计作品的创意网站",
+        "url": "https://your-website.com",
+        "author": {
+            "@type": "Person",
+            "name": "唐泉",
+            "jobTitle": "平面设计师"
+        }
+    }
+    </script>
 </body>
 </html>

@@ -1,308 +1,302 @@
 /* 
  * main.css - 主样式文件（优化版）
- * 优化：代码压缩、变量提取、性能优化
+ * 优化内容：精简代码、使用CSS变量、优化滚动条、提高性能
  */
 
+/* ==================== CSS变量定义 ==================== */
 :root {
-    /* 颜色系统 */
-    --color-bg-dark: #181818;
-    --color-bg-card: #1f1f1f;
-    --color-bg-card-light: #2a2a2a;
-    --color-text-primary: #dbdbdb;
-    --color-text-secondary: #aaaaaa;
-    --color-border: rgba(255, 255, 255, 0.1);
-    --color-border-light: rgba(255, 255, 255, 0.2);
-    
-    /* 字体系统 */
-    --font-family-en: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", Roboto, Arial, sans-serif;
-    --font-family-zh: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", sans-serif;
-    
-    /* 间距系统 */
-    --spacing-xs: 8px;
-    --spacing-sm: 16px;
-    --spacing-md: 24px;
-    --spacing-lg: 32px;
-    --spacing-xl: 48px;
-    
-    /* 响应式断点 */
-    --breakpoint-mobile: 768px;
-    --breakpoint-tablet: 1024px;
-    --breakpoint-desktop: 1200px;
-    
-    /* 动画时间 */
-    --transition-fast: 0.3s;
-    --transition-normal: 0.5s;
-    --transition-slow: 0.8s;
-    
-    /* 圆角 */
-    --border-radius-sm: 8px;
-    --border-radius-md: 10px;
-    --border-radius-lg: 12px;
-    
-    /* 阴影 */
-    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
-    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.3);
-    --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.4);
+  --bg-dark: #181818;
+  --bg-card: #1f1f1f;
+  --text-primary: #dbdbdb;
+  --border-color: #333333;
+  --scrollbar-width: 10px;
 }
 
-/* ==================== 重置与基础 ==================== */
-*, *::before, *::after {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-html {
-    scroll-behavior: smooth;
-    -webkit-text-size-adjust: 100%;
-    -moz-text-size-adjust: 100%;
-    text-size-adjust: 100%;
+/* ==================== 全局样式重置 ==================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    font-family: var(--font-family-zh), var(--font-family-en);
-    background-color: var(--color-bg-dark);
-    color: var(--color-text-primary);
-    line-height: 1.6;
-    overflow-x: hidden;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", sans-serif, -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", Roboto, Arial, sans-serif;
+  background-color: var(--bg-dark);
+  color: var(--text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0.1);
 }
 
-/* 触摸设备优化 */
-@media (hover: none) and (pointer: coarse) {
-    * {
-        -webkit-tap-highlight-color: rgba(255, 255, 255, 0.1);
-    }
+/* ==================== 美化滚动条 ==================== */
+body::-webkit-scrollbar {
+  width: var(--scrollbar-width);
+  height: var(--scrollbar-width);
 }
 
-/* ==================== 滚动条美化 ==================== */
-::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
+body::-webkit-scrollbar-track {
+  background: var(--bg-card);
+  border-radius: 5px;
 }
 
-::-webkit-scrollbar-track {
-    background: var(--color-bg-card);
-    border-radius: 5px;
+body::-webkit-scrollbar-thumb {
+  background: var(--bg-dark);
+  border-radius: 5px;
+  border: 2px solid var(--bg-card);
 }
 
-::-webkit-scrollbar-thumb {
-    background: var(--color-bg-dark);
-    border-radius: 5px;
-    border: 2px solid var(--color-bg-card);
+body::-webkit-scrollbar-thumb:hover {
+  background: #2a2a2a;
 }
 
-::-webkit-scrollbar-thumb:hover {
-    background: var(--color-bg-card-light);
+body {
+  scrollbar-width: thin;
+  scrollbar-color: var(--bg-dark) var(--bg-card);
 }
 
-/* Firefox */
-* {
-    scrollbar-width: thin;
-    scrollbar-color: var(--color-bg-dark) var(--color-bg-card);
-}
-
-/* ==================== 字体系统 ==================== */
+/* ==================== 字体系统优化 ==================== */
+/* 英文优先字体 */
 h1, h2, h3, h4, h5, h6,
 button, input, textarea,
 .logo, .btn,
 .filter-btn, .modal-close,
 .footer-copyright, .hero h1,
 .section-title {
-    font-family: var(--font-family-en), var(--font-family-zh);
-    color: var(--color-text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", Roboto, Arial, sans-serif, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", sans-serif;
+  color: var(--text-primary);
 }
 
-p, span, a, li,
+/* 中文优先字体 */
+p, span, a:not(.btn):not(.filter-btn):not(.logo), li,
 .about-text p, 
 .contact-info p,
 .hero p,
 .portfolio-overlay p,
 .category-more-link a,
 .portfolio-overlay .btn {
-    font-family: var(--font-family-zh), var(--font-family-en);
-    color: var(--color-text-primary);
+  font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", sans-serif, -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", Roboto, Arial, sans-serif;
+  color: var(--text-primary);
 }
 
 /* ==================== 桌面端全局文字大小 ==================== */
 body:not(footer) {
-    font-size: 200% !important;
+  font-size: 200% !important;
 }
 
+/* 页脚保持原大小 */
 footer,
-footer *,
-footer .social-links a,
-footer .footer-copyright {
-    font-size: 100% !important;
+footer * {
+  font-size: 100% !important;
 }
 
-/* ==================== 基础组件 ==================== */
+/* ==================== 模态框滚动控制 ==================== */
+body.modal-open {
+  overflow: hidden !important;
+  height: 100vh !important;
+  width: 100% !important;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+}
+
+/* ==================== 响应式容器系统 ==================== */
 .container {
-    width: 100%;
-    max-width: none;
-    margin: 0;
-    padding: 0 50px;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0 50px;
 }
 
-@media (max-width: var(--breakpoint-mobile)) {
-    .container {
-        padding: 0 var(--spacing-sm) !important;
-    }
-}
-
+/* ==================== 基础组件样式 ==================== */
 .btn {
-    display: inline-block;
-    padding: 10px 22px;
-    transition: all var(--transition-fast) cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    font-size: 13px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    cursor: pointer;
-    background: transparent;
-    border: none;
-    border-radius: var(--border-radius-md);
-    font-family: var(--font-family-en);
-    color: var(--color-text-primary);
+  display: inline-block;
+  padding: 10px 22px;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  border-radius: 10px;
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", Roboto, Arial, sans-serif;
+  color: var(--text-primary);
 }
 
 .btn:hover {
-    background-color: transparent;
-    color: var(--color-text-primary);
+  background-color: transparent;
+  color: var(--text-primary);
 }
 
+/* ==================== 基础链接样式 ==================== */
 a {
-    text-decoration: none;
-    color: var(--color-text-primary);
-    transition: color var(--transition-fast) cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  text-decoration: none;
+  color: var(--text-primary);
+  transition: color 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-/* ==================== 响应式系统 ==================== */
-@media (max-width: var(--breakpoint-mobile)) {
-    /* 移动端全局重置 */
-    body:not(footer) {
-        font-size: 16px !important;
-        line-height: 1.5;
-        color: var(--color-text-primary) !important;
-    }
-    
-    /* 移动端滚动条 */
-    ::-webkit-scrollbar {
-        width: 8px;
-        height: 8px;
-    }
-    
-    /* 移动端容器 */
-    .nav-container {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
-        padding: 0 !important;
-    }
-    
-    /* 移动端标题 */
-    .section-title {
-        font-size: 1.75rem !important;
-        margin-bottom: 2.5rem !important;
-        padding-bottom: 0.75rem !important;
-        color: var(--color-text-primary) !important;
-    }
-    
-    .section-title::after {
-        width: 40px !important;
-        height: 2px !important;
-        background-color: var(--color-text-primary) !important;
-    }
-    
-    /* 关于我们移动端优化 */
-    .about {
-        padding: 2rem 0 !important;
-    }
-    
-    .about-container {
-        padding: 2rem 1.5rem !important;
-        border-radius: var(--border-radius-sm) !important;
-        margin: 0 0 2rem !important;
-        box-shadow: var(--shadow-md) !important;
-    }
-    
-    .about-content {
-        flex-direction: column !important;
-        gap: 2.5rem !important;
-    }
-    
-    .about-text p {
-        font-size: 1rem !important;
-        line-height: 1.6 !important;
-        margin-bottom: 1rem !important;
-        color: var(--color-text-primary) !important;
-    }
-    
-    .about-image-wrapper {
-        width: 100% !important;
-        min-height: 200px !important;
-    }
-    
-    .about-image-container {
-        min-height: 200px !important;
-        aspect-ratio: 1/1 !important;
-    }
+/* ==================== 关于我们布局 ==================== */
+.about-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 48px;
+  width: 100%;
 }
 
-@media (max-width: 480px) {
-    .container {
-        padding: 0 20px !important;
-    }
-    
-    .section-title {
-        font-size: 1.5rem !important;
-        margin-bottom: 2rem !important;
-    }
-    
-    .hero h1 {
-        font-size: 1.75rem !important;
-    }
-    
-    .about-container,
-    .portfolio-container,
-    .contact-info-container {
-        padding: 1.5rem 1.25rem !important;
-    }
+.about-text {
+  flex: 1;
+  min-width: 0;
 }
 
-/* ==================== 无障碍优化 ==================== */
-.visually-hidden {
-    position: absolute !important;
-    width: 1px !important;
-    height: 1px !important;
+.about-text p {
+  margin-bottom: 18px;
+  font-size: 28px;
+  line-height: 1.6;
+  color: var(--text-primary);
+}
+
+.about-text p:last-child {
+  margin-bottom: 0;
+}
+
+.about-image-wrapper {
+  flex: 1;
+  position: relative;
+  min-height: 280px;
+  display: flex;
+  align-items: flex-start;
+}
+
+.about-image-container {
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 10px;
+  background-color: #2a2a2a;
+  min-height: 280px;
+  aspect-ratio: 1/1;
+}
+
+.about-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 10px;
+}
+
+/* ==================== 移动端响应式设计 ==================== */
+@media (max-width: 768px) {
+  /* 移动端全局重置 */
+  body:not(footer) {
+    font-size: 16px !important;
+    line-height: 1.5;
+    color: var(--text-primary) !important;
+  }
+  
+  /* 移动端滚动条美化 */
+  body::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  /* 移动端容器优化 */
+  .container {
+    padding: 0 16px !important;
+  }
+  
+  /* 导航栏容器调整 */
+  .nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
     padding: 0 !important;
-    margin: -1px !important;
-    overflow: hidden !important;
-    clip: rect(0, 0, 0, 0) !important;
-    white-space: nowrap !important;
-    border: 0 !important;
+  }
+  
+  /* 确保logo容器有足够空间 */
+  .logo-image-container {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    min-width: 0;
+  }
+  
+  /* 移动端标题系统 */
+  .section-title {
+    font-size: 1.75rem !important;
+    margin-bottom: 2.5rem !important;
+    padding-bottom: 0.75rem !important;
+    color: var(--text-primary) !important;
+  }
+  
+  .section-title::after {
+    width: 40px !important;
+    height: 2px !important;
+    background-color: var(--text-primary) !important;
+  }
+  
+  /* 关于我们移动端优化 */
+  .about {
+    padding: 2rem 0 !important;
+  }
+  
+  .about-container {
+    padding: 2rem 1.5rem !important;
+    border-radius: 8px !important;
+    margin: 0 0 2rem !important;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3) !important;
+  }
+  
+  .about-content {
+    flex-direction: column !important;
+    gap: 2.5rem !important;
+  }
+  
+  .about-text p {
+    font-size: 1rem !important;
+    line-height: 1.6 !important;
+    margin-bottom: 1rem !important;
+    color: var(--text-primary) !important;
+  }
+  
+  .about-image-wrapper {
+    width: 100% !important;
+    min-height: 200px !important;
+  }
+  
+  .about-image-container {
+    min-height: 200px !important;
+    aspect-ratio: 1/1 !important;
+  }
 }
 
-/* ==================== 打印样式 ==================== */
-@media print {
-    body {
-        background: white !important;
-        color: black !important;
-    }
-    
-    .hero, .back-to-top, .nav-arrow {
-        display: none !important;
-    }
-    
-    a {
-        color: black !important;
-        text-decoration: underline !important;
-    }
-    
-    a[href^="http"]::after {
-        content: " (" attr(href) ")";
-        font-size: 0.9em;
-        font-weight: normal;
-    }
+/* 超小屏幕进一步优化 */
+@media (max-width: 480px) {
+  .container {
+    padding: 0 20px !important;
+  }
+  
+  .section-title {
+    font-size: 1.5rem !important;
+    margin-bottom: 2rem !important;
+  }
+  
+  .hero h1 {
+    font-size: 1.75rem !important;
+  }
+  
+  .about-container,
+  .portfolio-container,
+  .contact-info-container {
+    padding: 1.5rem 1.25rem !important;
+  }
 }
