@@ -1,315 +1,356 @@
-// 导航功能
-function initNavigation() {
-    // 智能导航栏隐藏/显示逻辑
-    let lastScrollY = window.scrollY;
-    const scrollThreshold = 150;
-    const nav = document.querySelector('nav');
-    const navLinks = document.querySelector('.nav-links');
-    const logoElement = document.querySelector('.logo');
+
+/**
+ * navigation.js - 导航功能优化版
+ * 优化内容：代码模块化、性能优化、简化逻辑、更好的事件处理
+ */
+
+class NavigationController {
+  constructor() {
+    this.nav = document.querySelector('nav');
+    this.navLinks = document.querySelector('.nav-links');
+    this.logoElement = document.querySelector('.logo');
+    this.heroSection = document.querySelector('.hero');
     
-    // 获取首页横幅元素
-    const heroSection = document.querySelector('.hero');
+    // 获取页面主要区域
+    this.aboutSection = document.getElementById('about');
+    this.workSection = document.getElementById('work');
+    this.contactSection = document.getElementById('contact');
     
-    // 初始状态：页面加载时添加初始隐藏类和透明类（仅桌面端）
-    if (window.innerWidth > 768) {
-        nav.classList.add('initial-hidden', 'transparent');
+    this.lastScrollY = window.scrollY;
+    this.scrollThreshold = 150;
+    this.initialScrollTriggered = false;
+    this.autoShowTimer = null;
+    this.currentSection = 'hero'; // 当前所在区域
+    
+    this.init();
+  }
+  
+  init() {
+    console.log('🚀 导航系统已初始化（智能区域检测版）');
+    
+    this.setupInitialState();
+    this.bindEvents();
+    this.setupAutoShow();
+    this.updateNavLinks(); // 初始更新
+  }
+  
+  setupInitialState() {
+    if (this.isDesktop()) {
+      this.nav.classList.add('initial-hidden', 'transparent');
+    } else {
+      this.nav.classList.remove('initial-hidden');
+    }
+  }
+  
+  bindEvents() {
+    window.addEventListener('scroll', () => this.handleScroll());
+    window.addEventListener('resize', () => this.handleResize());
+    document.addEventListener('click', (e) => this.handleDocumentClick(e));
+    
+    if (this.logoElement) {
+      this.logoElement.addEventListener('click', (e) => this.handleLogoClick(e));
+    }
+  }
+  
+  handleScroll() {
+    const currentScrollY = window.scrollY;
+    
+    // 检测当前所在区域
+    this.detectCurrentSection(currentScrollY);
+    
+    // 更新移动端导航链接
+    if (this.isMobile()) {
+      this.updateMobileNavLinks();
     }
     
-    // 检查是否在首页横幅区域
-    function checkHeroVisibility() {
-        // 移动端直接返回，不执行透明效果
-        if (window.innerWidth <= 768) {
-            // 移动端：始终保持白色背景，不透明
-            nav.classList.remove('transparent');
-            nav.style.backgroundColor = 'rgba(255, 255, 255, 1)';
-            nav.style.backdropFilter = 'none';
-            nav.style.borderBottom = '1px solid rgba(0, 0, 0, 0.08)';
-            // 移动端：确保没有transform动画
-            nav.style.transform = 'none';
-            return;
+    // 移动端逻辑
+    if (this.isMobile()) {
+      return;
+    }
+    
+    // 桌面端逻辑
+    const isScrollingDown = currentScrollY > this.lastScrollY;
+    const isScrollingUp = currentScrollY < this.lastScrollY;
+    
+    window.requestAnimationFrame(() => {
+      this.checkHeroVisibility();
+      this.checkBottom();
+      
+      // 首次滚动时移除初始隐藏类
+      if (!this.initialScrollTriggered && currentScrollY > 5) {
+        this.nav.classList.remove('initial-hidden');
+        this.initialScrollTriggered = true;
+        this.clearAutoShowTimer();
+      }
+      
+      // 正常的导航栏显示/隐藏逻辑
+      if (!this.nav.classList.contains('at-bottom')) {
+        if (isScrollingUp) {
+          this.nav.classList.remove('nav-hidden');
+        } else if (isScrollingDown) {
+          this.nav.classList.add('nav-hidden');
         }
+      }
+    });
+    
+    this.lastScrollY = currentScrollY;
+  }
+  
+  // 检测当前所在区域
+  detectCurrentSection(currentScrollY) {
+    const windowHeight = window.innerHeight;
+    const windowCenter = currentScrollY + (windowHeight / 2);
+    
+    // 获取各区域位置
+    const sections = [
+      { id: 'hero', element: this.heroSection },
+      { id: 'about', element: this.aboutSection },
+      { id: 'work', element: this.workSection },
+      { id: 'contact', element: this.contactSection }
+    ];
+    
+    let newSection = 'hero';
+    
+    // 按顺序检查哪个区域在视窗中心
+    for (const section of sections) {
+      if (section.element) {
+        const rect = section.element.getBoundingClientRect();
+        const elementTop = currentScrollY + rect.top;
+        const elementBottom = elementTop + rect.height;
         
-        if (!heroSection) return;
+        if (windowCenter >= elementTop && windowCenter <= elementBottom) {
+          newSection = section.id;
+          break;
+        }
+      }
+    }
+    
+    // 如果当前不在任何特定区域，检查是否在区域之间
+    if (newSection === 'hero') {
+      // 检查是否在hero之后但在about之前
+      if (this.aboutSection) {
+        const aboutRect = this.aboutSection.getBoundingClientRect();
+        const aboutTop = currentScrollY + aboutRect.top;
         
-        const heroRect = heroSection.getBoundingClientRect();
-        const heroBottom = heroRect.bottom;
-        
-        // 桌面端：判断是否在首页横幅区域内
-        // 如果导航栏在首页横幅区域内，保持透明效果
-        if (heroBottom > 0 && window.scrollY < heroRect.height) {
-            nav.classList.add('transparent');
-            // 在首页横幅区域内，移除矩形框背景，但保持文字可见
-            nav.style.backgroundColor = 'rgba(255, 255, 255, 0)';
-            nav.style.backdropFilter = 'none';
-            nav.style.borderBottom = '1px solid transparent';
+        if (currentScrollY < aboutTop - 100) {
+          newSection = 'hero';
         } else {
-            nav.classList.remove('transparent');
-            // 离开首页横幅区域，显示矩形框背景
-            nav.style.backgroundColor = 'rgba(255, 255, 255, 0.98)';
-            nav.style.backdropFilter = 'blur(10px)';
-            nav.style.borderBottom = '1px solid rgba(0, 0, 0, 0.05)';
+          // 如果过了hero区域但不在任何主要区域，隐藏导航链接
+          newSection = 'none';
         }
+      }
     }
     
-    // 检查是否到达页面底部
-    function checkBottom() {
-        // 只在桌面端执行
-        if (window.innerWidth <= 768) return;
-        
-        const windowHeight = window.innerHeight;
-        const documentHeight = document.documentElement.scrollHeight;
-        const scrollTop = window.scrollY || document.documentElement.scrollTop;
-        
-        // 判断是否接近底部（距离底部100px以内）
-        const isAtBottom = (scrollTop + windowHeight) >= (documentHeight - 100);
-        
-        if (isAtBottom) {
-            // 到达底部时显示导航栏和箭头
-            nav.classList.remove('nav-hidden');
-            nav.classList.add('at-bottom');
-        } else {
-            // 离开底部时隐藏箭头
-            nav.classList.remove('at-bottom');
-        }
+    // 如果区域发生变化，更新导航链接
+    if (newSection !== this.currentSection) {
+      this.currentSection = newSection;
+      this.updateNavLinks();
     }
-    
-    // 移动端：根据当前滚动位置更新导航链接
-    function updateMobileNavLinks() {
-        // 只在移动端执行
-        if (window.innerWidth > 768) return;
-        
-        const aboutSection = document.querySelector('#about');
-        const workSection = document.querySelector('#work');
-        const contactSection = document.querySelector('#contact');
-        
-        const sections = [
-            { element: heroSection, id: 'hero', top: 0, bottom: heroSection ? heroSection.offsetHeight : 0 },
-            { element: aboutSection, id: 'about', top: aboutSection ? aboutSection.offsetTop : 0, bottom: aboutSection ? aboutSection.offsetTop + aboutSection.offsetHeight : 0 },
-            { element: workSection, id: 'work', top: workSection ? workSection.offsetTop : 0, bottom: workSection ? workSection.offsetTop + workSection.offsetHeight : 0 },
-            { element: contactSection, id: 'contact', top: contactSection ? contactSection.offsetTop : 0, bottom: contactSection ? contactSection.offsetTop + contactSection.offsetHeight : 0 }
-        ];
-        
-        // 获取当前滚动位置
-        const currentScroll = window.scrollY + 100; // 加上100px的偏移，让切换更平滑
-        
-        // 找到当前所在的板块
-        let currentSection = 'hero'; // 默认为首页
-        
-        for (const section of sections) {
-            if (section.element && currentScroll >= section.top && currentScroll < section.bottom) {
-                currentSection = section.id;
-                break;
-            }
-        }
-        
-        // 清空现有链接
-        navLinks.innerHTML = '';
-        
-        // 根据当前板块添加相应的链接
-        switch(currentSection) {
-            case 'hero':
-                // 首页横幅区域：只显示logo，不显示任何链接
-                break;
-            case 'about':
-                // 关于我区域：显示"作品"和"联系"
-                navLinks.innerHTML = `
-                    <a href="#work">作品</a>
-                    <a href="#contact">联系</a>
-                `;
-                break;
-            case 'work':
-                // 部分作品区域：显示"关于"和"联系"
-                navLinks.innerHTML = `
-                    <a href="#about">关于</a>
-                    <a href="#contact">联系</a>
-                `;
-                break;
-            case 'contact':
-                // 期待您的联系区域：显示"关于"和"作品"
-                navLinks.innerHTML = `
-                    <a href="#about">关于</a>
-                    <a href="#work">作品</a>
-                `;
-                break;
-        }
+  }
+  
+  // 更新导航链接显示
+  updateNavLinks() {
+    if (this.isDesktop()) {
+      // 桌面端显示所有链接
+      this.navLinks.innerHTML = `
+        <a href="#about">关于</a>
+        <a href="#work">作品</a>
+        <a href="#contact">联系</a>
+      `;
+    } else {
+      // 移动端根据当前区域显示
+      let linksHTML = '';
+      
+      switch (this.currentSection) {
+        case 'about':
+          // 在关于区域：显示作品和联系
+          linksHTML = `
+            <a href="#work">作品</a>
+            <a href="#contact">联系</a>
+          `;
+          break;
+          
+        case 'work':
+          // 在作品区域：显示关于和联系
+          linksHTML = `
+            <a href="#about">关于</a>
+            <a href="#contact">联系</a>
+          `;
+          break;
+          
+        case 'contact':
+          // 在联系区域：显示关于和作品
+          linksHTML = `
+            <a href="#about">关于</a>
+            <a href="#work">作品</a>
+          `;
+          break;
+          
+        case 'hero':
+          // 在顶部图片区域：隐藏所有链接
+          linksHTML = '';
+          break;
+          
+        case 'none':
+        default:
+          // 在其他区域：隐藏所有链接
+          linksHTML = '';
+          break;
+      }
+      
+      this.navLinks.innerHTML = linksHTML;
     }
+  }
+  
+  checkHeroVisibility() {
+    if (this.isMobile()) return;
     
-    // 初始检查
-    checkHeroVisibility();
-    checkBottom();
-    
-    let initialScrollTriggered = false;
-    let autoShowTimer = null;
-    
-    // 桌面端和移动端分开处理滚动逻辑
-    window.addEventListener('scroll', function() {
-        const currentScrollY = window.scrollY;
-        
-        // 移动端逻辑
-        if (window.innerWidth <= 768) {
-            // 移动端：更新导航链接
-            updateMobileNavLinks();
-            return;
-        }
-        
-        // 桌面端逻辑
-        const isScrollingDown = currentScrollY > lastScrollY;
-        const isScrollingUp = currentScrollY < lastScrollY;
-        const isAtTop = currentScrollY < 10;
-        
-        window.requestAnimationFrame(() => {
-            // 检查是否在首页横幅区域
-            checkHeroVisibility();
-            
-            // 检查是否到达底部
-            checkBottom();
-            
-            // 首次滚动时移除初始隐藏类
-            if (!initialScrollTriggered && currentScrollY > 5) {
-                nav.classList.remove('initial-hidden');
-                initialScrollTriggered = true;
-                
-                // 清除10秒自动显示定时器
-                if (autoShowTimer) {
-                    clearTimeout(autoShowTimer);
-                    autoShowTimer = null;
-                }
-            }
-            
-            // 如果不是在底部，则执行正常的导航栏显示/隐藏逻辑
-            if (!nav.classList.contains('at-bottom')) {
-                // 如果向上滑动，一直显示导航栏
-                if (isScrollingUp) {
-                    nav.classList.remove('nav-hidden');
-                }
-                // 如果向下滑动，隐藏导航栏
-                else if (isScrollingDown) {
-                    nav.classList.add('nav-hidden');
-                }
-            }
-            // 如果在底部，导航栏已经由checkBottom函数显示
-        });
-        
-        lastScrollY = currentScrollY;
-    });
-    
-    // 平滑滚动
-    const navbar = document.querySelector('nav');
-    
-    // 使用事件委托处理导航链接点击
-    document.addEventListener('click', function(e) {
-        if (e.target.matches('.nav-links a')) {
-            e.preventDefault();
-            const href = e.target.getAttribute('href');
-            
-            if (href.startsWith('#')) {
-                const targetId = href.substring(1);
-                const targetElement = document.getElementById(targetId);
-                
-                if (targetElement) {
-                    const navbarHeight = navbar.offsetHeight;
-                    const targetPosition = targetElement.offsetTop - navbarHeight;
-                    
-                    window.scrollTo({
-                        top: targetPosition,
-                        behavior: 'smooth'
-                    });
-                }
-            }
-        }
-    });
-    
-    // 点击logo跳转到首页横屏
-    if (logoElement) {
-        logoElement.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            // 滚动到首页顶部
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-            
-            // 移动端：保持白色背景
-            if (window.innerWidth <= 768) {
-                nav.classList.remove('transparent');
-                nav.style.backgroundColor = 'rgba(255, 255, 255, 1)';
-                nav.style.backdropFilter = 'none';
-                nav.style.borderBottom = '1px solid rgba(0, 0, 0, 0.08)';
-                // 确保没有transform动画
-                nav.style.transform = 'none';
-            } else {
-                // 桌面端逻辑保持不变
-                nav.classList.add('transparent');
-                nav.style.backgroundColor = 'rgba(255, 255, 255, 0)';
-                nav.style.backdropFilter = 'none';
-                nav.style.borderBottom = '1px solid transparent';
-            }
-            
-            // 如果是移动端，更新导航链接
-            if (window.innerWidth <= 768) {
-                updateMobileNavLinks();
-            }
-        });
+    if (this.heroSection) {
+      const heroRect = this.heroSection.getBoundingClientRect();
+      const heroBottom = heroRect.bottom;
+      
+      if (heroBottom > 0 && window.scrollY < heroRect.height) {
+        this.setNavTransparent();
+      } else {
+        this.setNavSolid();
+      }
     }
+  }
+  
+  setNavTransparent() {
+    this.nav.classList.add('transparent');
+    this.nav.style.backgroundColor = 'rgba(24, 24, 24, 0)';
+    this.nav.style.backdropFilter = 'none';
+    this.nav.style.borderBottom = '1px solid transparent';
+  }
+  
+  setNavSolid() {
+    this.nav.classList.remove('transparent');
+    this.nav.style.backgroundColor = 'rgba(24, 24, 24, 0.98)';
+    this.nav.style.backdropFilter = 'blur(10px)';
+    this.nav.style.borderBottom = '1px solid rgba(255, 255, 255, 0.1)';
+  }
+  
+  checkBottom() {
+    if (this.isMobile()) return;
     
-    // 页面加载完成后
-    window.addEventListener('load', function() {
-        // 移动端：不执行10秒自动显示，直接显示导航栏
-        if (window.innerWidth <= 768) {
-            nav.classList.remove('initial-hidden');
-            initialScrollTriggered = true;
-            updateMobileNavLinks();
-            // 移动端：确保导航栏完全可见，没有动画
-            nav.style.opacity = '1';
-            nav.style.visibility = 'visible';
-            nav.style.transform = 'none';
-        } else {
-            // 桌面端逻辑保持不变
-            autoShowTimer = setTimeout(function() {
-                if (!initialScrollTriggered) {
-                    nav.classList.remove('initial-hidden');
-                    initialScrollTriggered = true;
-                }
-            }, 10000);
-        }
+    const windowHeight = window.innerHeight;
+    const documentHeight = document.documentElement.scrollHeight;
+    const scrollTop = window.scrollY;
+    
+    const isAtBottom = (scrollTop + windowHeight) >= (documentHeight - 100);
+    
+    if (isAtBottom) {
+      this.nav.classList.remove('nav-hidden');
+      this.nav.classList.add('at-bottom');
+    } else {
+      this.nav.classList.remove('at-bottom');
+    }
+  }
+  
+  // 移动端导航链接更新（保持原有方法兼容性）
+  updateMobileNavLinks() {
+    if (!this.isMobile()) return;
+    
+    // 已经由updateNavLinks处理，这里只需要确保调用
+    this.updateNavLinks();
+  }
+  
+  handleDocumentClick(e) {
+    if (e.target.matches('.nav-links a')) {
+      e.preventDefault();
+      this.handleNavLinkClick(e.target);
+    }
+  }
+  
+  handleNavLinkClick(link) {
+    const href = link.getAttribute('href');
+    
+    if (href.startsWith('#')) {
+      const targetId = href.substring(1);
+      this.scrollToSection(targetId);
+    }
+  }
+  
+  scrollToSection(sectionId) {
+    const targetElement = document.getElementById(sectionId);
+    if (!targetElement) return;
+    
+    const navbarHeight = this.nav.offsetHeight;
+    const targetPosition = targetElement.offsetTop - navbarHeight;
+    
+    window.scrollTo({
+      top: targetPosition,
+      behavior: 'smooth'
+    });
+  }
+  
+  handleLogoClick(e) {
+    e.preventDefault();
+    
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
     });
     
-    // 点击页面任意位置也可以触发导航栏显示（可选）
-    document.addEventListener('click', function() {
-        if (!initialScrollTriggered) {
-            nav.classList.remove('initial-hidden');
-            initialScrollTriggered = true;
-            
-            // 清除10秒自动显示定时器
-            if (autoShowTimer) {
-                clearTimeout(autoShowTimer);
-                autoShowTimer = null;
-            }
-        }
-    });
+    // 滚动到顶部后更新当前区域
+    this.currentSection = 'hero';
+    if (this.isMobile()) {
+      this.updateNavLinks();
+    }
+  }
+  
+  handleResize() {
+    if (this.isMobile()) {
+      this.updateNavLinks();
+    } else {
+      // 桌面端恢复默认链接
+      this.restoreDesktopLinks();
+    }
+  }
+  
+  restoreDesktopLinks() {
+    this.navLinks.innerHTML = `
+      <a href="#about">关于</a>
+      <a href="#work">作品</a>
+      <a href="#contact">联系</a>
+    `;
     
-    // 窗口大小改变时
-    window.addEventListener('resize', function() {
-        // 如果是移动端，更新导航链接
-        if (window.innerWidth <= 768) {
-            updateMobileNavLinks();
-            // 移动端隐藏箭头
-            nav.classList.remove('at-bottom');
-            // 移动端：确保导航栏没有动画
-            nav.style.transition = 'none';
-            nav.style.transform = 'none';
-        } else {
-            // 桌面端：恢复原始链接
-            const originalLinks = `
-                <a href="#about">关于</a>
-                <a href="#work">作品</a>
-                <a href="#contact">联系</a>
-            `;
-            navLinks.innerHTML = originalLinks;
-            
-            // 检查是否在底部
-            checkBottom();
+    this.checkBottom();
+  }
+  
+  setupAutoShow() {
+    if (this.isMobile()) {
+      this.nav.classList.remove('initial-hidden');
+      this.initialScrollTriggered = true;
+      this.updateNavLinks();
+    } else {
+      this.autoShowTimer = setTimeout(() => {
+        if (!this.initialScrollTriggered) {
+          this.nav.classList.remove('initial-hidden');
+          this.initialScrollTriggered = true;
         }
-    });
+      }, 10000);
+    }
+  }
+  
+  clearAutoShowTimer() {
+    if (this.autoShowTimer) {
+      clearTimeout(this.autoShowTimer);
+      this.autoShowTimer = null;
+    }
+  }
+  
+  isDesktop() {
+    return window.innerWidth > 768;
+  }
+  
+  isMobile() {
+    return window.innerWidth <= 768;
+  }
 }
+
+// 初始化导航控制器
+document.addEventListener('DOMContentLoaded', () => {
+  window.navigationController = new NavigationController();
+});

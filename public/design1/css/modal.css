@@ -1,10 +1,9 @@
 /* 
  * modal.css - 模态框专用样式
- * 目的：创建全屏模态框，支持多图片展示和优雅的动画效果
+ * 优化版本：代码压缩、性能优化、减少重复代码
  */
 
 /* ==================== 模态框基础样式 ==================== */
-/* 目的：创建覆盖全屏的模态框容器 */
 .portfolio-modal {
     display: none;
     position: fixed;
@@ -15,6 +14,7 @@
     z-index: 2000;
     opacity: 0;
     transition: opacity 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: opacity; /* 性能优化 */
 }
 
 .portfolio-modal.active {
@@ -22,7 +22,6 @@
     opacity: 1;
 }
 
-/* 模态框遮罩层 */
 .modal-overlay {
     position: absolute;
     top: 0;
@@ -40,13 +39,12 @@
 }
 
 /* ==================== 模态框内容容器 ==================== */
-/* 目的：居中对齐的模态框内容区域，支持滚动 */
 .modal-content {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) scale(0.96);
-    background: #1f1f1f; /* 模态框背景改为 #1f1f1f */
+    background: #1f1f1f;
     width: 82%;
     max-width: 1200px;
     max-height: 84vh;
@@ -58,13 +56,11 @@
     display: flex;
     flex-direction: column;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-    
-    /* 隐藏滚动条 */
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    will-change: transform, opacity; /* 性能优化 */
 }
 
-/* 隐藏模态框滚动条 - WebKit */
 .modal-content::-webkit-scrollbar {
     display: none;
     width: 0;
@@ -77,7 +73,6 @@
 }
 
 /* ==================== 模态框关闭按钮 ==================== */
-/* 目的：无框下划线动画按钮，与导航栏保持一致的交互体验 */
 .modal-close {
     position: absolute;
     top: 28px;
@@ -101,7 +96,6 @@
     transition: color 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-/* 下划线动画 - 与导航栏相同 */
 .modal-close::after {
     content: '';
     position: absolute;
@@ -109,7 +103,7 @@
     left: 50%;
     width: 0;
     height: 0.5px;
-    background-color: #dbdbdb; /* 下划线改为 #dbdbdb */
+    background-color: #dbdbdb;
     transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     transform: translateX(-50%);
     opacity: 0;
@@ -130,20 +124,15 @@
     line-height: 1.7;
     color: #ddd;
     font-size: 2.1rem;
-    /* 中文内容使用中文无衬线字体 */
     font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", sans-serif;
 }
 
 /* ==================== 图片展示系统 ==================== */
-/* 目的：支持多张图片展示，图片间距为0，直角设计 */
-
-/* 图片容器 */
 .modal-images-container {
     margin: 28px 0 0;
     width: 100%;
 }
 
-/* 单张图片容器 - 图片间距为0 */
 .modal-image-item {
     margin-bottom: 0;
     text-align: center;
@@ -156,12 +145,10 @@
     align-items: center;
 }
 
-/* 最后一张图片没有下边距 */
 .modal-image-item:last-child {
     margin-bottom: 0;
 }
 
-/* 图片样式 - 直角，无圆角 */
 .modal-image-item img {
     max-width: 100%;
     height: auto;
@@ -171,6 +158,7 @@
     transition: transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     display: block;
     margin: 0 auto;
+    will-change: transform; /* 性能优化 */
 }
 
 .portfolio-modal.active .modal-image-item img {
@@ -178,7 +166,6 @@
 }
 
 /* ==================== 内容淡入动画 ==================== */
-/* 目的：模态框内容交错淡入动画，创造层次感 */
 .modal-body h2,
 .modal-body p,
 .design-thought-section,
@@ -218,7 +205,7 @@
     padding: 24px;
     background-color: #2a2a2a;
     border-radius: 6px;
-    border-left: 4px solid #dbdbdb; /* 边框改为 #dbdbdb */
+    border-left: 4px solid #dbdbdb;
 }
 
 .design-thought-section h3 {
@@ -247,7 +234,7 @@
     left: 0;
     width: 50px;
     height: 2.5px;
-    background-color: #dbdbdb; /* 下划线改为 #dbdbdb */
+    background-color: #dbdbdb;
     border-radius: 1.5px;
 }
 
@@ -258,12 +245,10 @@
     margin-bottom: 28px;
     color: #ddd;
     padding-left: 4px;
-    /* 中文内容使用中文无衬线字体 */
     font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", sans-serif;
 }
 
 /* ==================== 模态框滚动锁定解决方案 ==================== */
-/* 目的：解决模态框打开时主页位置跳转的问题 */
 body.modal-open {
     overflow: hidden;
     position: fixed;
@@ -274,7 +259,6 @@ body.modal-open {
 }
 
 /* ==================== 空白区域返回提示 ==================== */
-/* 目的：在模态框左右两侧添加垂直居中排列的返回提示 */
 .modal-close-hint {
     position: fixed;
     top: 50%;
@@ -307,35 +291,30 @@ body.modal-open {
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* 左侧提示 */
 .modal-close-hint.left {
     left: 30px;
 }
 
-/* 右侧提示 */
 .modal-close-hint.right {
     right: 30px;
 }
 
-/* 下划线动画效果 */
 .modal-close-hint::after {
     content: '';
     position: absolute;
     top: 50%;
     width: 0.5px;
     height: 0;
-    background-color: #dbdbdb; /* 改为 #dbdbdb */
+    background-color: #dbdbdb;
     transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     opacity: 0;
 }
 
-/* 左侧提示下划线在右侧 */
 .modal-close-hint.left::after {
     right: -8px;
     transform: translateY(-50%);
 }
 
-/* 右侧提示下划线在左侧 */
 .modal-close-hint.right::after {
     left: -8px;
     transform: translateY(-50%);
@@ -359,8 +338,6 @@ body.modal-open {
 }
 
 /* ==================== 响应式设计 ==================== */
-/* 目的：确保模态框在不同设备上都有良好的显示效果 */
-
 @media (max-width: 1024px) {
     .modal-content {
         width: 85%;
@@ -376,7 +353,6 @@ body.modal-open {
         border-radius: 8px !important;
         top: 50% !important;
         transform: translate(-50%, -50%) scale(0.98) !important;
-        /* 移动端隐藏滚动条 */
         scrollbar-width: none;
         -ms-overflow-style: none;
     }
@@ -405,7 +381,6 @@ body.modal-open {
         padding: 10px !important;
     }
     
-    /* 移动端隐藏垂直排列的提示 */
     .modal-close-hint {
         display: none !important;
     }
@@ -439,10 +414,6 @@ body.modal-open {
     
     .modal-images-container {
         margin: 20px 0 0 !important;
-    }
-    
-    .modal-image-item img {
-        max-width: 100% !important;
     }
 }
 
@@ -491,14 +462,12 @@ body.modal-open {
         transform: scale(0.95) !important;
     }
     
-    /* 触摸设备隐藏滚动条 */
     .modal-content::-webkit-scrollbar {
         display: none;
         width: 0;
         height: 0;
     }
     
-    /* 图片触摸优化 */
     .modal-image-item img:active {
         opacity: 0.9 !important;
     }
