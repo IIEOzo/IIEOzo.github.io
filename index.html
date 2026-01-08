@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>交互式图形展示</title>
+    <link rel="stylesheet" href="script/Home-page-script.css">
+</head>
+<body>
+    <div class="cursor"></div>
+    
+    <!-- 修改后的加载动画 -->
+    <div class="loader">SomeWorks</div>
+    
+    <!-- 拖拽时显示的图片 -->
+    <img id="drag-image" class="drag-image" alt="拖拽图片">
+    
+    <div class="container">
+        <!-- 顶部矩形 -->
+        <div class="top-rectangle"></div>
+        
+        <!-- 添加卡片 -->
+        <div class="card">
+            <p data-link="html1.html"><span>(我的)作品</span></p>
+            <p data-link="html2.html"><span>关于(我)</span></p>
+            <p data-link="html3.html"><span>联系(我)</span></p>
+        </div>
+        
+        <a-waves>
+            <svg></svg>
+        </a-waves>
+        
+        <div class="bottom-rectangle">
+            <!-- 底部矩形文字 -->
+            <div class="bottom-rectangle-text">(左上：高转化视觉集；右上：视觉日记；下方：项目作品)</div>
+            
+            <!-- 颜色切换按钮 -->
+            <div class="color-toggle-container">
+                <label class="color-toggle" for="colorToggle">
+                    <input class="color-toggle-input" id="colorToggle" type="checkbox" />
+                    <svg stroke-width="0" stroke="currentColor" fill="currentColor" viewBox="0 0 18 18" height="18" width="18">
+                        <mask id="lineMask">
+                            <rect fill="white" height="18" width="18"></rect>
+                            <rect fill="black" style="rotate: 30deg;" height="16" width="4.1" y="-5" x="9.807" class="line"></rect>
+                        </mask>
+                        <rect style="rotate: 30deg;" height="13" width="1.3" y="-3.3" x="11.3" class="line"></rect>
+                        <g mask="url(#lineMask)">
+                            <circle style="--_toCenterXOffset: 5.76px;--_appearOffset: -.1s;" fill="none" stroke-width=".1" r="2.95" cy="9" cx="3.24" class="ballTrace"></circle>
+                            <circle style="--_toCenterXOffset: 3px;--_appearOffset: .02s;" fill="none" stroke-width=".2" r="2.9" cy="9" cx="6" class="ballTrace"></circle>
+                            <circle style="--_toCenterXOffset: 0px;--_appearOffset: .07s;" fill="none" stroke-width=".3" r="2.8" cy="9" cx="9" class="ballTrace"></circle>
+                            <circle style="--_toCenterXOffset: -2.75px;--_appearOffset: .13s;" fill="none" stroke-width=".4" r="2.75" cy="9" cx="11.75" class="ballTrace"></circle>
+                            <circle style="--_toCenterXOffset: -5.7px;" r="3" cy="9" cx="14.7" class="ball"></circle>
+                        </g>
+                    </svg>
+                </label>
+            </div>
+        </div>
+        
+        <div class="title-text">portfolio 2026（唐泉）</div>
+        
+        <!-- 原有的椭圆 -->
+        <a-ellipse class="ellipse-1"></a-ellipse>
+        <a-ellipse class="ellipse-2"></a-ellipse>
+        <a-ellipse class="ellipse-3"></a-ellipse>
+        
+        <!-- 透明的点击椭圆（用于跳转和拖拽） -->
+        <div class="click-ellipse ellipse-1-click" 
+             data-link="123.html"
+             data-img="https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&h=150&q=80"></div>
+        <div class="click-ellipse ellipse-2-click" 
+             data-link="456.html"
+             data-img="https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&h=150&q=80"></div>
+        <div class="click-ellipse ellipse-3-click" 
+             data-link="789.html"
+             data-img="https://images.unsplash.com/photo-1518834103328-ef85d3b226c8?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&h=150&q=80"></div>
+        
+        <div class="portfolio-text">PORTFOLIO</div>
+        <div class="rectangle"></div>
+        <div class="sub-text">点击不同颜色区域跳转，相关介绍。↯</div>
+    </div>
+    
+    <script src="script/Home-page-script.js"></script>
+</body>
+</html>
