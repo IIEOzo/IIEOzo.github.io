@@ -1,0 +1,32 @@
+{
+  "name": "Webd-GitHub",
+  "short_name": "Webd",
+  "description": "纯前端文件共享工具，支持GitHub Pages部署",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#4a6fa5",
+  "theme_color": "#4a6fa5",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%234a6fa5%22>📁</text></svg>",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "https://api.dicebear.com/7.x/shapes/svg?seed=webd&size=192&backgroundType=gradientLinear&backgroundRotation=45&backgroundColor=4a6fa5,6c757d",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://api.dicebear.com/7.x/shapes/svg?seed=webd&size=512&backgroundType=gradientLinear&backgroundRotation=45&backgroundColor=4a6fa5,6c757d",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["productivity", "utilities"],
+  "lang": "zh-CN",
+  "dir": "ltr"
+}
